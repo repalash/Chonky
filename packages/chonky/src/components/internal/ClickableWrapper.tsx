@@ -33,6 +33,7 @@ export interface ClickableWrapperProps {
   onDoubleClick?: MouseClickEventHandler;
   onKeyboardClick?: KeyboardClickEventHandler;
   setFocused?: (focused: boolean) => void;
+  children?: React.ReactNode;
 }
 
 export const ClickableWrapper: React.FC<ClickableWrapperProps> = (props) => {

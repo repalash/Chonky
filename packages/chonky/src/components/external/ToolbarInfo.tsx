@@ -8,13 +8,13 @@ import React from 'react';
 import { useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 
-import Typography from '@material-ui/core/Typography';
+import Typography from '@mui/material/Typography';
 
 import { selectHiddenFileCount, selectors, selectSelectionSize } from '../../redux/selectors';
 import { getI18nId, I18nNamespace } from '../../util/i18n';
 import { important, makeGlobalChonkyStyles } from '../../util/styles';
 
-export interface ToolbarInfoProps {}
+export interface ToolbarInfoProps { }
 
 export const ToolbarInfo: React.FC<ToolbarInfoProps> = React.memo(() => {
   const classes = useStyles();

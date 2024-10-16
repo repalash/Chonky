@@ -11,7 +11,7 @@ import { Nullable } from 'tsdef';
 import { ChonkyDndFileEntryItem, ChonkyDndFileEntryType } from '../../types/dnd.types';
 import { makeGlobalChonkyStyles } from '../../util/styles';
 
-export interface DnDFileListDragLayerProps {}
+export interface DnDFileListDragLayerProps { }
 
 const layerStyles: React.CSSProperties = {
   position: 'fixed',

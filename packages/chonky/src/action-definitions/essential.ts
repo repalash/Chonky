@@ -249,7 +249,8 @@ export const EssentialActions = {
       },
     } as const,
     ({ reduxDispatch, getReduxState }) => {
-      const parentFolder = selectParentFolder(getReduxState());
+      const reduxState = getReduxState();
+      const parentFolder = selectParentFolder(reduxState);
       if (FileHelper.isOpenable(parentFolder)) {
         reduxDispatch(
           thunkRequestFileAction(ChonkyActions.OpenFiles, {
@@ -257,10 +258,10 @@ export const EssentialActions = {
             files: [parentFolder],
           }),
         );
-      } else {
+      } else if (!reduxState.forceEnableOpenParent) {
         Logger.warn(
-          'Open parent folder effect was triggered  even though the parent folder' +
-            ' is not openable. This indicates a bug in presentation components.',
+          'Open parent folder effect was triggered even though the parent folder' +
+          ' is not openable. This indicates a bug in presentation components.',
         );
       }
     },

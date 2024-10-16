@@ -4,8 +4,8 @@
  * @license MIT
  */
 
-import Button from '@material-ui/core/Button';
-import React, { useContext } from 'react';
+import Button from '@mui/material/Button';
+import React, { useContext, useEffect } from 'react';
 import { Nullable } from 'tsdef';
 
 import { selectFileActionData } from '../../redux/selectors';
@@ -48,12 +48,12 @@ export const ToolbarButton: React.FC<ToolbarButtonProps> = React.memo((props) =>
     [classes.activeButton]: !!active,
   });
   return (
-    <Button className={className} onClick={onClick} title={tooltip ? tooltip : text} disabled={disabled || !onClick}>
+    <Button sx={{ ml: 2 }} variant={dropdown ? "text" : "contained"} className={className} onClick={onClick} title={tooltip ? tooltip : text} disabled={disabled || !onClick}>
       {iconComponent}
       {text && !iconOnly && <span>{text}</span>}
-      {dropdown && (
+      {dropdown && text && !iconOnly && (
         <div className={classes.iconDropdown}>
-          <ChonkyIcon icon={icon ? icon : ChonkyIconName.dropdown} fixedWidth={true} />
+          <ChonkyIcon icon={ChonkyIconName.dropdown} fixedWidth={true} />
         </div>
       )}
     </Button>
@@ -70,6 +70,8 @@ const useStyles = makeGlobalChonkyStyles((theme) => ({
     height: theme.toolbar.size,
     paddingBottom: important(0),
     paddingTop: important(0),
+    paddingLeft: theme.toolbar.buttonPadding,
+    paddingRight: theme.toolbar.buttonPadding,
   },
   iconWithText: {
     marginRight: 8,

@@ -1,4 +1,4 @@
-import sort from 'fast-sort';
+import { sort } from 'fast-sort';
 import FuzzySearch from 'fuzzy-search';
 import { Nilable, Nullable } from 'tsdef';
 
@@ -64,6 +64,8 @@ export const selectSelectedFilesForAction = (fileActionId: string) => (state: Ro
 export const selectSelectedFilesForActionCount = (fileActionId: string) => (state: RootState) =>
   getSelectedFilesForAction(state, fileActionId)?.length;
 export const selectDisableSelection = (state: RootState) => state.disableSelection;
+export const selectForceEnableOpenParent = (state: RootState) => state.forceEnableOpenParent;
+export const selectHideToolbarInfo = (state: RootState) => state.hideToolbarInfo;
 
 export const selectFileViewConfig = (state: RootState) => state.fileViewConfig;
 

@@ -8,8 +8,8 @@ import React, { useCallback, useContext, useEffect, useRef, useState } from 'rea
 import { useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 
-import InputAdornment from '@material-ui/core/InputAdornment';
-import TextField from '@material-ui/core/TextField';
+import InputAdornment from '@mui/material/InputAdornment';
+import TextField from '@mui/material/TextField';
 
 import { reduxActions } from '../../redux/reducers';
 import { selectSearchString } from '../../redux/selectors';
@@ -18,8 +18,9 @@ import { useDebounce } from '../../util/hooks-helpers';
 import { getI18nId, I18nNamespace } from '../../util/i18n';
 import { ChonkyIconContext } from '../../util/icon-helper';
 import { important, makeGlobalChonkyStyles } from '../../util/styles';
+import { ChonkyDispatch } from '../../types/redux.types';
 
-export interface ToolbarSearchProps {}
+export interface ToolbarSearchProps { }
 
 export const ToolbarSearch: React.FC<ToolbarSearchProps> = React.memo(() => {
   const intl = useIntl();
@@ -33,11 +34,11 @@ export const ToolbarSearch: React.FC<ToolbarSearchProps> = React.memo(() => {
 
   const searchInputRef = useRef<HTMLInputElement>();
 
-  const dispatch = useDispatch();
+  const dispatch: ChonkyDispatch = useDispatch();
   const reduxSearchString = useSelector(selectSearchString);
 
   const [localSearchString, setLocalSearchString] = useState(reduxSearchString);
-  const [debouncedLocalSearchString] = useDebounce(localSearchString, 300);
+  const [debouncedLocalSearchString] = useDebounce(localSearchString, 50);
   const [showLoadingIndicator, setShowLoadingIndicator] = useState(false);
 
   useEffect(() => {

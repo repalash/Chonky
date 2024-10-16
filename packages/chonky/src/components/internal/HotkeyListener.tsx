@@ -11,6 +11,7 @@ import { useDispatch } from 'react-redux';
 import { selectFileActionData } from '../../redux/selectors';
 import { useParamSelector } from '../../redux/store';
 import { thunkRequestFileAction } from '../../redux/thunks/dispatchers.thunks';
+import { ChonkyDispatch } from '../../types/redux.types';
 
 export interface HotkeyListenerProps {
   fileActionId: string;
@@ -19,7 +20,7 @@ export interface HotkeyListenerProps {
 export const HotkeyListener: React.FC<HotkeyListenerProps> = React.memo((props) => {
   const { fileActionId } = props;
 
-  const dispatch = useDispatch();
+  const dispatch: ChonkyDispatch = useDispatch();
   const fileAction = useParamSelector(selectFileActionData, fileActionId);
 
   useEffect(() => {

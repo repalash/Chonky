@@ -1,4 +1,4 @@
-import filesize from 'filesize';
+import { filesize } from 'filesize';
 import { createContext, useContext, useMemo } from 'react';
 import { IntlShape, useIntl } from 'react-intl';
 import { Nullable, Undefinable } from 'tsdef';
@@ -79,10 +79,14 @@ export const defaultFormatters: ChonkyFormatters = {
   formatFileModDate: (intl: IntlShape, file: Nullable<FileData>): Nullable<string> => {
     const safeModDate = FileHelper.getModDate(file);
     if (safeModDate) {
-      return intl.formatDate(safeModDate, {
+      /*
+      const dateOpts: FormatDateOptions = {
         dateStyle: 'medium',
         timeStyle: 'short',
-      });
+      }
+      */
+      // return intl.formatDate(safeModDate, dateOpts);
+      return intl.formatDate(safeModDate);
     } else {
       return null;
     }

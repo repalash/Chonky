@@ -4,9 +4,9 @@
  * @license MIT
  */
 
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import MenuItem from '@material-ui/core/MenuItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import MenuItem from '@mui/material/MenuItem';
 import React, { useCallback, useContext } from 'react';
 import { Nullable } from 'tsdef';
 
@@ -34,6 +34,7 @@ export const ToolbarDropdownButton = React.forwardRef(
     const ChonkyIcon = useContext(ChonkyIconContext);
 
     const className = c({
+      [classes.contextMenuItem]: true,
       [classes.baseButton]: true,
       [classes.activeButton]: active,
     });
@@ -56,7 +57,7 @@ const useStyles = makeGlobalChonkyStyles((theme) => ({
     height: important(theme.toolbar.size),
     minHeight: important('auto'),
     minWidth: important('auto'),
-    padding: important(20),
+    padding: important(theme.toolbar.buttonPadding),
   },
   icon: {
     fontSize: important(theme.toolbar.fontSize),

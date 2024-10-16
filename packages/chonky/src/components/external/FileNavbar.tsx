@@ -4,8 +4,8 @@
  * @license MIT
  */
 
-import Box from '@material-ui/core/Box';
-import Breadcrumbs from '@material-ui/core/Breadcrumbs';
+import Box from '@mui/material/Box';
+import Breadcrumbs from '@mui/material/Breadcrumbs';
 import React, { ReactElement, useMemo } from 'react';
 
 import { ChonkyActions } from '../../action-definitions/index';
@@ -14,7 +14,7 @@ import { useFolderChainItems } from './FileNavbar-hooks';
 import { FolderChainButton } from './FolderChainButton';
 import { SmartToolbarButton } from './ToolbarButton';
 
-export interface FileNavbarProps {}
+export interface FileNavbarProps { }
 
 export const FileNavbar: React.FC<FileNavbarProps> = React.memo(() => {
   const classes = useStyles();

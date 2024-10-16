@@ -1,6 +1,6 @@
 import { Nullable } from 'tsdef';
 
-import { Action, ThunkAction, ThunkDispatch } from '@reduxjs/toolkit';
+import { Action, Store, ThunkAction, ThunkDispatch } from '@reduxjs/toolkit';
 
 import { GenericFileActionHandler } from './action-handler.types';
 import { FileActionMenuItem } from './action-menus.types';
@@ -66,9 +66,11 @@ export type RootState = {
   doubleClickDelay: number;
   disableDragAndDrop: boolean;
   clearSelectionOnOutsideClick: boolean;
+  forceEnableOpenParent: boolean;
+  hideToolbarInfo: boolean;
 
   // State to use inside effects
-  lastClick: Nullable<{ index: number; fileId: string }>;
+  lastClick: Nullable<{ index: number; fileId: string; }>;
 
   // Context menu
   contextMenuMounted: boolean;
@@ -78,3 +80,5 @@ export type RootState = {
 export type ChonkyThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, null, Action<string>>;
 
 export type ChonkyDispatch = ThunkDispatch<RootState, null, Action<string>>;
+
+export type ExplorerStore = Store<RootState>;
