@@ -6,11 +6,11 @@ import { selectSelectionMap } from '../redux/selectors';
 import { thunkRequestFileAction } from '../redux/thunks/dispatchers.thunks';
 import { FileAction } from '../types/action.types';
 import { FileBrowserHandle } from '../types/file-browser.types';
-import { RootState } from '../types/redux.types';
+import { ChonkyDispatch, RootState } from '../types/redux.types';
 
 export const useFileBrowserHandle = (ref: React.Ref<FileBrowserHandle>) => {
   const store = useStore<RootState>();
-  const dispatch = useDispatch();
+  const dispatch: ChonkyDispatch = useDispatch();
 
   useImperativeHandle(
     ref,
@@ -24,8 +24,11 @@ export const useFileBrowserHandle = (ref: React.Ref<FileBrowserHandle>) => {
         const fileIds = Array.from(selection);
         dispatch(reduxActions.selectFiles({ fileIds, reset }));
       },
-      requestFileAction<Action extends FileAction>(action: Action, payload: Action['__payloadType']): Promise<void> {
-        return Promise.resolve(dispatch(thunkRequestFileAction(action, payload))).then();
+      async requestFileAction<Action extends FileAction>(
+        action: Action,
+        payload: Action['__payloadType'],
+      ): Promise<void> {
+        return Promise.resolve(dispatch(thunkRequestFileAction(action, payload)));
       },
     }),
     [store, dispatch],

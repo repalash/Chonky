@@ -8,6 +8,7 @@ import { thunkRequestFileAction } from '../../redux/thunks/dispatchers.thunks';
 import { DndEntryState } from '../../types/file-list.types';
 import { FileData } from '../../types/file.types';
 import { ChonkyIconName } from '../../types/icons.types';
+import { ChonkyDispatch } from '../../types/redux.types';
 import { FileHelper } from '../../util/file-helper';
 import { ChonkyIconContext, ColorsDark, ColorsLight, useIconData } from '../../util/icon-helper';
 import { Logger } from '../../util/logger';
@@ -96,12 +97,16 @@ export const useFileNameComponent = (file: Nullable<FileData>) => {
     let name;
     let extension = null;
 
-    const isDir = FileHelper.isDirectory(file);
+    const isDir = FileHelper.isDirectory(file as FileData);
     if (isDir) {
       name = file.name;
     } else {
       extension = file.ext ?? _extname(file.name);
-      name = file.name.substr(0, file.name.length - extension.length);
+      name = file.name.substring(0, file.name.length - extension.length);
+    }
+
+    if (name.length > 45) {
+      name = name.slice(0, 45) + '..';
     }
 
     return (
@@ -156,7 +161,7 @@ export const useThumbnailUrl = (file: Nullable<FileData>) => {
 };
 
 export const useFileClickHandlers = (file: Nullable<FileData>, displayIndex: number) => {
-  const dispatch = useDispatch();
+  const dispatch: ChonkyDispatch = useDispatch();
 
   // Prepare base handlers
   const onMouseClick = useCallback(

@@ -20,6 +20,7 @@ export enum ChonkyIconName {
   search = 'search',
   selectAllFiles = 'selectAllFiles',
   clearSelection = 'clearSelection',
+  star = 'star',
 
   // File Actions: Sorting & options
   sortAsc = 'sortAsc',
@@ -78,9 +79,6 @@ export enum ChonkyIconName {
 
   // Development tools file types
   git = 'git',
-
-  // Brands file types
-  adobe = 'adobe',
 
   // Other program file types
   pdf = 'pdf',

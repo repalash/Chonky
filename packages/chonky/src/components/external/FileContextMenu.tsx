@@ -8,8 +8,8 @@ import React, { ReactElement, useEffect, useMemo } from 'react';
 import { useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 
-import ListSubheader from '@material-ui/core/ListSubheader';
-import Menu from '@material-ui/core/Menu';
+import ListSubheader from '@mui/material/ListSubheader';
+import Menu from '@mui/material/Menu';
 
 import { reduxActions } from '../../redux/reducers';
 import { selectContextMenuConfig, selectContextMenuItems } from '../../redux/selectors';
@@ -17,11 +17,12 @@ import { getI18nId, I18nNamespace } from '../../util/i18n';
 import { important, makeGlobalChonkyStyles } from '../../util/styles';
 import { useContextMenuDismisser } from './FileContextMenu-hooks';
 import { SmartToolbarDropdownButton } from './ToolbarDropdownButton';
+import { ChonkyDispatch } from '../../types/redux.types';
 
-export interface FileContextMenuProps {}
+export interface FileContextMenuProps { }
 
 export const FileContextMenu: React.FC<FileContextMenuProps> = React.memo(() => {
-  const dispatch = useDispatch();
+  const dispatch: ChonkyDispatch = useDispatch();
   useEffect(() => {
     dispatch(reduxActions.setContextMenuMounted(true));
     return () => {
@@ -96,10 +97,11 @@ export const FileContextMenu: React.FC<FileContextMenuProps> = React.memo(() => 
 });
 
 const useStyles = makeGlobalChonkyStyles(() => ({
+  contextMenuRoot: { minWidth: { md: '260px' }, maxWidth: { md: '280px' } },
   contextMenuList: {
-    paddingBottom: important(0),
-    paddingTop: important(0),
+    padding: '10px',
   },
+
   browserMenuTooltip: {
     lineHeight: important('30px'),
     fontSize: important('0.7em'),

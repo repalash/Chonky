@@ -1,5 +1,7 @@
 import { ElementType, UIEvent } from 'react';
 import { Nullable } from 'tsdef';
+import { ThemeOptions as MuiThemeOptions } from '@mui/material/styles';
+import { DeepPartial } from 'tsdef';
 
 import { ChonkyActions } from '../action-definitions/index';
 import { GenericFileActionHandler } from './action-handler.types';
@@ -8,6 +10,7 @@ import { FileArray } from './file.types';
 import { I18nConfig } from './i18n.types';
 import { ChonkyIconProps } from './icons.types';
 import { ThumbnailGenerator } from './thumbnails.types';
+import { ChonkyTheme } from '../util/styles';
 
 /**
  * File browser methods exposed to developers via the `FileBrowser` ref.
@@ -30,7 +33,7 @@ export interface FileBrowserHandle {
   setFileSelection(selection: Set<string>, reset?: boolean): void;
 
   /**
-   * Method used to programatically trigger file actions in Chonky.
+   * Method used to programmatically trigger file actions in Chonky.
    * @param action A file action definition object
    * @param payload The payload expected by the action. If action does not expect
    * a payload, this should be set to `undefined`.
@@ -38,7 +41,7 @@ export interface FileBrowserHandle {
   requestFileAction<Action extends FileAction>(action: Action, payload: Action['__payloadType']): Promise<void>;
 }
 
-export type ChonkyActionUnion = typeof ChonkyActions[keyof typeof ChonkyActions];
+export type ChonkyActionUnion = (typeof ChonkyActions)[keyof typeof ChonkyActions];
 
 /**
  * Props for the `FileBrowser` component that is exposed to library users.
@@ -92,6 +95,17 @@ export interface FileBrowserProps {
    * Maximum delay between the two clicks in a double click, in milliseconds.
    */
   doubleClickDelay?: number;
+
+  /**
+   * Forces displaying the open_parent_folder button.
+   * If this is false, open_parent_folder is available if folderChain.length !== 0.
+   */
+  forceEnableOpenParent?: boolean;
+
+  /**
+   * Hides the toolbar info component.
+   */
+  hideToolbarInfo?: boolean;
 
   /**
    * The flag that completely disables file selection functionality. If any handlers
@@ -162,4 +176,19 @@ export interface FileBrowserProps {
    * Define listener for on scroll events on file lists
    */
   onScroll?: (e: UIEvent<HTMLDivElement>) => void;
+
+  /**
+   * Overrides ChonkyTheme properties.
+   */
+  theme?: DeepPartial<ChonkyTheme>;
+
+  /**
+   * Overrides MuiThemeOptions properties.
+   */
+  muiThemeOptions?: DeepPartial<MuiThemeOptions>;
+
+  /**
+   * Define list view custom columns
+   */
+  listCols?: { label: string; getValue: (item: any) => any; }[];
 }

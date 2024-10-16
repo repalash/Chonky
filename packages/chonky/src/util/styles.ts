@@ -1,5 +1,5 @@
-import { Theme as MuiTheme } from '@material-ui/core/styles';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { Theme as MuiTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import classnames from 'classnames';
 import { createUseStyles } from 'react-jss';
 import { DeepPartial } from 'tsdef';
@@ -23,9 +23,16 @@ export const lightTheme = {
     rootLayoutMargin: 8,
   },
 
+  root: {
+    borderRadius: 4,
+    borderStyle: 'solid 1px',
+    height: '100%',
+  },
+
   toolbar: {
     size: 30,
     lineHeight: '30px', // `px` suffix is required for `line-height` fields to work
+    buttonPadding: 8,
     fontSize: 15,
     buttonRadius: 4,
   },
@@ -157,4 +164,4 @@ export const makeGlobalChonkyStyles = <C extends string = string>(
 
 export const important = <T>(value: T) => [value, '!important'];
 
-export const c = classnames;
+export const c: (...args: classNames.ArgumentArray) => string = classnames.default;

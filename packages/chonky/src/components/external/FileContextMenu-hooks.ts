@@ -6,6 +6,7 @@ import { ChonkyActions } from '../../action-definitions/index';
 import { reduxActions } from '../../redux/reducers';
 import { selectContextMenuMounted } from '../../redux/selectors';
 import { thunkRequestFileAction } from '../../redux/thunks/dispatchers.thunks';
+import { ChonkyDispatch } from '../../types/redux.types';
 import { findElementAmongAncestors } from '../../util/helpers';
 import { useInstanceVariable } from '../../util/hooks-helpers';
 
@@ -19,7 +20,7 @@ export const findClosestChonkyFileId = (element: HTMLElement | any): Nullable<st
 };
 
 export const useContextMenuTrigger = () => {
-  const dispatch = useDispatch();
+  const dispatch: ChonkyDispatch = useDispatch();
   const contextMenuMountedRef = useInstanceVariable(useSelector(selectContextMenuMounted));
   return useCallback(
     (event: React.MouseEvent<HTMLDivElement>) => {
@@ -46,6 +47,6 @@ export const useContextMenuTrigger = () => {
 };
 
 export const useContextMenuDismisser = () => {
-  const dispatch = useDispatch();
+  const dispatch: ChonkyDispatch = useDispatch();
   return useCallback(() => dispatch(reduxActions.hideContextMenu()), [dispatch]);
 };

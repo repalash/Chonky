@@ -6,6 +6,7 @@ import { ChonkyActions } from '../action-definitions/index';
 import {
   selectFileActionData,
   selectFileViewConfig,
+  selectForceEnableOpenParent,
   selectOptionValue,
   selectParentFolder,
   selectSelectedFilesForActionCount,
@@ -20,15 +21,16 @@ import { SortOrder } from '../types/sort.types';
 import { FileHelper } from './file-helper';
 
 export const useFileActionTrigger = (fileActionId: string) => {
-  const dispatch = useDispatch();
+  const dispatch: any = useDispatch();
   const fileAction = useParamSelector(selectFileActionData, fileActionId);
   return useCallback(() => dispatch(thunkRequestFileAction(fileAction, undefined)), [dispatch, fileAction]);
 };
 
 export const useFileActionProps = (
   fileActionId: string,
-): { icon: Nullable<ChonkyIconName | string>; active: boolean; disabled: boolean } => {
+): { icon: Nullable<ChonkyIconName | string>; active: boolean; disabled: boolean; } => {
   const parentFolder = useSelector(selectParentFolder);
+  const forceEnableOpenParent = useSelector(selectForceEnableOpenParent);
   const fileViewConfig = useSelector(selectFileViewConfig);
 
   const sortActionId = useSelector(selectSortActionId);
@@ -80,8 +82,9 @@ export const useFileActionProps = (
 
     if (action.id === ChonkyActions.OpenParentFolder.id) {
       // We treat `open_parent_folder` file action as a special case as it
-      // requires the parent folder to be present to work...
-      disabled = disabled || !FileHelper.isOpenable(parentFolder);
+      // requires the parent folder to be present to work, unless the
+      // forceOpenParent prop is set, which forces the action to be available.
+      disabled = disabled || (!forceEnableOpenParent && !FileHelper.isOpenable(parentFolder));
     }
 
     return { icon, active, disabled };

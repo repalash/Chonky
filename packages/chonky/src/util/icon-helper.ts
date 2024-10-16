@@ -282,7 +282,7 @@ export const ColorsLight: string[] = [
   '#ad5cd6',
   '#b85cd6',
   '#c25cd6',
-  '#cc5cd6',
+  '#ffffff',
   '#d65cd6',
   '#d65ccc',
   '#d65cc2',
@@ -409,9 +409,6 @@ const getIconTrie = () => {
     // Development tools file types
     [ChonkyIconName.git, ['.gitignore']],
 
-    // Brands file types
-    [ChonkyIconName.adobe, ['psd']],
-
     // Other program file types
     [ChonkyIconName.pdf, ['pdf']],
     [ChonkyIconName.excel, ['xls', 'xlsx']],
@@ -442,9 +439,15 @@ const iconTrie = getIconTrie();
 export const useIconData = (file: Nullable<FileData>): FileIconData => {
   return useMemo(() => {
     if (!file) return { icon: ChonkyIconName.loading, colorCode: 0 };
+
+    if (file.isDir && file.parentId === null) {
+      return { icon: 'cabinet', colorCode: 0 };
+    }
+
     if (file.isDir === true) return { icon: ChonkyIconName.folder, colorCode: 0 };
 
     const match = iconTrie.getWithCheckpoints(file.name, '.', true);
+
     return match ? match : { icon: ChonkyIconName.file, colorCode: 32 };
   }, [file]);
 };

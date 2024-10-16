@@ -9,6 +9,9 @@ import { useDndIcon, useFileEntryHtmlProps, useFileEntryState } from './FileEntr
 import { FileEntryName } from './FileEntryName';
 import { FileEntryState, useCommonEntryStyles } from './GridEntryPreview';
 
+import { format } from 'date-fns';
+import { PropsContext } from '../PropsProvider';
+
 interface StyleState {
   entryState: FileEntryState;
   dndState: DndEntryState;
@@ -17,7 +20,6 @@ interface StyleState {
 export const ListEntry: React.FC<FileEntryProps> = React.memo(({ file, selected, focused, dndState }) => {
   const entryState: FileEntryState = useFileEntryState(file, selected, focused);
   const dndIconName = useDndIcon(dndState);
-
   const { fileModDateString, fileSizeString } = useLocalizedFileEntryStrings(file);
   const styleState = useMemo<StyleState>(
     () => ({
@@ -30,6 +32,10 @@ export const ListEntry: React.FC<FileEntryProps> = React.memo(({ file, selected,
   const commonClasses = useCommonEntryStyles(entryState);
   const ChonkyIcon = useContext(ChonkyIconContext);
   const fileEntryHtmlProps = useFileEntryHtmlProps(file);
+  const { listCols } = useContext(PropsContext);
+
+  const fileModDate = typeof file?.modDate === 'string' ? format(new Date(file.modDate), 'MMM dd, yyyy HH:mm') : '-';
+
   return (
     <div className={classes.listFileEntry} {...fileEntryHtmlProps}>
       <div className={commonClasses.focusIndicator}></div>
@@ -45,11 +51,18 @@ export const ListEntry: React.FC<FileEntryProps> = React.memo(({ file, selected,
         <FileEntryName file={file} />
       </div>
       <div className={classes.listFileEntryProperty}>
-        {file ? fileModDateString ?? <span>—</span> : <TextPlaceholder minLength={5} maxLength={15} />}
-      </div>
-      <div className={classes.listFileEntryProperty}>
         {file ? fileSizeString ?? <span>—</span> : <TextPlaceholder minLength={10} maxLength={20} />}
       </div>
+      <div className={classes.listFileEntryProperty}>
+        {file ? fileModDate ?? <span>—</span> : <TextPlaceholder minLength={5} maxLength={15} />}
+      </div>
+      {
+        listCols?.map((entry, index) => (
+          <div key={index} className={classes.listFileEntryProperty}>
+            {entry.getValue(file) ?? '-'}
+          </div>
+        ))
+      }
     </div>
   );
 });
@@ -79,6 +92,8 @@ const useStyles = makeLocalChonkyStyles((theme) => ({
     boxSizing: 'border-box',
     padding: [2, 4],
     zIndex: 20,
+    width: '24px',
+    height: '24px',
   },
   listFileEntryName: {
     textOverflow: 'ellipsis',
