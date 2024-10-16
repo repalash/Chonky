@@ -55,10 +55,11 @@ const useStyles = makeGlobalChonkyStyles((theme) => ({
   toolbarContainer: {
     flexWrap: 'wrap-reverse',
     display: 'flex',
+    padding: '15px'
   },
   toolbarLeft: {
     paddingBottom: theme.margins.rootLayoutMargin,
-    flexWrap: 'nowrap',
+    flexWrap: 'wrap',
     flexGrow: 10000,
     display: 'flex',
   },
@@ -67,7 +68,7 @@ const useStyles = makeGlobalChonkyStyles((theme) => ({
   },
   toolbarRight: {
     paddingBottom: theme.margins.rootLayoutMargin,
-    flexWrap: 'nowrap',
+    flexWrap: 'wrap',
     display: 'flex',
   },
 }));

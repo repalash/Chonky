@@ -97,9 +97,9 @@ export const FileContextMenu: React.FC<FileContextMenuProps> = React.memo(() => 
 });
 
 const useStyles = makeGlobalChonkyStyles(() => ({
+  contextMenuRoot: { minWidth: { md: '260px' }, maxWidth: { md: '280px' } },
   contextMenuList: {
-    paddingBottom: important(0),
-    paddingTop: important(0),
+    padding: '10px',
   },
 
   browserMenuTooltip: {

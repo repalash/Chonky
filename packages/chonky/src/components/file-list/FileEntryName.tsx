@@ -22,7 +22,9 @@ export const FileEntryName: React.FC<FileEntryNameProps> = React.memo(({ file, c
 
   const classes = useStyles();
   return (
-    <span className={className} title={file ? file.name : undefined}>
+    <span className={className} title={file ? file.name : undefined} style={{
+      fontSize: '12px'
+    }}>
       {modifierIconComponents.length > 0 && <span className={classes.modifierIcons}>{modifierIconComponents}</span>}
       {fileNameComponent}
     </span>
@@ -32,7 +34,7 @@ FileEntryName.displayName = 'FileEntryName';
 
 const useStyles = makeLocalChonkyStyles((theme) => ({
   modifierIcons: {
-    color: theme.palette.text.hint,
+    color: theme.palette.text.primary,
     position: 'relative',
     fontSize: '0.775em',
     paddingRight: 5,

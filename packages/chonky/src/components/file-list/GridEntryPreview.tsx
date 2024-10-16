@@ -130,7 +130,6 @@ const useFolderStyles = makeLocalChonkyStyles((theme) => ({
 
 export const GridEntryPreviewFile: React.FC<FileEntryPreviewProps> = React.memo((props) => {
   const { className: externalClassName, entryState, dndState } = props;
-
   const fileClasses = useFileStyles(entryState);
   const commonClasses = useCommonEntryStyles(entryState);
   const ChonkyIcon = useContext(ChonkyIconContext);
@@ -138,6 +137,7 @@ export const GridEntryPreviewFile: React.FC<FileEntryPreviewProps> = React.memo(
     [fileClasses.previewFile]: true,
     [externalClassName || '']: !!externalClassName,
   });
+
   return (
     <div className={className}>
       <GridEntryDndIndicator className={fileClasses.dndIndicator} dndState={dndState} />
@@ -160,24 +160,29 @@ const useFileStyles = makeLocalChonkyStyles((theme) => ({
       shadows.push(`inset ${theme.gridFileEntry.fileColorTint} 0 0 0 999px`);
       return shadows.join(', ');
     },
-    backgroundColor: (state: FileEntryState) => state.color,
+    // backgroundColor: (state: FileEntryState) => state.color,
+    backgroundColor: '#ffffff',
     borderRadius: theme.gridFileEntry.borderRadius,
     position: 'relative',
     overflow: 'hidden',
+    display: 'flex',
+    justifyContent: 'center',
   },
   dndIndicator: {
     zIndex: 14,
   },
   fileIcon: {
-    transform: 'translateX(-50%) translateY(-50%)',
-    fontSize: theme.gridFileEntry.iconSize,
-    opacity: (state: FileEntryState) => (state.thumbnailUrl && !state.focused ? 0 : 1),
-    color: (state: FileEntryState) =>
-      state.focused ? theme.gridFileEntry.iconColorFocused : theme.gridFileEntry.iconColor,
-    position: 'absolute',
-    left: '50%',
-    zIndex: 12,
-    top: '50%',
+    // transform: 'translateX(-50%) translateY(-50%)',
+    // fontSize: theme.gridFileEntry.iconSize,
+    // opacity: (state: FileEntryState) => (state.thumbnailUrl && !state.focused ? 0 : 1),
+    // color: (state: FileEntryState) =>
+    //   state.focused ? theme.gridFileEntry.iconColorFocused : theme.gridFileEntry.iconColor,
+    // position: 'absolute',
+    // left: '50%',
+    // zIndex: 12,
+    // top: '50%',
+    width: '79.5px',
+    height: '78px'
   },
   thumbnail: {
     borderRadius: theme.gridFileEntry.borderRadius,
@@ -193,14 +198,14 @@ const useFileStyles = makeLocalChonkyStyles((theme) => ({
 export const useCommonEntryStyles = makeLocalChonkyStyles(() => ({
   selectionIndicator: {
     display: (state: FileEntryState) => (state.selected ? 'block' : 'none'),
-    background:
-      'repeating-linear-gradient(' +
-      '45deg,' +
-      'rgba(0,153,255,.14),' +
-      'rgba(0,153,255,.14) 10px,' +
-      'rgba(0,153,255,.25) 0,' +
-      'rgba(0,153,255,.25) 20px' +
-      ')',
+    // background:
+    //   'repeating-linear-gradient(' +
+    //   '45deg,' +
+    //   'rgba(0,153,255,.14),' +
+    //   'rgba(0,153,255,.14) 10px,' +
+    //   'rgba(0,153,255,.25) 0,' +
+    //   'rgba(0,153,255,.25) 20px' +
+    //   ')',
     backgroundColor: 'rgba(0, 153, 255, .14)',
     position: 'absolute',
     height: '100%',

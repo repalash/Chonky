@@ -45,11 +45,14 @@ const useFileEntryStyles = makeLocalChonkyStyles((theme) => ({
     wordBreak: 'break-word',
     textAlign: 'center',
     paddingTop: 5,
+    height: '50px',
+    overflow: 'hidden'
   },
   gridFileEntryName: {
     backgroundColor: (state: FileEntryState) => (state.selected ? 'rgba(0,153,255, .25)' : 'transparent'),
     textDecoration: (state: FileEntryState) => (state.focused ? 'underline' : 'none'),
     borderRadius: 3,
     padding: [2, 4],
+    fontWeight: 500
   },
 }));
