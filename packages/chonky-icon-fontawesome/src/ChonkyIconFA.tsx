@@ -65,6 +65,7 @@ import { faToggleOn } from '@fortawesome/free-solid-svg-icons/faToggleOn';
 import { faTrash } from '@fortawesome/free-solid-svg-icons/faTrash';
 import { faUpload } from '@fortawesome/free-solid-svg-icons/faUpload';
 import { faUsers } from '@fortawesome/free-solid-svg-icons/faUsers';
+import {faStar} from "@fortawesome/free-solid-svg-icons/faStar";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ChonkyIconName, ChonkyIconProps } from 'chonky';
 import React from 'react';
@@ -74,6 +75,7 @@ const IconMap: { [iconName in ChonkyIconName]: any } = {
   [ChonkyIconName.loading]: faCircleNotch,
   [ChonkyIconName.dropdown]: faChevronDown,
   [ChonkyIconName.placeholder]: faMinus,
+  [ChonkyIconName.star]: faStar,
 
   // File Actions: Drag & drop
   [ChonkyIconName.dndDragging]: faFistRaised,

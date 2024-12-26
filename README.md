@@ -55,3 +55,11 @@ much more!
 ## License
 
 MIT © [Tim Kuzhagaliyev](https://github.com/TimboKZ) 2020
+
+
+## Development
+
+Fork of chonky for use in ijewel.
+
+Clone and run `yarn` to install dependencies.
+`cd` to `packages/chonky/example` and run `yarn start` to start the example app.
