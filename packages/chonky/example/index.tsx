@@ -1,6 +1,6 @@
 // import 'react-app-polyfill/ie11';
 import * as React from 'react';
-import {FullFileBrowser, setChonkyDefaults, IconFA} from '../.';
+import {FullFileBrowser, setChonkyDefaults, IconFA} from '../src';
 import {createRoot} from "react-dom/client";
 
 const files = [
