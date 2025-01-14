@@ -19,22 +19,22 @@ export interface ToolbarInfoProps { }
 export const ToolbarInfo: React.FC<ToolbarInfoProps> = React.memo(() => {
   const classes = useStyles();
 
-  const displayFileIds = useSelector(selectors.getDisplayFileIds);
+  // const displayFileIds = useSelector(selectors.getDisplayFileIds);
   const selectionSize = useSelector(selectSelectionSize);
   const hiddenCount = useSelector(selectHiddenFileCount);
 
   const intl = useIntl();
-  const fileCountString = intl.formatMessage(
-    {
-      id: getI18nId(I18nNamespace.Toolbar, 'visibleFileCount'),
-      defaultMessage: `{fileCount, plural,
-                =0 {# items}
-                one {# item}
-                other {# items}
-            }`,
-    },
-    { fileCount: displayFileIds.length },
-  );
+  // const fileCountString = intl.formatMessage(
+  //   {
+  //     id: getI18nId(I18nNamespace.Toolbar, 'visibleFileCount'),
+  //     defaultMessage: `{fileCount, plural,
+  //               =0 {# items}
+  //               one {# item}
+  //               other {# items}
+  //           }`,
+  //   },
+  //   { fileCount: displayFileIds.length },
+  // );
   const selectedString = intl.formatMessage(
     {
       id: getI18nId(I18nNamespace.Toolbar, 'selectedFileCount'),
@@ -59,7 +59,7 @@ export const ToolbarInfo: React.FC<ToolbarInfoProps> = React.memo(() => {
   return (
     <div className={classes.infoContainer}>
       <Typography className={classes.infoText} variant="body1">
-        {fileCountString}
+        {/*{fileCountString}*/}
         {(selectedString || hiddenString) && (
           <span className={classes.extraInfoSpan}>
             (<span className={classes.selectionSizeText}>{selectedString}</span>
@@ -74,8 +74,10 @@ export const ToolbarInfo: React.FC<ToolbarInfoProps> = React.memo(() => {
 
 const useStyles = makeGlobalChonkyStyles((theme) => ({
   infoContainer: {
-    height: theme.toolbar.size,
+    // height: theme.toolbar.size,
     display: 'flex',
+    // border: `1px solid ${theme.palette.divider}`,
+    alignItems: 'center',
   },
   infoText: {
     lineHeight: important(theme.toolbar.lineHeight),

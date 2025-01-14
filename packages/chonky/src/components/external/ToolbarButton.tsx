@@ -5,7 +5,7 @@
  */
 
 import Button from '@mui/material/Button';
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { Nullable } from 'tsdef';
 
 import { selectFileActionData } from '../../redux/selectors';
@@ -48,7 +48,7 @@ export const ToolbarButton: React.FC<ToolbarButtonProps> = React.memo((props) =>
     [classes.activeButton]: !!active,
   });
   return (
-    <Button sx={{ ml: 2 }} variant={dropdown ? "text" : "contained"} className={className} onClick={onClick} title={tooltip ? tooltip : text} disabled={disabled || !onClick}>
+    <Button sx={{ ml: 2 }} variant={"text"} className={className} onClick={onClick} title={tooltip ? tooltip : text} disabled={disabled || !onClick}>
       {iconComponent}
       {text && !iconOnly && <span>{text}</span>}
       {dropdown && text && !iconOnly && (

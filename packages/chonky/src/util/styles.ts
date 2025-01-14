@@ -24,16 +24,15 @@ export const lightTheme = {
   },
 
   root: {
-    borderRadius: 4,
-    borderStyle: 'solid 1px',
+    borderRadius: 19,
     height: '100%',
   },
 
   toolbar: {
     size: 30,
-    lineHeight: '30px', // `px` suffix is required for `line-height` fields to work
-    buttonPadding: 8,
-    fontSize: 15,
+    lineHeight: '16px', // `px` suffix is required for `line-height` fields to work
+    buttonPadding: 2,
+    fontSize: 16,
     buttonRadius: 4,
   },
 
@@ -55,21 +54,21 @@ export const lightTheme = {
   },
 
   fileList: {
-    desktopGridGutter: 8,
+    desktopGridGutter: 10,
     mobileGridGutter: 5,
   },
 
   gridFileEntry: {
     childrenCountSize: '1.6em',
     iconColorFocused: '#000',
-    iconSize: '2.4em',
+    iconSize: '1.4em',
     iconColor: '#fff',
     borderRadius: 5,
     fontSize: 14,
 
-    fileColorTint: 'rgba(255, 255, 255, 0.4)',
-    folderBackColorTint: 'rgba(255, 255, 255, 0.1)',
-    folderFrontColorTint: 'rgba(255, 255, 255, 0.4)',
+    fileColorTint: 'rgba(246, 246, 246, 1)',
+    folderBackColorTint: 'rgba(183, 184, 236, 1)',
+    folderFrontColorTint: 'rgba(218, 219, 255, 1)',
   },
 
   listFileEntry: {

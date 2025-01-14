@@ -42,7 +42,7 @@ export const FileList: React.FC<FileListProps> = React.memo((props: FileListProp
   const listRenderer = useCallback(
     ({ width, height }: { width: number; height: number }) => {
       if (displayFileIds.length === 0) {
-        return <FileListEmpty width={width} height={viewConfig.entryHeight} />;
+        return <FileListEmpty width={width} height={height} />;
       } else if (viewConfig.mode === FileViewMode.List) {
         return <ListContainer width={width} height={height} />;
       } else {
@@ -80,6 +80,7 @@ const useLocalStyles = makeLocalChonkyStyles((theme) => ({
           ? getStripeGradient(theme.dnd.fileListCanDropMaskOne, theme.dnd.fileListCanDropMaskTwo)
           : getStripeGradient(theme.dnd.fileListCannotDropMaskOne, theme.dnd.fileListCannotDropMaskTwo)
         : 'none',
+    padding: '5px 10px 0 10px',
   },
   dndDropZone: {
     display: (state: StyleState) =>
@@ -90,7 +91,7 @@ const useLocalStyles = makeLocalChonkyStyles((theme) => ({
     position: 'absolute',
     height: '100%',
     width: '100%',
-    zIndex: 2,
+    zIndex: 2
   },
   dndDropZoneIcon: {
     backgroundColor: (state: StyleState) => (state.dndCanDrop ? theme.dnd.canDropMask : theme.dnd.cannotDropMask),
@@ -111,6 +112,6 @@ const useLocalStyles = makeLocalChonkyStyles((theme) => ({
 const useStyles = makeGlobalChonkyStyles(() => ({
   fileListWrapper: {
     height: '100%',
-    maxHeight: '100%',
+    maxHeight: '100%'
   },
 }));

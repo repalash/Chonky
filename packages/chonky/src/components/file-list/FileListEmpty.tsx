@@ -6,11 +6,13 @@
 
 import React, { CSSProperties, useContext } from 'react';
 import { useIntl } from 'react-intl';
-
-import { ChonkyIconName } from '../../types/icons.types';
 import { getI18nId, I18nNamespace } from '../../util/i18n';
 import { ChonkyIconContext } from '../../util/icon-helper';
 import { makeGlobalChonkyStyles } from '../../util/styles';
+
+import EmptyIcon from '../../icons/empty';
+import Button from "@mui/material/Button";
+import PlusIcon from '../../icons/plus';
 
 export interface FileListEmptyProps {
   width: number;
@@ -20,7 +22,6 @@ export interface FileListEmptyProps {
 export const FileListEmpty: React.FC<FileListEmptyProps> = (props) => {
   const { width, height } = props;
   const classes = useStyles();
-  const ChonkyIcon = useContext(ChonkyIconContext);
   const style: CSSProperties = {
     width,
     height,
@@ -29,30 +30,57 @@ export const FileListEmpty: React.FC<FileListEmptyProps> = (props) => {
   const intl = useIntl();
   const emptyString = intl.formatMessage({
     id: getI18nId(I18nNamespace.FileList, 'nothingToShow'),
-    defaultMessage: 'Nothing to show',
+    defaultMessage: 'Drop file here or ',
   });
 
   return (
     <div className={classes.fileListEmpty} style={style}>
       <div className={classes.fileListEmptyContent}>
-        <ChonkyIcon icon={ChonkyIconName.folderOpen} />
-        &nbsp; {emptyString}
+        <EmptyIcon />
+        <div className={classes.fileListEmptyContentText}>
+          {emptyString}
+        </div>
+        <div>
+          <Button className={classes.addNewButton} startIcon={<PlusIcon/>} color="inherit">Add new</Button>
+        </div>
       </div>
     </div>
   );
 };
 
-const useStyles = makeGlobalChonkyStyles((theme) => ({
+const useStyles = makeGlobalChonkyStyles(() => ({
   fileListEmpty: {
-    color: theme.palette.text.disabled,
+    // color: theme.palette.text.disabled,
     position: 'relative',
     textAlign: 'center',
-    fontSize: '1.2em',
+    // border: 'solid 1px rgba(0, 0, 0, 0.12)',
+    height: '100%',
+    width: '100%',
   },
   fileListEmptyContent: {
     transform: 'translateX(-50%) translateY(-50%)',
-    position: 'absolute',
+    position: 'relative',
     left: '50%',
-    top: '50%',
+    top: '50%'
   },
+  fileListEmptyContentText: {
+    position: 'relative',
+    paddingTop: '1em',
+    fontSize: '20px'
+  },
+  addNewButton: {
+    borderRadius: '30px',
+    marginTop: '25px',
+    height: '32px',
+    paddingLeft: '15px',
+    paddingRight: '15px',
+    width: '128px',
+    gap: '5px',
+    boxShadow: 'rgba(0, 4, 4, 0.07)',
+    backgroundColor: '#ffffff',
+    color: 'rgba(0, 0, 0, 0.87)',
+    textTransform: 'none',
+    border: '1px solid rgba(0, 0, 0, 0.12)',
+    dropShadow: '0 4px 3px rgb(0 0 0 / 0.07)'
+  }
 }));

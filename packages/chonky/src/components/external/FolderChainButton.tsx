@@ -45,7 +45,12 @@ export const FolderChainButton: React.FC<FolderChainButtonProps> = React.memo(({
     [classes.disabledBreadcrumb]: disabled,
     [classes.currentBreadcrumb]: current,
   });
-  const text = file ? file.name : 'Loading...';
+  let text = file ? file.name : 'Loading...';
+  if (text == "root") {
+    text = "My Files";
+  }
+
+
   const icon = first && file?.folderChainIcon === undefined ? ChonkyIconName.folder : file?.folderChainIcon;
 
   return (
@@ -79,7 +84,7 @@ const useStyles = makeLocalChonkyStyles((theme) => ({
     color: () => important(theme.palette.text.disabled),
   },
   currentBreadcrumb: {
-    textDecoration: important('underline'),
+    // textDecoration: important('underline'),
   },
   dndIndicator: {
     color: (dndState: DndEntryState) => (dndState.dndCanDrop ? theme.dnd.canDropColor : theme.dnd.cannotDropColor),
