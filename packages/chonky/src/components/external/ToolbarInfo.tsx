@@ -10,9 +10,10 @@ import { useSelector } from 'react-redux';
 
 import Typography from '@mui/material/Typography';
 
-import { selectHiddenFileCount, selectors, selectSelectionSize } from '../../redux/selectors';
+import { selectHiddenFileCount, selectSelectionSize } from '../../redux/selectors';
 import { getI18nId, I18nNamespace } from '../../util/i18n';
 import { important, makeGlobalChonkyStyles } from '../../util/styles';
+import ToolbarSelectedIcon from '../../icons/toolbarselected'
 
 export interface ToolbarInfoProps { }
 
@@ -60,11 +61,12 @@ export const ToolbarInfo: React.FC<ToolbarInfoProps> = React.memo(() => {
     <div className={classes.infoContainer}>
       <Typography className={classes.infoText} variant="body1">
         {/*{fileCountString}*/}
-        {(selectedString || hiddenString) && (
+        {selectedString || hiddenString && (
           <span className={classes.extraInfoSpan}>
-            (<span className={classes.selectionSizeText}>{selectedString}</span>
+            {selectedString && <ToolbarSelectedIcon/>}
+            <span className={classes.selectionSizeText}>{selectedString}</span>
             {selectedString && hiddenString && ', '}
-            <span className={classes.hiddenCountText}>{hiddenString}</span>)
+            <span className={classes.hiddenCountText}>{hiddenString}</span>
           </span>
         )}
       </Typography>
@@ -83,7 +85,6 @@ const useStyles = makeGlobalChonkyStyles((theme) => ({
     lineHeight: important(theme.toolbar.lineHeight),
     fontSize: important(theme.toolbar.fontSize),
     marginLeft: important(12),
-    height: theme.toolbar.size,
   },
   extraInfoSpan: {
     marginRight: important(8),

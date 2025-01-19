@@ -71,7 +71,7 @@ const useStyles = makeGlobalChonkyStyles((theme) => ({
     paddingBottom: important(0),
     paddingTop: important(0),
     paddingLeft: theme.toolbar.buttonPadding,
-    paddingRight: theme.toolbar.buttonPadding,
+    paddingRight: theme.toolbar.buttonPadding
   },
   iconWithText: {
     marginRight: 8,
@@ -87,6 +87,7 @@ const useStyles = makeGlobalChonkyStyles((theme) => ({
   },
   activeButton: {
     color: important(theme.colors.textActive),
+    // backgroundColor: important(theme.colors.textActive),
   },
 }));
 

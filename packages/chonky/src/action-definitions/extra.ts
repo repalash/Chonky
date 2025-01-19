@@ -24,9 +24,9 @@ export const ExtraActions = {
     id: 'create_folder',
     button: {
       name: 'Create folder',
-      toolbar: true,
       tooltip: 'Create a folder',
       icon: ChonkyIconName.folderCreate,
+      contextMenu: true,
     },
   } as const),
   /**
@@ -37,6 +37,7 @@ export const ExtraActions = {
     button: {
       name: 'Upload files',
       toolbar: true,
+      contextMenu: true,
       tooltip: 'Upload files',
       icon: ChonkyIconName.upload,
     },
@@ -51,7 +52,6 @@ export const ExtraActions = {
       name: 'Download files',
       toolbar: true,
       contextMenu: true,
-      group: 'Actions',
       icon: ChonkyIconName.download,
     },
   } as const),
@@ -66,7 +66,6 @@ export const ExtraActions = {
       name: 'Delete files',
       toolbar: true,
       contextMenu: true,
-      group: 'Actions',
       icon: ChonkyIconName.trash,
     },
   } as const),

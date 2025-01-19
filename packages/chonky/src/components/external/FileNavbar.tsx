@@ -8,22 +8,20 @@ import Box from '@mui/material/Box';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import React, { ReactElement, useMemo } from 'react';
 
-import { ChonkyActions } from '../../action-definitions/index';
 import { important, makeGlobalChonkyStyles } from '../../util/styles';
 import { useFolderChainItems } from './FileNavbar-hooks';
 import { FolderChainButton } from './FolderChainButton';
-import { SmartToolbarButton } from './ToolbarButton';
-import { ToolbarDropdown } from "./ToolbarDropdown";
 import { useSelector } from "react-redux";
 import { selectToolbarItems } from "../../redux/selectors";
 import BreadCrumbsSeperator from '../../icons/seperator';
+import { SortDropdown } from '../ijewel/SortDropdown';
+import ViewDropdown from '../ijewel/ViewDropdown';
 
 export interface FileNavbarProps { }
 
 export const FileNavbar: React.FC<FileNavbarProps> = React.memo(() => {
   const classes = useStyles();
   const folderChainItems = useFolderChainItems();
-  const toolbarItems = useSelector(selectToolbarItems);
 
   const folderChainComponents = useMemo(() => {
     const components: ReactElement[] = [];
@@ -42,25 +40,26 @@ export const FileNavbar: React.FC<FileNavbarProps> = React.memo(() => {
     return components;
   }, [folderChainItems]);
 
-  const toolbarItemComponents = useMemo(() => {
-    const components: ReactElement[] = [];
-    // @ts-ignore
-    const items = toolbarItems.filter(i => i.name !== 'Actions');
-
-    for (let i = 0; i < items.length; ++i) {
-      const item = items[i];
-
-      const key = `toolbar-item-${typeof item === 'string' ? item : item.name}`;
-      const component =
-          typeof item === 'string' ? (
-              <SmartToolbarButton key={key} fileActionId={item} /*fileActionIds={item.fileActionIds} *//>
-          ) : (
-              <ToolbarDropdown key={key} {...item} />
-          );
-      components.push(component);
-    }
-    return components;
-  }, [toolbarItems]);
+  // const toolbarItemComponents = useMemo(() => {
+  //   const components: ReactElement[] = [];
+  //   // @ts-ignore
+  //   const items = toolbarItems.filter(i => i.name !== 'Actions');
+  //
+  //
+  //   for (let i = 0; i < toolbarItems.length; ++i) {
+  //     const item = toolbarItems[i];
+  //
+  //     const key = `toolbar-item-${typeof item === 'string' ? item : item.name}`;
+  //     const component =
+  //         typeof item === 'string' ? (
+  //             <SmartToolbarButton key={key} fileActionId={item} /*fileActionIds={item.fileActionIds} *//>
+  //         ) : (
+  //             <ToolbarDropdown key={key} {...item} />
+  //         );
+  //     components.push(component);
+  //   }
+  //   return components;
+  // }, [toolbarItems]);
 
   return (
       <Box className={classes.navbarWrapper}>
@@ -70,7 +69,14 @@ export const FileNavbar: React.FC<FileNavbarProps> = React.memo(() => {
             {folderChainComponents}
           </Breadcrumbs>
         </Box>
-        <Box className={classes.toolbarRight}>{toolbarItemComponents}</Box>
+        {/*<Box className={classes.toolbarRight}>{toolbarItemComponents}</Box>*/}
+        <Box>
+          <SortDropdown/>
+        </Box>
+        <Box>
+          <ViewDropdown/>
+        </Box>
+        {/*<ViewDropdown/>*/}
       </Box>
   );
 });
@@ -82,6 +88,7 @@ const useStyles = makeGlobalChonkyStyles((theme) => ({
     alignItems: 'center',
     paddingTop: '10px',
     paddingBottom: '10px',
+    borderBottom: '1px solid $gray'
   },
   navbarContainer: {
     display: 'flex',
@@ -97,11 +104,5 @@ const useStyles = makeGlobalChonkyStyles((theme) => ({
   navbarBreadcrumbs: {
     fontSize: important(theme.toolbar.fontSize),
     flexGrow: 100,
-  },
-  toolbarRight: {
-    paddingBottom: theme.margins.rootLayoutMargin,
-    flexWrap: 'nowrap',
-    display: 'flex',
-    alignItems: 'center',
-  },
+  }
 }));

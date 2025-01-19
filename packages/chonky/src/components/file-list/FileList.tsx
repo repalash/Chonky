@@ -80,7 +80,6 @@ const useLocalStyles = makeLocalChonkyStyles((theme) => ({
           ? getStripeGradient(theme.dnd.fileListCanDropMaskOne, theme.dnd.fileListCanDropMaskTwo)
           : getStripeGradient(theme.dnd.fileListCannotDropMaskOne, theme.dnd.fileListCannotDropMaskTwo)
         : 'none',
-    padding: '5px 10px 0 10px',
   },
   dndDropZone: {
     display: (state: StyleState) =>

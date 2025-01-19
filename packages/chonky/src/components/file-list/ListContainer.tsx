@@ -58,10 +58,10 @@ export const ListContainer: React.FC<FileListListProps> = React.memo((props) => 
                   Name
               </div>
               <div style={{ flex: '0 1 150px' }}>
-                  Date Modified
+                  Size
               </div>
               <div style={{ flex: '0 1 150px' }}>
-                  Size
+                  Date Modified
               </div>
               {
                   listCols?.map((item, i) => (

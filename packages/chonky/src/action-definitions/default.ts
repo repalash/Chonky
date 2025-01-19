@@ -90,7 +90,6 @@ export const DefaultActions = {
     },
     button: {
       name: 'Switch to List view',
-      toolbar: true,
       icon: ChonkyIconName.list,
       iconOnly: true,
     },
@@ -109,7 +108,6 @@ export const DefaultActions = {
     },
     button: {
       name: 'Switch to Compact view',
-      toolbar: true,
       icon: ChonkyIconName.compact,
       iconOnly: true,
     },
@@ -119,10 +117,9 @@ export const DefaultActions = {
    */
   EnableGridView: defineFileAction({
     id: 'enable_grid_view',
-    fileViewConfig: { mode: FileViewMode.Grid, entryWidth: 165, entryHeight: 130 },
+    fileViewConfig: { mode: FileViewMode.Grid, entryWidth: 124, entryHeight: 120 },
     button: {
       name: 'Switch to Grid view',
-      toolbar: true,
       icon: ChonkyIconName.smallThumbnail,
       iconOnly: true,
     },

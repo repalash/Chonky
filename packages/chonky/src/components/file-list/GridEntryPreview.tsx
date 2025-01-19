@@ -4,7 +4,7 @@
  * @license MIT
  */
 
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { Nullable } from 'tsdef';
 
 import { DndEntryState } from '../../types/file-list.types';
@@ -61,6 +61,7 @@ const useFolderStyles = makeLocalChonkyStyles((theme) => ({
     borderRadius: theme.gridFileEntry.borderRadius,
     position: 'relative',
     overflow: 'hidden',
+    margin: '20px 20px 10px 20px',
   },
   folderBackSideTop: {
     backgroundColor: (state: FileEntryState) => state.color,
@@ -192,24 +193,24 @@ const useFileStyles = makeLocalChonkyStyles((theme) => ({
 
 export const useCommonEntryStyles = makeLocalChonkyStyles(() => ({
   selectionIndicator: {
-    display: (state: FileEntryState) => (state.selected ? 'block' : 'none'),
-    background:
-      'repeating-linear-gradient(' +
-      '45deg,' +
-      'rgba(0,153,255,.14),' +
-      'rgba(0,153,255,.14) 10px,' +
-      'rgba(0,153,255,.25) 0,' +
-      'rgba(0,153,255,.25) 20px' +
-      ')',
-    backgroundColor: 'rgba(0, 153, 255, .14)',
-    position: 'absolute',
-    height: '100%',
-    width: '100%',
-    zIndex: 10,
+    // display: (state: FileEntryState) => (state.selected ? 'block' : 'none'),
+    // background:
+    //   'repeating-linear-gradient(' +
+    //   '45deg,' +
+    //   'rgba(0,153,255,.14),' +
+    //   'rgba(0,153,255,.14) 10px,' +
+    //   'rgba(0,153,255,.25) 0,' +
+    //   'rgba(0,153,255,.25) 20px' +
+    //   ')',
+    // backgroundColor: 'rgba(0, 153, 255, .14)',
+    // position: 'absolute',
+    // height: '100%',
+    // width: '100%',
+    // zIndex: 10,
   },
   focusIndicator: {
     display: (state: FileEntryState) => (state.focused ? 'block' : 'none'),
-    boxShadow: 'inset rgba(0, 0, 0, 1) 0 0 0 2px',
+    boxShadow: 'rgba(0, 0, 0, 1) 0 0 0 2px',
     position: 'absolute',
     height: '100%',
     width: '100%',

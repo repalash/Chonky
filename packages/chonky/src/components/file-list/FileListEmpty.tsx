@@ -4,10 +4,9 @@
  * @license MIT
  */
 
-import React, { CSSProperties, useContext } from 'react';
+import React, { CSSProperties } from 'react';
 import { useIntl } from 'react-intl';
 import { getI18nId, I18nNamespace } from '../../util/i18n';
-import { ChonkyIconContext } from '../../util/icon-helper';
 import { makeGlobalChonkyStyles } from '../../util/styles';
 
 import EmptyIcon from '../../icons/empty';
@@ -76,11 +75,10 @@ const useStyles = makeGlobalChonkyStyles(() => ({
     paddingRight: '15px',
     width: '128px',
     gap: '5px',
-    boxShadow: 'rgba(0, 4, 4, 0.07)',
+    boxShadow: '0 4px 4px rgb(0 0 0 / 0.07)',
     backgroundColor: '#ffffff',
     color: 'rgba(0, 0, 0, 0.87)',
+    border: '1px transparent',
     textTransform: 'none',
-    border: '1px solid rgba(0, 0, 0, 0.12)',
-    dropShadow: '0 4px 3px rgb(0 0 0 / 0.07)'
   }
 }));

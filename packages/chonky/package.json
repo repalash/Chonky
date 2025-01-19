@@ -1,6 +1,6 @@
 {
   "name": "chonky",
-  "version": "2.3.3",
+  "version": "2.3.5",
   "description": "A File Browser component for React",
   "license": "MIT",
   "main": "dist/index.js",
@@ -17,7 +17,8 @@
     "build": "tsup",
     "prepare": "tsup",
     "format": "prettier --config ../../.prettierrc.js --ignore-path ../../.prettierignore . --write --list-different",
-    "format-check": "prettier --config ../../.prettierrc.js --ignore-path ../../.prettierignore --check ."
+    "format-check": "prettier --config ../../.prettierrc.js --ignore-path ../../.prettierignore --check .",
+    "pack": "npm pack && cp chonky-$npm_package_version.tgz ../../../ijewel-drive-frontend/libs/"
   },
   "peerDependencies": {
     "@emotion/react": "^11.11.3",
