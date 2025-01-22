@@ -77,6 +77,7 @@ const useStyles = makeGlobalChonkyStyles(() => ({
         position: 'relative',
         width: '150px',
         justifyContent: 'flex-end',
+        marginRight: '15px',
     },
     dropdownButton: {
         textAlign: 'left',

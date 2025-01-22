@@ -40,44 +40,19 @@ export const FileNavbar: React.FC<FileNavbarProps> = React.memo(() => {
     return components;
   }, [folderChainItems]);
 
-  // const toolbarItemComponents = useMemo(() => {
-  //   const components: ReactElement[] = [];
-  //   // @ts-ignore
-  //   const items = toolbarItems.filter(i => i.name !== 'Actions');
-  //
-  //
-  //   for (let i = 0; i < toolbarItems.length; ++i) {
-  //     const item = toolbarItems[i];
-  //
-  //     const key = `toolbar-item-${typeof item === 'string' ? item : item.name}`;
-  //     const component =
-  //         typeof item === 'string' ? (
-  //             <SmartToolbarButton key={key} fileActionId={item} /*fileActionIds={item.fileActionIds} *//>
-  //         ) : (
-  //             <ToolbarDropdown key={key} {...item} />
-  //         );
-  //     components.push(component);
-  //   }
-  //   return components;
-  // }, [toolbarItems]);
-
   return (
-      <Box className={classes.navbarWrapper}>
-        <Box className={classes.navbarContainer}>
-          {/*<SmartToolbarButton fileActionId={ChonkyActions.OpenParentFolder.id}/>*/}
-          <Breadcrumbs className={classes.navbarBreadcrumbs} separator={<BreadCrumbsSeperator/>}>
-            {folderChainComponents}
-          </Breadcrumbs>
-        </Box>
-        {/*<Box className={classes.toolbarRight}>{toolbarItemComponents}</Box>*/}
-        <Box>
-          <SortDropdown/>
-        </Box>
-        <Box>
-          <ViewDropdown/>
-        </Box>
-        {/*<ViewDropdown/>*/}
+    <Box className={classes.navbarWrapper}>
+      <Box className={classes.navbarContainer}>
+
+        <Breadcrumbs className={classes.navbarBreadcrumbs} separator={<BreadCrumbsSeperator/>}>
+          {folderChainComponents}
+        </Breadcrumbs>
       </Box>
+      <Box className={classes.controlsContainer}>
+        <SortDropdown/>
+        <ViewDropdown/>
+      </Box>
+    </Box>
   );
 });
 
@@ -86,9 +61,9 @@ const useStyles = makeGlobalChonkyStyles((theme) => ({
     justifyContent: 'space-between',
     display: 'flex',
     alignItems: 'center',
-    paddingTop: '10px',
-    paddingBottom: '10px',
-    borderBottom: '1px solid $gray'
+    paddingTop: '20px',
+    paddingBottom: '20px',
+    // borderBottom: '1px solid $gray'
   },
   navbarContainer: {
     display: 'flex',
@@ -104,5 +79,9 @@ const useStyles = makeGlobalChonkyStyles((theme) => ({
   navbarBreadcrumbs: {
     fontSize: important(theme.toolbar.fontSize),
     flexGrow: 100,
-  }
+  },
+  controlsContainer: {
+    display: 'flex',
+    alignItems: 'center',
+  },
 }));

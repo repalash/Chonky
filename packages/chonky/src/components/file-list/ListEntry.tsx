@@ -8,6 +8,9 @@ import { TextPlaceholder } from '../external/TextPlaceholder';
 import { useDndIcon, useFileEntryHtmlProps, useFileEntryState } from './FileEntry-hooks';
 import { FileEntryName } from './FileEntryName';
 import { FileEntryState, useCommonEntryStyles } from './GridEntryPreview';
+import SelectedIndicator from '../../icons/fileselectedindicator'
+import FocusIndicator from '../../icons/focus';
+import ListFolderIcon from '../../icons/listfoldericon'
 
 import { format } from 'date-fns';
 import { PropsContext } from '../PropsProvider';
@@ -38,23 +41,31 @@ export const ListEntry: React.FC<FileEntryProps> = React.memo(({ file, selected,
 
   return (
     <div className={classes.listFileEntry} {...fileEntryHtmlProps}>
-      <div className={commonClasses.focusIndicator}></div>
-      <div className={c([commonClasses.selectionIndicator, classes.listFileEntrySelection])}></div>
+      <div className={classes.indicatorContainer}>
+        {selected && <SelectedIndicator className={classes.selectedIndicator} />}
+        {focused && <FocusIndicator className={classes.focusIndicator} />}
+      </div>
       <div className={classes.listFileEntryIcon}>
-        <ChonkyIcon
-          icon={dndIconName ?? entryState.icon}
-          spin={dndIconName ? false : entryState.iconSpin}
-          fixedWidth={true}
-        />
+        {file?.isDir ? (
+          <ListFolderIcon />
+        ) : (
+          <ChonkyIcon
+            icon={dndIconName ?? entryState.icon}
+            spin={dndIconName ? false : entryState.iconSpin}
+            fixedWidth={true}
+          />
+        )}
       </div>
-      <div className={classes.listFileEntryName} title={file ? file.name : undefined}>
-        <FileEntryName file={file} />
-      </div>
-      <div className={classes.listFileEntryProperty}>
-        {file ? fileSizeString ?? <span>—</span> : <TextPlaceholder minLength={10} maxLength={20} />}
+      <div className={classes.listFileEntryNameContainer}>
+        <div className={classes.listFileEntryName} title={file ? file.name : undefined}>
+          <FileEntryName file={file} />
+        </div>
       </div>
       <div className={classes.listFileEntryProperty}>
         {file ? fileModDate ?? <span>—</span> : <TextPlaceholder minLength={5} maxLength={15} />}
+      </div>
+      <div className={classes.listFileEntryProperty}>
+        {file ? fileSizeString ?? <span>—</span> : <TextPlaceholder minLength={10} maxLength={20} />}
       </div>
       {
         listCols?.map((entry, index) => (
@@ -68,8 +79,20 @@ export const ListEntry: React.FC<FileEntryProps> = React.memo(({ file, selected,
 });
 
 const useStyles = makeLocalChonkyStyles((theme) => ({
+  listFileEntryNameContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    flex: '1 1 300px',
+    paddingLeft: 12,
+    zIndex: 20,
+  },
+  selectedIndicator: {
+    width: 16,
+    height: 16,
+    marginRight: 4,
+  },
   listFileEntry: {
-    boxShadow: `inset ${theme.palette.divider} 0 -1px 0`,
+    // boxShadow: `inset ${theme.palette.divider} 0 -1px 0`,
     fontSize: theme.listFileEntry.fontSize,
     color: ({ dndState }: StyleState) =>
       dndState.dndIsOver ? (dndState.dndCanDrop ? theme.dnd.canDropColor : theme.dnd.cannotDropColor) : 'inherit',
@@ -77,9 +100,11 @@ const useStyles = makeLocalChonkyStyles((theme) => ({
     position: 'relative',
     display: 'flex',
     height: '100%',
+    marginLeft: '30px'
   },
   listFileEntrySelection: {
     opacity: 0.6,
+    //backgroundColor: theme.palette.primary.main,
   },
   listFileEntryIcon: {
     color: ({ entryState, dndState }: StyleState) =>
@@ -99,7 +124,7 @@ const useStyles = makeLocalChonkyStyles((theme) => ({
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     flex: '1 1 300px',
-    paddingLeft: 8,
+    paddingLeft: 4,
     zIndex: 20,
   },
   listFileEntryProperty: {
@@ -109,6 +134,18 @@ const useStyles = makeLocalChonkyStyles((theme) => ({
     overflow: 'hidden',
     flex: '0 1 150px',
     padding: [2, 8],
+    zIndex: 20,
+  },
+  focusIndicator: {
+    width: 16,
+    height: 16,
+    marginRight: 4,
+  },
+  indicatorContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    width: 24,
+    minWidth: 24,
     zIndex: 20,
   },
 }));

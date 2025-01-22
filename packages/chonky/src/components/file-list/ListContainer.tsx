@@ -54,14 +54,14 @@ export const ListContainer: React.FC<FileListListProps> = React.memo((props) => 
     const headerRenderer = () => {
       return (
           <div style={{ display: 'flex', padding: '0 10px 0 10px'}}>
-              <div style={{ flex: '1 1 300px' }}>
+              <div style={{ flex: '1 1 300px', paddingLeft: '50px' }}>
                   Name
               </div>
-              <div style={{ flex: '0 1 150px' }}>
-                  Size
-              </div>
-              <div style={{ flex: '0 1 150px' }}>
+              <div style={{ flex: '0 1 150px', paddingLeft: '30px' }}>
                   Date Modified
+              </div>
+              <div style={{ flex: '0 1 150px', paddingLeft: '12px'}}>
+                  Size
               </div>
               {
                   listCols?.map((item, i) => (
@@ -88,7 +88,7 @@ export const ListContainer: React.FC<FileListListProps> = React.memo((props) => 
                   ref={listRef as any}
                   className={classes.listContainer}
                   itemSize={viewConfig.entryHeight}
-                  height={height - 50}
+                  height={height - 20}
                   itemCount={displayFileIds.length}
                   width={width}
                   itemKey={getItemKey}
@@ -102,8 +102,8 @@ export const ListContainer: React.FC<FileListListProps> = React.memo((props) => 
   return listComponent;
 });
 
-const useStyles = makeLocalChonkyStyles((theme) => ({
+const useStyles = makeLocalChonkyStyles(() => ({
   listContainer: {
-    borderTop: `solid 1px ${theme.palette.divider}`,
+    // borderTop: `solid 1px ${theme.palette.divider}`,
   },
 }));

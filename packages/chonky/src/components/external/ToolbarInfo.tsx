@@ -14,6 +14,7 @@ import { selectHiddenFileCount, selectSelectionSize } from '../../redux/selector
 import { getI18nId, I18nNamespace } from '../../util/i18n';
 import { important, makeGlobalChonkyStyles } from '../../util/styles';
 import ToolbarSelectedIcon from '../../icons/toolbarselected'
+import FocusIcon from '../../icons/focus'
 
 export interface ToolbarInfoProps { }
 
@@ -61,12 +62,22 @@ export const ToolbarInfo: React.FC<ToolbarInfoProps> = React.memo(() => {
     <div className={classes.infoContainer}>
       <Typography className={classes.infoText} variant="body1">
         {/*{fileCountString}*/}
-        {selectedString || hiddenString && (
+        {(selectedString || hiddenString) ? (
           <span className={classes.extraInfoSpan}>
-            {selectedString && <ToolbarSelectedIcon/>}
-            <span className={classes.selectionSizeText}>{selectedString}</span>
+            {selectedString && (
+              <>
+                <ToolbarSelectedIcon className={classes.selectionIcon} />
+                {selectedString}
+              </>
+            )}
             {selectedString && hiddenString && ', '}
-            <span className={classes.hiddenCountText}>{hiddenString}</span>
+            {hiddenString && (
+              <span className={classes.hiddenCountText}>{hiddenString}</span>
+            )}
+          </span>
+        ) : (
+          <span className={classes.extraInfoSpan}>
+            <FocusIcon className={classes.selectionIcon} />
           </span>
         )}
       </Typography>
@@ -87,12 +98,16 @@ const useStyles = makeGlobalChonkyStyles((theme) => ({
     marginLeft: important(12),
   },
   extraInfoSpan: {
-    marginRight: important(8),
-    marginLeft: important(8),
+    marginRight: important(10),
+    marginLeft: important(10),
     opacity: 0.8,
   },
   selectionSizeText: {
     color: theme.colors.textActive,
   },
   hiddenCountText: {},
+  selectionIcon: {
+    marginRight: 10,
+    verticalAlign: 'middle',
+  },
 }));

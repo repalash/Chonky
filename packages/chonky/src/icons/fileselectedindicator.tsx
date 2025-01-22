@@ -1,9 +1,9 @@
 import * as React from 'react';
-import SvgIcon from '@mui/material/SvgIcon';
+import SvgIcon, { SvgIconProps } from '@mui/material/SvgIcon';
 
-export default function Icon() {
+export default function Icon(props: SvgIconProps) {
     return (
-        <SvgIcon sx={{ width: 'auto', height: 'auto' }}>
+        <SvgIcon sx={{ width: 'auto', height: 'auto' }} {...props}>
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g clip-path="url(#clip0_95_2581)">
                     <rect x="1" y="1" width="18" height="18" rx="9" stroke="#E8E8E8" stroke-width="2" />

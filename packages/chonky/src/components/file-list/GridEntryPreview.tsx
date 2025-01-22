@@ -13,6 +13,7 @@ import { ChonkyIconContext } from '../../util/icon-helper';
 import { c, important, makeLocalChonkyStyles } from '../../util/styles';
 import { FileThumbnail } from './FileThumbnail';
 import { GridEntryDndIndicator } from './GridEntryDndIndicator';
+import GridFolderIcon from '../../icons/gridfoldericon'
 
 export type FileEntryState = {
   childrenCount: Nullable<number>;
@@ -42,14 +43,12 @@ export const GridEntryPreviewFolder: React.FC<FileEntryPreviewProps> = React.mem
   });
   return (
     <div className={className}>
-      <div className={folderClasses.folderBackSideMid}>
-        <div className={folderClasses.folderBackSideTop} />
-        <div className={folderClasses.folderFrontSide}>
-          <GridEntryDndIndicator className={fileClasses.dndIndicator} dndState={dndState} />
-          <div className={c([fileClasses.fileIcon, folderClasses.fileIcon])}>{entryState.childrenCount}</div>
-          <div className={commonClasses.selectionIndicator}></div>
-          <FileThumbnail className={fileClasses.thumbnail} thumbnailUrl={entryState.thumbnailUrl} />
-        </div>
+      <div className={folderClasses.folderContainer}>
+        <GridFolderIcon />
+        <GridEntryDndIndicator className={fileClasses.dndIndicator} dndState={dndState} />
+        <div className={c([fileClasses.fileIcon, folderClasses.fileIcon])}>{entryState.childrenCount}</div>
+        <div className={commonClasses.selectionIndicator}></div>
+        <FileThumbnail className={fileClasses.thumbnail} thumbnailUrl={entryState.thumbnailUrl} />
       </div>
     </div>
   );
@@ -61,71 +60,20 @@ const useFolderStyles = makeLocalChonkyStyles((theme) => ({
     borderRadius: theme.gridFileEntry.borderRadius,
     position: 'relative',
     overflow: 'hidden',
-    margin: '20px 20px 10px 20px',
+    margin: '20px 30px 20px 30px',
   },
-  folderBackSideTop: {
-    backgroundColor: (state: FileEntryState) => state.color,
-    boxShadow: (state: FileEntryState) => {
-      let color = theme.gridFileEntry.folderBackColorTint;
-      if (state.focused) color = 'rgba(0, 0, 0, 0.3)';
-      else if (state.selected) color = 'rgba(0, 153, 255, .4)';
-      return `inset ${color} 0 0 0 999px`;
-    },
-    borderTopLeftRadius: theme.gridFileEntry.borderRadius,
-    borderTopRightRadius: 10,
-    position: 'absolute',
-    right: '60%',
-    height: 13,
-    top: -10,
-    left: 0,
-    '&:after': {
-      borderRightColor: theme.palette.background.paper,
-      borderTopColor: theme.palette.background.paper,
-      borderBottomColor: 'transparent',
-      borderLeftColor: 'transparent',
-      borderWidth: [0, 15, 10, 0],
-      borderStyle: 'solid',
-      position: 'absolute',
-      display: 'block',
-      content: '""',
-      right: 0,
-      top: 0,
-    },
-  },
-  folderBackSideMid: {
-    backgroundColor: (state: FileEntryState) => state.color,
-    boxShadow: (state: FileEntryState) => {
-      let color = theme.gridFileEntry.folderBackColorTint;
-      if (state.focused) color = 'rgba(0, 0, 0, 0.3)';
-      else if (state.selected) color = 'rgba(0, 153, 255, .4)';
-      return `inset ${color} 0 0 0 999px`;
-    },
-    borderTopRightRadius: theme.gridFileEntry.borderRadius,
-    position: 'absolute',
-    bottom: 0,
-    right: 0,
-    left: 0,
-    top: 10,
-  },
-  folderFrontSide: {
-    boxShadow: (state: FileEntryState) => {
-      const shadows: string[] = [];
-      if (state.focused) shadows.push('inset rgba(0, 0, 0, 1) 0 0 0 3px');
-      if (state.selected) shadows.push('inset rgba(0, 153, 255, .65) 0 0 0 3px');
-      shadows.push(`inset ${theme.gridFileEntry.folderFrontColorTint} 0 0 0 999px`);
-      return shadows.join(', ');
-    },
-    backgroundColor: (state: FileEntryState) => state.color,
-    borderRadius: theme.gridFileEntry.borderRadius,
-    position: 'absolute',
-    overflow: 'hidden',
-    bottom: 0,
-    right: 0,
-    left: 0,
-    top: 10,
+  folderContainer: {
+    position: 'relative',
+    width: '100%',
+    height: '100%',
   },
   fileIcon: {
     fontSize: important(theme.gridFileEntry.childrenCountSize),
+    position: 'absolute',
+    zIndex: 15,
+    left: '50%',
+    top: '50%',
+    transform: 'translate(-50%, -50%)',
   },
 }));
 
@@ -154,12 +102,8 @@ GridEntryPreviewFile.displayName = 'GridEntryPreviewFile';
 
 const useFileStyles = makeLocalChonkyStyles((theme) => ({
   previewFile: {
-    boxShadow: (state: FileEntryState) => {
-      const shadows: string[] = [];
-      if (state.selected) shadows.push('inset rgba(0,153,255, .65) 0 0 0 3px');
-      if (state.focused) shadows.push('inset rgba(0, 0, 0, 1) 0 0 0 3px');
-      shadows.push(`inset ${theme.gridFileEntry.fileColorTint} 0 0 0 999px`);
-      return shadows.join(', ');
+    boxShadow: () => {
+      return `inset ${theme.gridFileEntry.fileColorTint} 0 0 0 999px`;
     },
     backgroundColor: (state: FileEntryState) => state.color,
     borderRadius: theme.gridFileEntry.borderRadius,
@@ -192,28 +136,28 @@ const useFileStyles = makeLocalChonkyStyles((theme) => ({
 }));
 
 export const useCommonEntryStyles = makeLocalChonkyStyles(() => ({
-  selectionIndicator: {
-    // display: (state: FileEntryState) => (state.selected ? 'block' : 'none'),
-    // background:
-    //   'repeating-linear-gradient(' +
-    //   '45deg,' +
-    //   'rgba(0,153,255,.14),' +
-    //   'rgba(0,153,255,.14) 10px,' +
-    //   'rgba(0,153,255,.25) 0,' +
-    //   'rgba(0,153,255,.25) 20px' +
-    //   ')',
-    // backgroundColor: 'rgba(0, 153, 255, .14)',
-    // position: 'absolute',
-    // height: '100%',
-    // width: '100%',
-    // zIndex: 10,
-  },
-  focusIndicator: {
-    display: (state: FileEntryState) => (state.focused ? 'block' : 'none'),
-    boxShadow: 'rgba(0, 0, 0, 1) 0 0 0 2px',
-    position: 'absolute',
-    height: '100%',
-    width: '100%',
-    zIndex: 11,
-  },
+  // selectionIndicator: {
+  //   display: (state: FileEntryState) => (state.selected ? 'block' : 'none'),
+  //   background:
+  //     'repeating-linear-gradient(' +
+  //     '45deg,' +
+  //     'rgba(0,153,255,.14),' +
+  //     'rgba(0,153,255,.14) 10px,' +
+  //     'rgba(0,153,255,.25) 0,' +
+  //     'rgba(0,153,255,.25) 20px' +
+  //     ')',
+  //   backgroundColor: 'rgba(0, 153, 255, .14)',
+  //   position: 'absolute',
+  //   height: '100%',
+  //   width: '100%',
+  //   zIndex: 10,
+  // },
+  // focusIndicator: {
+  //   display: (state: FileEntryState) => (state.focused ? 'block' : 'none'),
+  //   boxShadow: 'rgba(0, 0, 0, 1) 0 0 0 2px',
+  //   position: 'absolute',
+  //   height: '100%',
+  //   width: '100%',
+  //   zIndex: 11,
+  // },
 }));

@@ -47,8 +47,8 @@ const useFileEntryStyles = makeLocalChonkyStyles((theme) => ({
     paddingTop: 5,
   },
   gridFileEntryName: {
-    backgroundColor: (state: FileEntryState) => (state.selected ? 'rgba(0,153,255, .25)' : 'transparent'),
-    textDecoration: (state: FileEntryState) => (state.focused ? 'underline' : 'none'),
+    // backgroundColor: (state: FileEntryState) => (state.selected ? 'rgba(0,153,255, .25)' : 'transparent'),
+    // textDecoration: (state: FileEntryState) => (state.focused ? 'underline' : 'none'),
     borderRadius: 3,
     padding: [2, 4],
   },

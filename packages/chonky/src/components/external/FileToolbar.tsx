@@ -1,7 +1,7 @@
 import React, { ReactElement, ReactNode, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
-import { selectHideToolbarInfo, selectToolbarItems } from '../../redux/selectors';
+import { selectHideToolbarInfo, selectToolbarItems, selectSelectedFiles } from '../../redux/selectors';
 import { makeGlobalChonkyStyles } from '../../util/styles';
 import { ToolbarInfo } from './ToolbarInfo';
 import { ToolbarSearch } from './ToolbarSearch';
@@ -16,6 +16,8 @@ export const FileToolbar: React.FC<FileToolbarProps & { children?: ReactNode; }>
   const { children } = props;
   const classes = useStyles();
   const toolbarItems = useSelector(selectToolbarItems);
+  const selectedFiles = useSelector(selectSelectedFiles);
+  const hasSelection = selectedFiles.length > 0;
 
   const toolbarItemComponents = useMemo(() => {
     const components: ReactElement[] = [];
@@ -42,7 +44,6 @@ export const FileToolbar: React.FC<FileToolbarProps & { children?: ReactNode; }>
       <div className={classes.toolbarContainer}>
         <div className={classes.toolbarTop}>
           <div className={classes.toolbarLeft}>
-            {/*<ToolbarSearch />*/}
             <Button className={classes.refreshButton} startIcon={<RefreshIcon />} sx={{
               '& .MuiButton-startIcon': {
                 backgroundColor: 'rgba(240, 241, 255, 1)',
@@ -51,8 +52,12 @@ export const FileToolbar: React.FC<FileToolbarProps & { children?: ReactNode; }>
               }
             }}></Button>
           </div>
-          <div className={classes.separator} />
-          <div className={classes.toolbarRight}>{toolbarItemComponents}</div>
+          {hasSelection && (
+            <>
+              <div className={classes.separator} />
+              <div className={classes.toolbarRight}>{toolbarItemComponents}</div>
+            </>
+          )}
         </div>
         <div className={classes.toolbarBottom}>
           {!hideToolbarInfo && <ToolbarInfo />}
@@ -92,18 +97,26 @@ const useStyles = makeGlobalChonkyStyles(() => ({
     alignItems: 'center',
     height: '3.5rem',
     borderBottom: '1px solid rgba(231, 233, 233, 1)',
-    paddingLeft: '1rem',
+    paddingLeft: '0.4rem',
   },
   toolbarTop: {
     display: 'flex',
     justifyContent: 'flex-start',
+    alignItems: 'center',
     width: '100%',
-    height: '2.6rem',
-    paddingLeft: '25px',
+    height: '48px',
+    padding: '0 16px',
+    backgroundColor: '#FFFFFF',
+    // borderBottom: '1px solid rgba(231, 233, 233, 1)',
   },
   separator: {
     width: '1px',
     backgroundColor: 'rgba(217, 217, 217, 1)',
-    height: '2.4rem',
+    height: '24px',
+    margin: '0 16px',
   },
+  refreshButton: {
+    minWidth: '40px',
+    padding: '8px',
+  }
 }));

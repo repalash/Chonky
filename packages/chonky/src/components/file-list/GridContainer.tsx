@@ -181,5 +181,7 @@ export const GridContainer: React.FC<FileListGridProps> = React.memo((props) => 
 });
 
 const useStyles = makeGlobalChonkyStyles(() => ({
-  gridContainer: {},
+  gridContainer: {
+    marginLeft: '20px'
+  },
 }));

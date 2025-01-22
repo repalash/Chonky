@@ -14,6 +14,8 @@ import { DnDFileEntry } from './DnDFileEntry';
 import { useFileClickHandlers } from './FileEntry-hooks';
 import { GridEntry } from './GridEntry';
 import { ListEntry } from './ListEntry';
+import SelectedIndicator from '../../icons/fileselectedindicator'
+import FocusIndicator from '../../icons/focus'
 
 export interface SmartFileEntryProps {
   fileId: Nullable<string>;
@@ -40,7 +42,9 @@ export const SmartFileEntry: React.FC<SmartFileEntryProps> = React.memo(({ fileI
   const [focused, setFocused] = useState(false);
   const clickableWrapperProps: ClickableWrapperProps = {
     wrapperTag: 'div',
-    passthroughProps: { className: classes.fileEntryClickableWrapper },
+    passthroughProps: { 
+      className: `${classes.fileEntryClickableWrapper} ${selected ? classes.selected : ''}` 
+    },
     ...(FileHelper.isClickable(file) ? fileClickHandlers : undefined),
     setFocused,
   };
@@ -59,12 +63,40 @@ export const SmartFileEntry: React.FC<SmartFileEntryProps> = React.memo(({ fileI
 
   return dndDisabled ? (
     <ClickableWrapper {...clickableWrapperProps}>
+      {fileViewMode === FileViewMode.Grid && (
+        <>
+          {selected && (
+            <div className={classes.selectedIndicator}>
+              <SelectedIndicator />
+            </div>
+          )}
+          {focused && !selected && (
+            <div className={classes.focusIndicator}>
+              <FocusIndicator />
+            </div>
+          )}
+        </>
+      )}
       <EntryComponent {...fileEntryProps} dndState={disabledDndState} />
     </ClickableWrapper>
   ) : (
     <DnDFileEntry file={file}>
       {(dndState) => (
         <ClickableWrapper {...clickableWrapperProps}>
+          {fileViewMode === FileViewMode.Grid && (
+            <>
+              {selected && (
+                <div className={classes.selectedIndicator}>
+                  <SelectedIndicator />
+                </div>
+              )}
+              {focused && !selected && (
+                <div className={classes.focusIndicator}>
+                  <FocusIndicator />
+                </div>
+              )}
+            </>
+          )}
           <EntryComponent {...fileEntryProps} dndState={dndState} />
         </ClickableWrapper>
       )}
@@ -80,5 +112,22 @@ const useStyles = makeGlobalChonkyStyles(() => ({
     outline: 'none !important',
     position: 'relative',
     height: '100%',
+    backgroundColor: 'transparent',
+  },
+  selected: {
+    backgroundColor: '#F6F6F6',
+    borderRadius: '6px'
+  },
+  selectedIndicator: {
+    position: 'absolute',
+    top: 6,
+    left: 6,
+    zIndex: 1,
+  },
+  focusIndicator: {
+    position: 'absolute',
+    top: 6,
+    left: 6,
+    zIndex: 1,
   },
 }));
