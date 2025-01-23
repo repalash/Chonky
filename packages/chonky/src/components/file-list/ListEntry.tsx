@@ -42,24 +42,22 @@ export const ListEntry: React.FC<FileEntryProps> = React.memo(({ file, selected,
   return (
     <div className={classes.listFileEntry} {...fileEntryHtmlProps}>
       <div className={classes.indicatorContainer}>
-        {selected && <SelectedIndicator className={classes.selectedIndicator} />}
         {focused && <FocusIndicator className={classes.focusIndicator} />}
+        {selected && <SelectedIndicator className={classes.selectedIndicator} />}
       </div>
       <div className={classes.listFileEntryIcon}>
         {file?.isDir ? (
           <ListFolderIcon />
         ) : (
-          <ChonkyIcon
+          <ChonkyIcon className={classes.chonkyIcon}
             icon={dndIconName ?? entryState.icon}
             spin={dndIconName ? false : entryState.iconSpin}
             fixedWidth={true}
           />
         )}
       </div>
-      <div className={classes.listFileEntryNameContainer}>
-        <div className={classes.listFileEntryName} title={file ? file.name : undefined}>
-          <FileEntryName file={file} />
-        </div>
+      <div className={classes.listFileEntryName} title={file ? file.name : undefined}>
+        <FileEntryName file={file} />
       </div>
       <div className={classes.listFileEntryProperty}>
         {file ? fileModDate ?? <span>—</span> : <TextPlaceholder minLength={5} maxLength={15} />}
@@ -79,17 +77,11 @@ export const ListEntry: React.FC<FileEntryProps> = React.memo(({ file, selected,
 });
 
 const useStyles = makeLocalChonkyStyles((theme) => ({
-  listFileEntryNameContainer: {
-    display: 'flex',
-    alignItems: 'center',
-    flex: '1 1 300px',
-    paddingLeft: 12,
-    zIndex: 20,
-  },
   selectedIndicator: {
     width: 16,
     height: 16,
     marginRight: 4,
+    position: 'absolute',
   },
   listFileEntry: {
     // boxShadow: `inset ${theme.palette.divider} 0 -1px 0`,
@@ -140,6 +132,7 @@ const useStyles = makeLocalChonkyStyles((theme) => ({
     width: 16,
     height: 16,
     marginRight: 4,
+    position: 'absolute',
   },
   indicatorContainer: {
     display: 'flex',
@@ -147,5 +140,6 @@ const useStyles = makeLocalChonkyStyles((theme) => ({
     width: 24,
     minWidth: 24,
     zIndex: 20,
+    position: 'relative',
   },
 }));

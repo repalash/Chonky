@@ -77,12 +77,14 @@ import FolderIcon from './icons/folder';
 import ImageIcon from './icons/image';
 import FileIcon from './icons/file';
 import CabinetIcon from './icons/cabinet';
+import ToolbarDropdownIcon from './icons/toolbardropdown';
+import ToolbarDownloadIcon from './icons/download';
+import ToolbarDeleteIcon from './icons/delete';
 
 // @ts-ignore
 const IconMap: { [iconName in ChonkyIconName]: any } = {
   // Misc
   [ChonkyIconName.loading]: faCircleNotch,
-  [ChonkyIconName.dropdown]: faChevronDown,
   [ChonkyIconName.placeholder]: faMinus,
 
   // File Actions: Drag & drop
@@ -118,9 +120,7 @@ const IconMap: { [iconName in ChonkyIconName]: any } = {
   [ChonkyIconName.folderCreate]: faFolderPlus,
   [ChonkyIconName.folderOpen]: faFolderOpen,
   [ChonkyIconName.folderChainSeparator]: faChevronRight,
-  [ChonkyIconName.download]: faDownload,
   [ChonkyIconName.upload]: faUpload,
-  [ChonkyIconName.trash]: faTrash,
   [ChonkyIconName.fallbackIcon]: faExclamationTriangle,
 
   // File modifiers
@@ -193,6 +193,12 @@ export const IconFA: React.FC<ChonkyIconProps> = React.memo((props) => {
       return <ImageIcon />;
     case 'cabinet':
       return <CabinetIcon />;
+    case 'dropdown':
+      return <ToolbarDropdownIcon />;
+    case 'download':
+      return <ToolbarDownloadIcon />;
+    case 'trash':
+      return <ToolbarDeleteIcon />;
     default:
       return <FileIcon />;
   }

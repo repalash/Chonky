@@ -132,8 +132,6 @@ export const DefaultActions = {
     sortKeySelector: (file: Nullable<FileData>) => (file ? file.name.toLowerCase() : undefined),
     button: {
       name: 'Sort by name',
-      toolbar: true,
-      group: 'Options',
     },
   } as const),
   /**
@@ -144,8 +142,6 @@ export const DefaultActions = {
     sortKeySelector: (file: Nullable<FileData>) => (file ? file.size : undefined),
     button: {
       name: 'Sort by size',
-      toolbar: true,
-      group: 'Options',
     },
   } as const),
   /**
@@ -156,8 +152,6 @@ export const DefaultActions = {
     sortKeySelector: (file: Nullable<FileData>) => (file ? file.modDate : undefined),
     button: {
       name: 'Sort by date',
-      toolbar: true,
-      group: 'Options',
     },
   } as const),
   /**
@@ -188,8 +182,6 @@ export const DefaultActions = {
     },
     button: {
       name: 'Show folders first',
-      toolbar: true,
-      group: 'Options',
     },
   } as const),
   /**

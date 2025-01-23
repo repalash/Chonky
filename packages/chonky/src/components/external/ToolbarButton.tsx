@@ -5,6 +5,7 @@
  */
 
 import Button from '@mui/material/Button';
+import Button2 from '@heroui/button'
 import React, { useContext } from 'react';
 import { Nullable } from 'tsdef';
 
@@ -16,6 +17,8 @@ import { useFileActionProps, useFileActionTrigger } from '../../util/file-action
 import { useLocalizedFileActionStrings } from '../../util/i18n';
 import { ChonkyIconContext } from '../../util/icon-helper';
 import { c, important, makeGlobalChonkyStyles } from '../../util/styles';
+import ToolbarDropdownIcon from '../../icons/toolbardropdown'
+import { height } from '@fortawesome/free-solid-svg-icons/faArrowDown';
 
 export interface ToolbarButtonProps {
   className?: string;
@@ -27,10 +30,15 @@ export interface ToolbarButtonProps {
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   disabled?: boolean;
   dropdown?: boolean;
+  folderChain?: boolean;
+  fileToolbar?: boolean;
 }
 
 export const ToolbarButton: React.FC<ToolbarButtonProps> = React.memo((props) => {
-  const { className: externalClassName, text, tooltip, active, icon, iconOnly, onClick, disabled, dropdown } = props;
+  const { className: externalClassName, text, tooltip, active, icon, iconOnly, onClick, disabled, dropdown, folderChain, fileToolbar } = props;
+  
+  if (disabled && fileToolbar) return null;
+  
   const classes = useStyles();
   const ChonkyIcon = useContext(ChonkyIconContext);
 
@@ -46,9 +54,11 @@ export const ToolbarButton: React.FC<ToolbarButtonProps> = React.memo((props) =>
     [classes.baseButton]: true,
     [classes.iconOnlyButton]: iconOnly,
     [classes.activeButton]: !!active,
+    [classes.folderChainButton]: folderChain,
+    [classes.fileToolbarButton]: fileToolbar,
   });
   return (
-    <Button sx={{ ml: 2 }} variant={"text"} className={className} onClick={onClick} title={tooltip ? tooltip : text} disabled={disabled || !onClick}>
+    <Button sx={{ height: '32px' }} variant={"text"} className={className} onClick={onClick} title={tooltip ? tooltip : text} disabled={disabled || !onClick}>
       {iconComponent}
       {text && !iconOnly && <span>{text}</span>}
       {dropdown && text && !iconOnly && (
@@ -71,7 +81,7 @@ const useStyles = makeGlobalChonkyStyles((theme) => ({
     paddingBottom: important(0),
     paddingTop: important(0),
     paddingLeft: theme.toolbar.buttonPadding,
-    paddingRight: theme.toolbar.buttonPadding
+    paddingRight: theme.toolbar.buttonPadding,
   },
   iconWithText: {
     marginRight: 8,
@@ -86,17 +96,28 @@ const useStyles = makeGlobalChonkyStyles((theme) => ({
     marginTop: 1,
   },
   activeButton: {
-    color: important(theme.colors.textActive),
+    // color: important('#373737'),
     // backgroundColor: important(theme.colors.textActive),
   },
+  folderChainButton: {
+    backgroundColor: important('transparent'),
+    fontSize: important('20px'),
+    fontWeight: 400,
+  },
+  fileToolbarButton: {
+    backgroundColor: important('#F0F1FF'),
+    borderRadius: '30px',
+    color: '#373737',
+  }
 }));
 
 export interface SmartToolbarButtonProps {
   fileActionId: string;
+  fileToolbar?: boolean;
 }
 
 export const SmartToolbarButton: React.FC<SmartToolbarButtonProps> = React.memo((props) => {
-  const { fileActionId } = props;
+  const { fileActionId, fileToolbar } = props;
 
   const action = useParamSelector(selectFileActionData, fileActionId);
   const triggerAction = useFileActionTrigger(fileActionId);
@@ -117,6 +138,7 @@ export const SmartToolbarButton: React.FC<SmartToolbarButtonProps> = React.memo(
       active={active}
       onClick={triggerAction}
       disabled={disabled}
+      fileToolbar={fileToolbar}
     />
   );
 });

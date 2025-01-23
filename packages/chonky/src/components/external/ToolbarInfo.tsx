@@ -4,17 +4,19 @@
  * @license MIT
  */
 
-import React from 'react';
+import React, { useContext, useRef, useCallback } from 'react';
 import { useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 
 import Typography from '@mui/material/Typography';
 
-import { selectHiddenFileCount, selectSelectionSize } from '../../redux/selectors';
+import { selectFileViewConfig, selectHiddenFileCount, selectSelectionSize } from '../../redux/selectors';
 import { getI18nId, I18nNamespace } from '../../util/i18n';
 import { important, makeGlobalChonkyStyles } from '../../util/styles';
 import ToolbarSelectedIcon from '../../icons/toolbarselected'
 import FocusIcon from '../../icons/focus'
+import { PropsContext } from '../PropsProvider';
+import { FixedSizeList } from 'react-window';
 
 export interface ToolbarInfoProps { }
 
@@ -24,6 +26,8 @@ export const ToolbarInfo: React.FC<ToolbarInfoProps> = React.memo(() => {
   // const displayFileIds = useSelector(selectors.getDisplayFileIds);
   const selectionSize = useSelector(selectSelectionSize);
   const hiddenCount = useSelector(selectHiddenFileCount);
+
+  const { listCols } = useContext(PropsContext);
 
   const intl = useIntl();
   // const fileCountString = intl.formatMessage(
@@ -87,9 +91,7 @@ export const ToolbarInfo: React.FC<ToolbarInfoProps> = React.memo(() => {
 
 const useStyles = makeGlobalChonkyStyles((theme) => ({
   infoContainer: {
-    // height: theme.toolbar.size,
     display: 'flex',
-    // border: `1px solid ${theme.palette.divider}`,
     alignItems: 'center',
   },
   infoText: {
@@ -108,6 +110,6 @@ const useStyles = makeGlobalChonkyStyles((theme) => ({
   hiddenCountText: {},
   selectionIcon: {
     marginRight: 10,
-    verticalAlign: 'middle',
+    alignItems: 'center',
   },
 }));

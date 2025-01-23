@@ -60,7 +60,14 @@ export const FolderChainButton: React.FC<FolderChainButtonProps> = React.memo(({
           <ChonkyIcon icon={dndIconName} fixedWidth={true} />
         </div>
       )}
-      <ToolbarButton icon={icon} className={className} text={text} disabled={disabled} onClick={onClick} />
+      <ToolbarButton 
+        icon={icon} 
+        className={className} 
+        text={text} 
+        disabled={disabled} 
+        onClick={onClick} 
+        folderChain={true}
+      />
     </div>
   );
 });
@@ -84,7 +91,7 @@ const useStyles = makeLocalChonkyStyles((theme) => ({
     color: () => important(theme.palette.text.disabled),
   },
   currentBreadcrumb: {
-    // textDecoration: important('underline'),
+    fontWeight: '600',
   },
   dndIndicator: {
     color: (dndState: DndEntryState) => (dndState.dndCanDrop ? theme.dnd.canDropColor : theme.dnd.cannotDropColor),

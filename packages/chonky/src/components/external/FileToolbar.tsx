@@ -5,7 +5,7 @@ import { selectHideToolbarInfo, selectToolbarItems, selectSelectedFiles } from '
 import { makeGlobalChonkyStyles } from '../../util/styles';
 import { ToolbarInfo } from './ToolbarInfo';
 import { ToolbarSearch } from './ToolbarSearch';
-import Button from '@mui/material/Button';
+import { Button } from '@heroui/button';
 import RefreshIcon from "../../icons/refresh";
 import { SmartToolbarButton } from './ToolbarButton';
 import { ToolbarDropdown } from './ToolbarDropdown';
@@ -28,7 +28,7 @@ export const FileToolbar: React.FC<FileToolbarProps & { children?: ReactNode; }>
       const key = `toolbar-item-${typeof item === 'string' ? item : item.name}`;
       const component =
           typeof item === 'string' ? (
-              <SmartToolbarButton key={key} fileActionId={item} /*fileActionIds={item.fileActionIds} *//>
+              <SmartToolbarButton key={key} fileActionId={item} fileToolbar={true} /*fileActionIds={item.fileActionIds} *//>
           ) : (
               <ToolbarDropdown key={key} {...item} />
           );
@@ -44,13 +44,7 @@ export const FileToolbar: React.FC<FileToolbarProps & { children?: ReactNode; }>
       <div className={classes.toolbarContainer}>
         <div className={classes.toolbarTop}>
           <div className={classes.toolbarLeft}>
-            <Button className={classes.refreshButton} startIcon={<RefreshIcon />} sx={{
-              '& .MuiButton-startIcon': {
-                backgroundColor: 'rgba(240, 241, 255, 1)',
-                borderRadius: '30px',
-                padding: '11px 15px 11px 15px',
-              }
-            }}></Button>
+            <Button className={classes.refreshButton} startContent={<RefreshIcon />}/>
           </div>
           {hasSelection && (
             <>
@@ -87,9 +81,10 @@ const useStyles = makeGlobalChonkyStyles(() => ({
   },
   toolbarRight: {
     // paddingBottom: theme.margins.rootLayoutMargin,
-    flexWrap: 'nowrap',
     display: 'flex',
     alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: '15px',
   },
   toolbarBottom: {
     display: 'flex',
@@ -106,8 +101,7 @@ const useStyles = makeGlobalChonkyStyles(() => ({
     width: '100%',
     height: '48px',
     padding: '0 16px',
-    backgroundColor: '#FFFFFF',
-    // borderBottom: '1px solid rgba(231, 233, 233, 1)',
+    backgroundColor: '#FFFFFF'
   },
   separator: {
     width: '1px',
@@ -116,7 +110,10 @@ const useStyles = makeGlobalChonkyStyles(() => ({
     margin: '0 16px',
   },
   refreshButton: {
-    minWidth: '40px',
-    padding: '8px',
+    padding: '0px 15px',
+    borderRadius: '30px',
+    minWidth: '50px',
+    height: '32px',
+    backgroundColor: '#F0F1FF',
   }
 }));

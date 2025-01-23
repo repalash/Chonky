@@ -1,7 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
-import DropdownIcon from '../../icons/dropdown';
+import React, { useState } from 'react';
+import { Dropdown, DropdownTrigger, DropdownMenu, DropdownSection, DropdownItem } from "@heroui/dropdown";
+import { Button } from "@heroui/button";
 import SortbyIcon from '../../icons/sortby';
-import CheckIcon from '../../icons/check';
+import DropdownIcon from '../../icons/dropdown';
 import { makeGlobalChonkyStyles } from '../../util/styles';
 import { useFileActionTrigger } from '../../util/file-actions';
 import { ChonkyActions } from '../../action-definitions';
@@ -11,21 +12,8 @@ export interface SortDropdownProps { }
 //TODO: Update sort selection logic
 export const SortDropdown: React.FC<SortDropdownProps> = React.memo(() => {
     const classes = useStyles();
-    const [isOpen, setIsOpen] = useState(false);
     const [selectedOption, setSelectedOption] = useState('name');
     const [sortOrder, setSortOrder] = useState('ascending');
-    const dropdownRef = useRef<HTMLDivElement>(null);
-
-    useEffect(() => {
-        const handleClickOutside = (event: MouseEvent) => {
-            if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-                setIsOpen(false);
-            }
-        };
-
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => document.removeEventListener('mousedown', handleClickOutside);
-    }, []);
 
     const triggerSortByName = useFileActionTrigger(ChonkyActions.SortFilesByName.id);
     const triggerSortBySize = useFileActionTrigger(ChonkyActions.SortFilesBySize.id);
@@ -41,7 +29,6 @@ export const SortDropdown: React.FC<SortDropdownProps> = React.memo(() => {
     const handleOptionClick = (option: { id: string; label: string; action: () => void }) => {
         setSelectedOption(option.id);
         option.action();
-        setIsOpen(false);
         setSortOrder('ascending'); //reset to default option
     };
 
@@ -51,117 +38,107 @@ export const SortDropdown: React.FC<SortDropdownProps> = React.memo(() => {
         if (getSelectedOption) {
             getSelectedOption.action();
         }
-        setIsOpen(false);
     };
 
     return (
-        <div className={classes.dropdownWrapper}>
-            <button
-                onClick={() => setIsOpen(!isOpen)}
-                className={classes.dropdownButton}
-            >
-                <SortbyIcon/>
-                <span className={classes.buttonText}>{`By ${selectedOption}`}</span>
-                <div className={classes.iconWrapper}>
-                    <DropdownIcon />
-                </div>
-            </button>
-
-            {isOpen && (
-                <div className={classes.dropdownMenu}>
-                    <div className={classes.menuContent}>
-                        {options.map((option) => (
-                            <button
-                                key={option.id}
-                                onClick={() => handleOptionClick(option)}
-                                className={classes.menuItem}
-                            >
-                                {option.label}
-                                {selectedOption === option.id && (
-                                    <div className={classes.checkIcon}>
-                                        <CheckIcon/>
-                                    </div>
-                                )}
-                            </button>
-                        ))}
-                        <div className={classes.divider} />
-                        <button
-                            onClick={() => handleOrderClick('ascending')}
-                            className={classes.menuItem}
-                        >
-                            Ascending
-                            {sortOrder === 'ascending' && (
-                                <div className={classes.checkIcon}>
-                                    <CheckIcon/>
-                                </div>
-                            )}
-                        </button>
-                        <button
-                            onClick={() => handleOrderClick('descending')}
-                            className={classes.menuItem}
-                        >
-                            Descending
-                            {sortOrder === 'descending' && (
-                                <div className={classes.checkIcon}>
-                                    <CheckIcon/>
-                                </div>
-                            )}
-                        </button>
+        <Dropdown>
+            <DropdownTrigger>
+                <Button 
+                    variant="light"
+                    className={classes.dropdownButton}
+                    size={'sm'}
+                >
+                    <div className={classes.sortButtonContent}>
+                        <SortbyIcon/>
+                        <span className={classes.buttonText}>{`By ${selectedOption}`}</span>
+                        <DropdownIcon/>
                     </div>
-                </div>
-            )}
-        </div>
+                </Button>
+            </DropdownTrigger>
+            <DropdownMenu className={classes.dropdownMenu}>
+                <DropdownSection className={classes.section}>
+                    {options.map((option) => (
+                        <DropdownItem
+                            key={option.id}
+                            onPress={() => handleOptionClick(option)}
+                            startContent={selectedOption === option.id ? "✓" : ""}
+                            className={classes.menuItem}
+                        >
+                            {option.label}
+                        </DropdownItem>
+                    ))}
+                </DropdownSection>
+                <DropdownSection className={classes.section}>
+                    <DropdownItem
+                        key="ascending"
+                        onPress={() => handleOrderClick('ascending')}
+                        startContent={sortOrder === 'ascending' ? "✓" : ""}
+                        className={classes.menuItem}
+                    >
+                        Ascending
+                    </DropdownItem>
+                    <DropdownItem
+                        key="descending"
+                        onPress={() => handleOrderClick('descending')}
+                        startContent={sortOrder === 'descending' ? "✓" : ""}
+                        className={classes.menuItem}
+                    >
+                        Descending
+                    </DropdownItem>
+                </DropdownSection>
+            </DropdownMenu>
+        </Dropdown>
     );
 });
 
 const useStyles = makeGlobalChonkyStyles(() => ({
-    dropdownWrapper: {
-        display: 'flex',
-        position: 'relative',
-        width: '150px',
-    },
     dropdownButton: {
-        textAlign: 'right',
-        backgroundColor: '#ffffff',
-        borderRadius: '8px',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'space-between',
     },
     buttonText: {
-        padding: '0 8px',
         fontSize: '14px',
+        fontWeight: 400,
     },
-    iconWrapper: {
-        width: '20px',
-        height: '20px',
+    sortButtonContent: {
+        display: 'flex',
+        alignItems: 'center',
+        padding: '0px 15px 0px 15px',
+        justifyContent: 'space-between',
+        height: '32px',
+        width: '150px'
     },
     dropdownMenu: {
-        position: 'absolute',
-        marginTop: '4px',
-        width: '150px',
-        backgroundColor: '#ffffff',
-        border: '1px solid #e5e7eb',
+        backgroundColor: '#FFFFFF',
         borderRadius: '8px',
-        boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
-        zIndex: 10,
+        padding: '8px 0',
     },
-    menuContent: {
-        padding: '4px 0',
+    section: {
+        padding: '0',
+    },
+    'section:not(:first-child)': {
+        borderTop: '1px solid rgba(0, 0, 0, 0.08)',
+        marginTop: '8px',
+        paddingTop: '8px',
     },
     menuItem: {
-        width: '100%',
-        padding: '8px 16px',
-        textAlign: 'left',
         display: 'flex',
         alignItems: 'center',
         fontSize: '14px',
+        color: '#2c2c2c',
+        fontWeight: 400,
+        minWidth: '180px',
+        gap: '12px',
     },
-    checkIcon: {
-        padding: '0 8px',
+    'menuItem [data-start-content]': {
+        width: '24px',
+        color: '#2c2c2c',
+        fontSize: '14px',
+        display: 'flex',
+        justifyContent: 'flex-start',
+        minWidth: '24px',
     },
-    divider: {
-        borderTop: '1px solid #e5e7eb',
-        margin: '4px 0',
+    'menuItem:hover': {
+        backgroundColor: 'rgba(0, 0, 0, 0.04)',
     }
 }));
