@@ -44,18 +44,16 @@ export const FileToolbar: React.FC<FileToolbarProps & { children?: ReactNode; }>
       <div className={classes.toolbarContainer}>
         <div className={classes.toolbarTop}>
           <div className={classes.toolbarLeft}>
-            <Button className={classes.refreshButton} startContent={<RefreshIcon />}/>
+            {!hideToolbarInfo && <ToolbarInfo />}
+            {children}
+            <Button className={classes.refreshButton} startContent={<RefreshIcon />} />
           </div>
           {hasSelection && (
-            <>
+              <>
               <div className={classes.separator} />
               <div className={classes.toolbarRight}>{toolbarItemComponents}</div>
             </>
           )}
-        </div>
-        <div className={classes.toolbarBottom}>
-          {!hideToolbarInfo && <ToolbarInfo />}
-          {children}
         </div>
       </div>
     </div>
@@ -86,21 +84,12 @@ const useStyles = makeGlobalChonkyStyles(() => ({
     justifyContent: 'space-between',
     gap: '15px',
   },
-  toolbarBottom: {
-    display: 'flex',
-    width: '100%',
-    alignItems: 'center',
-    height: '3.5rem',
-    borderBottom: '1px solid rgba(231, 233, 233, 1)',
-    paddingLeft: '0.4rem',
-  },
   toolbarTop: {
     display: 'flex',
     justifyContent: 'flex-start',
     alignItems: 'center',
     width: '100%',
     height: '48px',
-    padding: '0 16px',
     backgroundColor: '#FFFFFF'
   },
   separator: {
@@ -115,5 +104,6 @@ const useStyles = makeGlobalChonkyStyles(() => ({
     minWidth: '50px',
     height: '32px',
     backgroundColor: '#F0F1FF',
+    marginLeft: '10px',
   }
 }));

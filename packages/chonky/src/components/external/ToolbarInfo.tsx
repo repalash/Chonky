@@ -63,29 +63,24 @@ export const ToolbarInfo: React.FC<ToolbarInfoProps> = React.memo(() => {
   );
 
   return (
-    <div className={classes.infoContainer}>
-      <Typography className={classes.infoText} variant="body1">
-        {/*{fileCountString}*/}
-        {(selectedString || hiddenString) ? (
-          <span className={classes.extraInfoSpan}>
-            {selectedString && (
-              <>
-                <ToolbarSelectedIcon className={classes.selectionIcon} />
-                {selectedString}
-              </>
-            )}
-            {selectedString && hiddenString && ', '}
-            {hiddenString && (
-              <span className={classes.hiddenCountText}>{hiddenString}</span>
-            )}
-          </span>
-        ) : (
-          <span className={classes.extraInfoSpan}>
-            <FocusIcon className={classes.selectionIcon} />
-          </span>
-        )}
-      </Typography>
-    </div>
+      <div className={classes.infoContainer}>
+        <Typography className={classes.infoText} variant="body1">
+          {(selectedString || hiddenString) && (
+            <span className={classes.extraInfoSpan}>
+              {selectedString && (
+                <>
+                  <ToolbarSelectedIcon className={classes.selectionIcon} />
+                  {selectedString}
+                </>
+              )}
+              {selectedString && hiddenString && ', '}
+              {hiddenString && (
+                <span className={classes.hiddenCountText}>{hiddenString}</span>
+              )}
+            </span>
+          )}
+        </Typography>
+      </div>
   );
 });
 
@@ -100,9 +95,12 @@ const useStyles = makeGlobalChonkyStyles((theme) => ({
     marginLeft: important(12),
   },
   extraInfoSpan: {
-    marginRight: important(10),
+    marginRight: important(8),
     marginLeft: important(10),
     opacity: 0.8,
+    fontWeight: 600,
+    alignItems: 'center',
+    display: 'flex',
   },
   selectionSizeText: {
     color: theme.colors.textActive,
@@ -111,5 +109,11 @@ const useStyles = makeGlobalChonkyStyles((theme) => ({
   selectionIcon: {
     marginRight: 10,
     alignItems: 'center',
+  },
+  separator: {
+    width: '1px',
+    backgroundColor: 'rgba(217, 217, 217, 1)',
+    height: '24px',
+    margin: '0 16px',
   },
 }));

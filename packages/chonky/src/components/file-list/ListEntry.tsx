@@ -11,6 +11,8 @@ import { FileEntryState, useCommonEntryStyles } from './GridEntryPreview';
 import SelectedIndicator from '../../icons/fileselectedindicator'
 import FocusIndicator from '../../icons/focus';
 import ListFolderIcon from '../../icons/listfoldericon'
+import FileListDropdownIcon from '../../icons/filelistdropdown'
+import { Button } from '@heroui/button';
 
 import { format } from 'date-fns';
 import { PropsContext } from '../PropsProvider';
@@ -72,14 +74,30 @@ export const ListEntry: React.FC<FileEntryProps> = React.memo(({ file, selected,
           </div>
         ))
       }
+      {selected && (
+        <Button 
+          className={classes.actionButton} 
+          startContent={<FileListDropdownIcon />} 
+          variant="light"
+          onClick={(e) => {
+            const rect = e.currentTarget.getBoundingClientRect();
+            const event = new MouseEvent('contextmenu', {
+              bubbles: true,
+              clientX: rect.left,
+              clientY: rect.top,
+            });
+            e.currentTarget.dispatchEvent(event);
+          }}
+        />
+      )}
     </div>
   );
 });
 
 const useStyles = makeLocalChonkyStyles((theme) => ({
   selectedIndicator: {
-    width: 16,
-    height: 16,
+    width: 20,
+    height: 20,
     marginRight: 4,
     position: 'absolute',
   },
@@ -92,7 +110,7 @@ const useStyles = makeLocalChonkyStyles((theme) => ({
     position: 'relative',
     display: 'flex',
     height: '100%',
-    marginLeft: '30px'
+    marginLeft: '22px'
   },
   listFileEntrySelection: {
     opacity: 0.6,
@@ -129,8 +147,8 @@ const useStyles = makeLocalChonkyStyles((theme) => ({
     zIndex: 20,
   },
   focusIndicator: {
-    width: 16,
-    height: 16,
+    width: 20,
+    height: 20,
     marginRight: 4,
     position: 'absolute',
   },
@@ -141,5 +159,14 @@ const useStyles = makeLocalChonkyStyles((theme) => ({
     minWidth: 24,
     zIndex: 20,
     position: 'relative',
+  },
+  actionButton: {
+    position: 'absolute',
+    right: 8,
+    top: '50%',
+    transform: 'translateY(-50%)',
+    zIndex: 21,
+    height: '100%',
+    width: '50px',
   },
 }));

@@ -105,8 +105,8 @@ export const useFileNameComponent = (file: Nullable<FileData>) => {
       name = file.name.substring(0, file.name.length - extension.length);
     }
 
-    if (name.length > 45) {
-      name = name.slice(0, 45) + '..';
+    if (name.length > 16) {
+      name = name.slice(0, 16) + '..';
     }
 
     return (

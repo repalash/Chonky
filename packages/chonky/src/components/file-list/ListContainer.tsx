@@ -53,14 +53,14 @@ export const ListContainer: React.FC<FileListListProps> = React.memo((props) => 
 
     const headerRenderer = () => {
       return (
-          <div style={{ display: 'flex', padding: '0 10px 0 10px'}}>
-              <div style={{ flex: '1 1 300px', paddingLeft: '50px' }}>
+          <div style={{ display: 'flex', padding: '0 10px', borderBottom: '1px solid #E7E9E9', paddingBottom: '10px' }}>
+              <div style={{ flex: '1 1 300px', paddingLeft: '40px', fontWeight: 600 }}>
                   Name
               </div>
-              <div style={{ flex: '0 1 150px', paddingLeft: '30px' }}>
+              <div style={{ flex: '0 1 150px', paddingLeft: '30px', fontWeight: 600 }}>
                   Date Modified
               </div>
-              <div style={{ flex: '0 1 150px', paddingLeft: '12px'}}>
+              <div style={{ flex: '0 1 150px', paddingLeft: '12px', fontWeight: 600}}>
                   Size
               </div>
               {

@@ -80,6 +80,7 @@ import CabinetIcon from './icons/cabinet';
 import ToolbarDropdownIcon from './icons/toolbardropdown';
 import ToolbarDownloadIcon from './icons/download';
 import ToolbarDeleteIcon from './icons/delete';
+import ShareIcon from './icons/share';
 
 // @ts-ignore
 const IconMap: { [iconName in ChonkyIconName]: any } = {
@@ -97,7 +98,6 @@ const IconMap: { [iconName in ChonkyIconName]: any } = {
   [ChonkyIconName.openParentFolder]: faLevelUpAlt,
   [ChonkyIconName.copy]: faCopy,
   [ChonkyIconName.paste]: faPaste,
-  [ChonkyIconName.share]: faShareAlt,
   [ChonkyIconName.search]: faSearch,
   [ChonkyIconName.star]: faStar,
   [ChonkyIconName.selectAllFiles]: faObjectGroup,
@@ -199,6 +199,8 @@ export const IconFA: React.FC<ChonkyIconProps> = React.memo((props) => {
       return <ToolbarDownloadIcon />;
     case 'trash':
       return <ToolbarDeleteIcon />;
+    case 'share':
+      return <ShareIcon />;
     default:
       return <FileIcon />;
   }

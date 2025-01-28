@@ -3,6 +3,7 @@ import { Dropdown, DropdownTrigger, DropdownMenu, DropdownSection, DropdownItem 
 import { Button } from "@heroui/button";
 import SortbyIcon from '../../icons/sortby';
 import DropdownIcon from '../../icons/dropdown';
+import CheckIcon from '../../icons/check';
 import { makeGlobalChonkyStyles } from '../../util/styles';
 import { useFileActionTrigger } from '../../util/file-actions';
 import { ChonkyActions } from '../../action-definitions';
@@ -61,7 +62,7 @@ export const SortDropdown: React.FC<SortDropdownProps> = React.memo(() => {
                         <DropdownItem
                             key={option.id}
                             onPress={() => handleOptionClick(option)}
-                            startContent={selectedOption === option.id ? "✓" : ""}
+                            startContent={selectedOption === option.id ? <CheckIcon/> :<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>}
                             className={classes.menuItem}
                         >
                             {option.label}
@@ -72,7 +73,7 @@ export const SortDropdown: React.FC<SortDropdownProps> = React.memo(() => {
                     <DropdownItem
                         key="ascending"
                         onPress={() => handleOrderClick('ascending')}
-                        startContent={sortOrder === 'ascending' ? "✓" : ""}
+                        startContent={sortOrder === 'ascending' ? <CheckIcon/> :<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>}
                         className={classes.menuItem}
                     >
                         Ascending
@@ -80,7 +81,7 @@ export const SortDropdown: React.FC<SortDropdownProps> = React.memo(() => {
                     <DropdownItem
                         key="descending"
                         onPress={() => handleOrderClick('descending')}
-                        startContent={sortOrder === 'descending' ? "✓" : ""}
+                        startContent={sortOrder === 'descending' ? <CheckIcon/> :<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>}
                         className={classes.menuItem}
                     >
                         Descending
@@ -103,8 +104,7 @@ const useStyles = makeGlobalChonkyStyles(() => ({
     sortButtonContent: {
         display: 'flex',
         alignItems: 'center',
-        padding: '0px 15px 0px 15px',
-        justifyContent: 'space-between',
+        justifyContent: 'space-evenly',
         height: '32px',
         width: '150px'
     },
@@ -127,8 +127,7 @@ const useStyles = makeGlobalChonkyStyles(() => ({
         fontSize: '14px',
         color: '#2c2c2c',
         fontWeight: 400,
-        minWidth: '180px',
-        gap: '12px',
+        minWidth: '150px',
     },
     'menuItem [data-start-content]': {
         width: '24px',

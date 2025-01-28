@@ -81,15 +81,13 @@ const useStyles = makeGlobalChonkyStyles(() => ({
         backgroundColor: 'transparent',
         display: 'flex',
         alignItems: 'center',
-        gap: '12px',
     },
     buttonContent: {
         display: 'flex',
         alignItems: 'center',
-        padding: '0px 15px 0px 15px',
-        justifyContent: 'space-between',
+        justifyContent: 'space-evenly',
         height: '32px',
-        width: '82px'
+        width: '68px'
     },
     icon: {
         width: '20px',
