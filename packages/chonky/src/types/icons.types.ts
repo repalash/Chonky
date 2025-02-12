@@ -43,6 +43,7 @@ export enum ChonkyIconName {
   upload = 'upload',
   trash = 'trash',
   fallbackIcon = 'fallbackIcon',
+  restore = 'restore',
 
   // File modifiers
   symlink = 'symlink',

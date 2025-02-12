@@ -25,6 +25,7 @@ import { ChonkyBusinessLogic } from '../internal/ChonkyBusinessLogic';
 import { ChonkyIconPlaceholder } from '../internal/ChonkyIconPlaceholder';
 import { ChonkyPresentationLayer } from '../internal/ChonkyPresentationLayer';
 import { PropsProvider } from '../PropsProvider';
+import { SlotsProvider } from '../../contexts/SlotsContext';
 
 // if (process.env.NODE_ENV === 'development') {
 //     const whyDidYouRender = require('@welldone-software/why-did-you-render');
@@ -35,7 +36,7 @@ import { PropsProvider } from '../PropsProvider';
 
 export const FileBrowser = React.forwardRef<FileBrowserHandle, FileBrowserProps & { children?: ReactNode }>(
   (props, ref) => {
-    const { instanceId, iconComponent, children, listCols } = props;
+    const { instanceId, iconComponent, children, listCols, slots } = props;
     const disableDragAndDrop = getValueOrFallback(
       props.disableDragAndDrop,
       defaultConfig.disableDragAndDrop,
@@ -72,8 +73,10 @@ export const FileBrowser = React.forwardRef<FileBrowserHandle, FileBrowserProps 
     const chonkyComps = (
       <>
         <ChonkyBusinessLogic ref={ref} {...props} />
-          <PropsProvider initialValue={{ listCols: listCols ?? [] }}>
-          <ChonkyPresentationLayer>{children}</ChonkyPresentationLayer>
+        <PropsProvider initialValue={{ listCols: listCols ?? [] }}>
+          <SlotsProvider value={slots || {}}>
+            <ChonkyPresentationLayer>{children}</ChonkyPresentationLayer>
+          </SlotsProvider>
         </PropsProvider>
       </>
     );

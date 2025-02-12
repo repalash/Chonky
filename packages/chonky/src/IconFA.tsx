@@ -81,6 +81,7 @@ import ToolbarDropdownIcon from './icons/toolbardropdown';
 import ToolbarDownloadIcon from './icons/download';
 import ToolbarDeleteIcon from './icons/delete';
 import ShareIcon from './icons/share';
+import RestoreIcon from './icons/restore';
 
 // @ts-ignore
 const IconMap: { [iconName in ChonkyIconName]: any } = {
@@ -181,6 +182,8 @@ export const IconFA: React.FC<ChonkyIconProps> = React.memo((props) => {
   }
 
   switch (icon) {
+    case 'restore':
+      return <RestoreIcon />;
     case 'word':
       return <WordIcon />;
     case 'excel':

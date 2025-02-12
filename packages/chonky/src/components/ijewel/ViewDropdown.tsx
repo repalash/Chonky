@@ -20,7 +20,7 @@ export const ViewDropdown: React.FC<ViewDropdownProps> = React.memo(() => {
 
     const views = [
         { id: 'list', label: 'List', icon: ListViewIcon, action: triggerListView },
-        { id: 'large-list', label: 'Large list', icon: LargeListViewIcon, action: triggerListView }, //#TODO: Large list implementation
+        // { id: 'large-list', label: 'Large list', icon: LargeListViewIcon, action: triggerListView }, //#TODO: Large list implementation
         { id: 'titles', label: 'Titles', icon: GridViewIcon, action: triggerGridView },
     ];
 

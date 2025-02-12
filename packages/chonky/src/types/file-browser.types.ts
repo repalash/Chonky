@@ -191,4 +191,11 @@ export interface FileBrowserProps {
    * Define list view custom columns
    */
   listCols?: { label: string; getValue: (item: any) => any; }[];
+
+  /**
+   * Optional components that can be used to replace default Chonky UI elements
+   */
+  slots?: {
+    EmptyComponent?: React.ComponentType;
+  };
 }

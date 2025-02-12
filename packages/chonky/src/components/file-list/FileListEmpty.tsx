@@ -8,10 +8,9 @@ import React, { CSSProperties } from 'react';
 import { useIntl } from 'react-intl';
 import { getI18nId, I18nNamespace } from '../../util/i18n';
 import { makeGlobalChonkyStyles } from '../../util/styles';
+import { useSlots } from '../../hooks/useSlots';
 
 import EmptyIcon from '../../icons/empty';
-import Button from "@mui/material/Button";
-import PlusIcon from '../../icons/plus';
 
 export interface FileListEmptyProps {
   width: number;
@@ -21,6 +20,8 @@ export interface FileListEmptyProps {
 export const FileListEmpty: React.FC<FileListEmptyProps> = (props) => {
   const { width, height } = props;
   const classes = useStyles();
+  const { EmptyComponent } = useSlots();
+  
   const style: CSSProperties = {
     width,
     height,
@@ -39,8 +40,8 @@ export const FileListEmpty: React.FC<FileListEmptyProps> = (props) => {
         <div className={classes.fileListEmptyContentText}>
           {emptyString}
         </div>
-        <div>
-          <Button className={classes.addNewButton} startIcon={<PlusIcon/>} color="inherit">Add new</Button>
+        <div className={classes.addNewButton}>
+        {EmptyComponent && <EmptyComponent />}
         </div>
       </div>
     </div>
@@ -68,17 +69,7 @@ const useStyles = makeGlobalChonkyStyles(() => ({
     fontSize: '20px'
   },
   addNewButton: {
-    borderRadius: '30px',
-    marginTop: '25px',
-    height: '32px',
-    paddingLeft: '15px',
-    paddingRight: '15px',
-    width: '128px',
-    gap: '5px',
-    boxShadow: '0 4px 4px rgb(0 0 0 / 0.07)',
-    backgroundColor: '#ffffff',
-    color: 'rgba(0, 0, 0, 0.87)',
-    border: '1px transparent',
-    textTransform: 'none',
+    // position: 'relative',
+    marginTop: '10px',
   }
 }));
