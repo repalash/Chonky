@@ -24,7 +24,7 @@ export const SortDropdown: React.FC<SortDropdownProps> = React.memo(() => {
         { id: 'name', label: 'Name', action: triggerSortByName },
         { id: 'size', label: 'Size', action: triggerSortBySize },
         { id: 'date', label: 'Date modified', action: triggerSortByDate },
-        { id: 'type', label: 'Type', action: triggerSortByName } // TODO: Implement sort by type action
+        // { id: 'type', label: 'Type', action: triggerSortByName } // TODO: Implement sort by type action
     ];
 
     const handleOptionClick = (option: { id: string; label: string; action: () => void }) => {

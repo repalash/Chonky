@@ -46,8 +46,14 @@ export const FolderChainButton: React.FC<FolderChainButtonProps> = React.memo(({
     [classes.currentBreadcrumb]: current,
   });
   let text = file ? file.name : 'Loading...';
-  if (text == "root") {
-    text = "My Files";
+  if (text === "root") {
+    if (file?.view === 'trash') {
+      text = "Deleted Files";
+    } else if (file?.searchString) {
+      text = 'Search results for "' + file?.searchString + '"';
+    } else {
+      text = "My Files";
+    }
   }
 
 
