@@ -112,11 +112,16 @@ const useStyles = makeLocalChonkyStyles((theme) => ({
     position: 'relative',
     display: 'flex',
     height: '100%',
-    marginLeft: '22px',
+    paddingLeft: '22px',
     backgroundColor: ({ entryState }: StyleState) => 
       entryState.selected ? '#F6F6F6' : 'transparent',
     borderRadius: ({ entryState }: StyleState) => 
       entryState.selected ? '6px' : '0',
+    '&:hover': {
+      backgroundColor: '#F6F6F6',
+      borderRadius: '6px',
+    },
+    zIndex: 1
   },
   listFileEntrySelection: {
     opacity: 0.6,
