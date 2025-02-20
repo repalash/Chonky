@@ -48,15 +48,18 @@ export const ListEntry: React.FC<FileEntryProps> = React.memo(({ file, selected,
         {selected && <SelectedIndicator className={classes.selectedIndicator} />}
       </div>
       <div className={classes.listFileEntryIcon}>
-        {file?.isDir ? (
-          <ListFolderIcon />
-        ) : (
-          <ChonkyIcon className={classes.chonkyIcon}
-            icon={dndIconName ?? entryState.icon}
-            spin={dndIconName ? false : entryState.iconSpin}
-            fixedWidth={true}
-          />
-        )}
+        <div className={classes.iconWrapper}>
+          {file?.isDir ? (
+            <ListFolderIcon />
+          ) : (
+            <ChonkyIcon 
+              className={classes.chonkyIcon}
+              icon={dndIconName ?? entryState.icon}
+              spin={dndIconName ? false : entryState.iconSpin}
+              fixedWidth={true}
+            />
+          )}
+        </div>
       </div>
       <div className={classes.listFileEntryName} title={file ? file.name : undefined}>
         <FileEntryName file={file} />
@@ -102,7 +105,6 @@ const useStyles = makeLocalChonkyStyles((theme) => ({
     position: 'absolute',
   },
   listFileEntry: {
-    // boxShadow: `inset ${theme.palette.divider} 0 -1px 0`,
     fontSize: theme.listFileEntry.fontSize,
     color: ({ dndState }: StyleState) =>
       dndState.dndIsOver ? (dndState.dndCanDrop ? theme.dnd.canDropColor : theme.dnd.cannotDropColor) : 'inherit',
@@ -110,7 +112,11 @@ const useStyles = makeLocalChonkyStyles((theme) => ({
     position: 'relative',
     display: 'flex',
     height: '100%',
-    marginLeft: '22px'
+    marginLeft: '22px',
+    backgroundColor: ({ entryState }: StyleState) => 
+      entryState.selected ? '#F6F6F6' : 'transparent',
+    borderRadius: ({ entryState }: StyleState) => 
+      entryState.selected ? '6px' : '0',
   },
   listFileEntrySelection: {
     opacity: 0.6,
@@ -127,6 +133,11 @@ const useStyles = makeLocalChonkyStyles((theme) => ({
     boxSizing: 'border-box',
     padding: [2, 4],
     zIndex: 20,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 38,
+    height: 38,
   },
   listFileEntryName: {
     textOverflow: 'ellipsis',
@@ -168,5 +179,19 @@ const useStyles = makeLocalChonkyStyles((theme) => ({
     zIndex: 21,
     height: '100%',
     width: '50px',
+  },
+  chonkyIcon: {
+    width: 30,
+    height: 30,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  iconWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 30,
+    height: 30,
   },
 }));

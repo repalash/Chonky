@@ -62,7 +62,7 @@ export const SortDropdown: React.FC<SortDropdownProps> = React.memo(() => {
                         <DropdownItem
                             key={option.id}
                             onPress={() => handleOptionClick(option)}
-                            startContent={selectedOption === option.id ? <CheckIcon/> :<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>}
+                            startContent={selectedOption === option.id ? <CheckIcon/> :<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>}
                             className={classes.menuItem}
                         >
                             {option.label}
@@ -73,7 +73,7 @@ export const SortDropdown: React.FC<SortDropdownProps> = React.memo(() => {
                     <DropdownItem
                         key="ascending"
                         onPress={() => handleOrderClick('ascending')}
-                        startContent={sortOrder === 'ascending' ? <CheckIcon/> :<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>}
+                        startContent={sortOrder === 'ascending' ? <CheckIcon/> :<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>}
                         className={classes.menuItem}
                     >
                         Ascending
@@ -81,7 +81,7 @@ export const SortDropdown: React.FC<SortDropdownProps> = React.memo(() => {
                     <DropdownItem
                         key="descending"
                         onPress={() => handleOrderClick('descending')}
-                        startContent={sortOrder === 'descending' ? <CheckIcon/> :<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>}
+                        startContent={sortOrder === 'descending' ? <CheckIcon/> :<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>}
                         className={classes.menuItem}
                     >
                         Descending
@@ -111,15 +111,11 @@ const useStyles = makeGlobalChonkyStyles(() => ({
     dropdownMenu: {
         backgroundColor: '#FFFFFF',
         borderRadius: '8px',
-        padding: '8px 0',
     },
     section: {
-        padding: '0',
     },
     'section:not(:first-child)': {
         borderTop: '1px solid rgba(0, 0, 0, 0.08)',
-        marginTop: '8px',
-        paddingTop: '8px',
     },
     menuItem: {
         display: 'flex',
@@ -128,15 +124,16 @@ const useStyles = makeGlobalChonkyStyles(() => ({
         color: '#2c2c2c',
         fontWeight: 400,
         minWidth: '150px',
+        height: '32px',
     },
-    'menuItem [data-start-content]': {
-        width: '24px',
-        color: '#2c2c2c',
-        fontSize: '14px',
-        display: 'flex',
-        justifyContent: 'flex-start',
-        minWidth: '24px',
-    },
+    // 'menuItem [data-start-content]': {
+    //     width: '24px',
+    //     color: '#2c2c2c',
+    //     fontSize: '14px',
+    //     display: 'flex',
+    //     justifyContent: 'flex-start',
+    //     minWidth: '24px',
+    // },
     'menuItem:hover': {
         backgroundColor: 'rgba(0, 0, 0, 0.04)',
     }

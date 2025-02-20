@@ -1,11 +1,15 @@
 import * as React from 'react';
 import SvgIcon from '@mui/material/SvgIcon';
 
-export default function Icon() {
+interface IconProps {
+    className?: string;
+}
+
+export default function Icon({ className }: IconProps) {
     return (
-        <SvgIcon sx={{ width: 'auto', height: 'auto' }}>
+        <SvgIcon className={className} sx={{ width: 'auto', height: 'auto' }}>
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <mask id="mask0_157_4624" style={{ maskType: "alpha", }} maskUnits="userSpaceOnUse" x="0" y="0"
+                <mask id="mask0_157_4624" style={{ maskType: "alpha" }} maskUnits="userSpaceOnUse" x="0" y="0"
                       width="20" height="20">
                     <rect width="20" height="20" fill="#D9D9D9" />
                 </mask>
