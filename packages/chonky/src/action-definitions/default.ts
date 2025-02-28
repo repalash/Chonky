@@ -24,7 +24,6 @@ export const DefaultActions = {
       button: {
         name: 'Open selection',
         toolbar: true,
-        contextMenu: true,
         group: 'Actions',
         icon: ChonkyIconName.openFiles,
       },
@@ -47,7 +46,6 @@ export const DefaultActions = {
     button: {
       name: 'Select all files',
       toolbar: true,
-      contextMenu: true,
       group: 'Actions',
       icon: ChonkyIconName.selectAllFiles,
     },
@@ -70,7 +68,6 @@ export const DefaultActions = {
     button: {
       name: 'Clear selection',
       toolbar: true,
-      contextMenu: true,
       group: 'Actions',
       icon: ChonkyIconName.clearSelection,
     },

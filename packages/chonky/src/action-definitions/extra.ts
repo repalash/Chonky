@@ -26,7 +26,6 @@ export const ExtraActions = {
       name: 'Create folder',
       tooltip: 'Create a folder',
       icon: ChonkyIconName.folderCreate,
-      contextMenu: true,
     },
   } as const),
   /**

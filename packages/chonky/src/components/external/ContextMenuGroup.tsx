@@ -66,7 +66,7 @@ export const ContextMenuGroup: React.FC<ContextMenuGroupProps> = ({ title, child
   );
 };
 
-const useStyles = makeGlobalChonkyStyles(() => ({
+const useStyles = makeGlobalChonkyStyles((theme) => ({
   groupContainer: {
     position: 'relative',
   },
@@ -74,12 +74,13 @@ const useStyles = makeGlobalChonkyStyles(() => ({
     display: 'flex',
     alignItems: 'center',
     width: '100%',
-    padding: '8px 16px',
-    height: '40px',
-    minHeight: '40px',
+    padding: important('8px 16px'),
+    height: important(theme.toolbar.size),
+    minHeight: important('auto'),
+    lineHeight: important(theme.toolbar.lineHeight),
   },
   menuItemText: {
-    fontSize: '14px',
+    fontSize: important(theme.toolbar.fontSize),
     fontWeight: 400,
     color: '#374151',
   },
@@ -87,6 +88,7 @@ const useStyles = makeGlobalChonkyStyles(() => ({
     minWidth: important('24px'),
     marginRight: important('12px'),
     color: '#6B7280',
+    fontSize: important(theme.toolbar.fontSize),
   },
   chevronIcon: {
     marginLeft: 'auto',

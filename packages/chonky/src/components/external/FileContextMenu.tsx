@@ -35,24 +35,38 @@ export const FileContextMenu: React.FC<FileContextMenuProps> = React.memo(() => 
   const contextMenuItems = useSelector(selectContextMenuItems);
 
   const hideContextMenu = useContextMenuDismisser();
+  const classes = useStyles();
   
   // Group items by their nestedGroup property
   const contextMenuItemComponents = useMemo(() => {
     const components: ReactElement[] = [];
     const nestedGroups: Record<string, ReactElement[]> = {};
+    const regularActions: ReactElement[] = [];
+    const deleteActions: ReactElement[] = [];
     
     for (let i = 0; i < contextMenuItems.length; ++i) {
       const item = contextMenuItems[i];
 
       if (typeof item === 'string') {
-        // Regular menu item (not in a group)
-        components.push(
-          <SmartToolbarDropdownButton
-            key={`context-menu-item-${item}`}
-            fileActionId={item}
-            onClickFollowUp={hideContextMenu}
-          />
-        );
+        // Check if this is a delete action
+        if (item.includes('delete')) {
+          deleteActions.push(
+            <SmartToolbarDropdownButton
+              key={`context-menu-item-${item}`}
+              fileActionId={item}
+              onClickFollowUp={hideContextMenu}
+            />
+          );
+        } else {
+          // Regular menu item (not in a group and not delete)
+          regularActions.push(
+            <SmartToolbarDropdownButton
+              key={`context-menu-item-${item}`}
+              fileActionId={item}
+              onClickFollowUp={hideContextMenu}
+            />
+          );
+        }
       } else {
         // This is a group
         const groupName = item.name;
@@ -75,24 +89,44 @@ export const FileContextMenu: React.FC<FileContextMenuProps> = React.memo(() => 
       }
     }
     
-    // Add nested groups to the components array
+    // Add nested groups to the components array first
     Object.entries(nestedGroups).forEach(([groupName, groupItems]) => {
-      components.push(
-        <ContextMenuGroup key={`group-${groupName}`} title={groupName}>
-          {groupItems}
-        </ContextMenuGroup>
-      );
+      // Only add groups that have items
+      if (groupItems.length > 0) {
+        components.push(
+          <ContextMenuGroup key={`group-${groupName}`} title={groupName}>
+            {groupItems}
+          </ContextMenuGroup>
+        );
+      }
     });
     
+    // Add divider after nested groups if any exist and there are regular actions
+    if (Object.keys(nestedGroups).length > 0 && regularActions.length > 0) {
+      components.push(<Divider key="nested-groups-divider" className={classes.divider} />);
+    }
+    
+    // Add regular actions
+    if (regularActions.length > 0) {
+      regularActions.forEach(action => components.push(action));
+    }
+    
+    // Add divider before delete actions if any exist and there are other actions
+    if (deleteActions.length > 0 && (regularActions.length > 0 || Object.keys(nestedGroups).length > 0)) {
+      components.push(<Divider key="delete-divider" className={classes.divider} />);
+    }
+    
+    // Add delete actions
+    deleteActions.forEach(action => components.push(action));
+    
     return components;
-  }, [contextMenuItems, hideContextMenu]);
+  }, [contextMenuItems, hideContextMenu, classes.divider]);
 
   const anchorPosition = useMemo(
     () => (contextMenuConfig ? { top: contextMenuConfig.mouseY, left: contextMenuConfig.mouseX } : undefined),
     [contextMenuConfig],
   );
 
-  const classes = useStyles();
   return (
     <Menu
       elevation={1}
