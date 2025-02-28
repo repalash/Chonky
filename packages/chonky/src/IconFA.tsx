@@ -82,6 +82,9 @@ import ToolbarDownloadIcon from './icons/download';
 import ToolbarDeleteIcon from './icons/delete';
 import ShareIcon from './icons/share';
 import RestoreIcon from './icons/restore';
+import ForwardArrow from './icons/forwardarrow';
+import RenameIcon from './icons/rename';
+import FileInfoIcon from './icons/fileinfo';
 
 // @ts-ignore
 const IconMap: { [iconName in ChonkyIconName]: any } = {
@@ -182,6 +185,12 @@ export const IconFA: React.FC<ChonkyIconProps> = React.memo((props) => {
   }
 
   switch (icon) {
+    case 'fileInfo':
+      return <FileInfoIcon />;
+    case 'rename':
+      return <RenameIcon />;
+    case 'forwardRightArrow':
+      return <ForwardArrow/>
     case 'restore':
       return <RestoreIcon />;
     case 'word':

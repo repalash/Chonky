@@ -25,21 +25,24 @@ export interface ToolbarDropdownButtonProps {
   icon?: Nullable<ChonkyIconName | string>;
   onClick?: () => void;
   disabled?: boolean;
+  className?: string;
 }
 
 export const ToolbarDropdownButton = React.forwardRef(
   (props: ToolbarDropdownButtonProps, ref: React.Ref<HTMLLIElement>) => {
-    const { text, active, icon, onClick, disabled } = props;
+    const { text, active, icon, onClick, disabled, className } = props;
     const classes = useStyles();
     const ChonkyIcon = useContext(ChonkyIconContext);
 
-    const className = c({
+    const menuItemClassName = c({
       [classes.contextMenuItem]: true,
       [classes.baseButton]: true,
       [classes.activeButton]: active,
+      [className || '']: !!className,
     });
+    
     return (
-      <MenuItem ref={ref} className={className} onClick={onClick} disabled={disabled}>
+      <MenuItem ref={ref} className={menuItemClassName} onClick={onClick} disabled={disabled}>
         {icon && (
           <ListItemIcon className={classes.icon}>
             <ChonkyIcon icon={icon} fixedWidth={true} />
@@ -76,11 +79,12 @@ const useStyles = makeGlobalChonkyStyles((theme) => ({
 export interface SmartToolbarDropdownButtonProps {
   fileActionId: string;
   onClickFollowUp?: () => void;
+  className?: string;
 }
 
 export const SmartToolbarDropdownButton = React.forwardRef(
   (props: SmartToolbarDropdownButtonProps, ref: React.Ref<HTMLLIElement>) => {
-    const { fileActionId, onClickFollowUp } = props;
+    const { fileActionId, onClickFollowUp, className } = props;
 
     const action = useParamSelector(selectFileActionData, fileActionId);
     const triggerAction = useFileActionTrigger(fileActionId);
@@ -107,6 +111,7 @@ export const SmartToolbarDropdownButton = React.forwardRef(
         onClick={handleClick}
         active={active}
         disabled={disabled}
+        className={className}
       />
     );
   },

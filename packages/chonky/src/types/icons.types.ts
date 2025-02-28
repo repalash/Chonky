@@ -5,6 +5,7 @@ export enum ChonkyIconName {
   loading = 'loading',
   dropdown = 'dropdown',
   placeholder = 'placeholder',
+  forwardRightArrow = 'forwardRightArrow',
 
   // File Actions: Drag & drop
   dndDragging = 'dndDragging',
@@ -21,6 +22,8 @@ export enum ChonkyIconName {
   selectAllFiles = 'selectAllFiles',
   clearSelection = 'clearSelection',
   star = 'star',
+  rename = 'rename',
+  fileInfo = 'fileInfo',
 
   // File Actions: Sorting & options
   sortAsc = 'sortAsc',

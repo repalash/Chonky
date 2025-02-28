@@ -1,6 +1,6 @@
 import { Nilable } from 'tsdef';
 
-import { ChonkyActions, DefaultFileActions, EssentialFileActions } from '../../action-definitions/index';
+import { ChonkyActions, DefaultFileActions, EssentialFileActions } from '../../action-definitions';
 import { FileActionGroup, FileActionMenuItem } from '../../types/action-menus.types';
 import { FileAction } from '../../types/action.types';
 import { ChonkyIconName } from '../../types/icons.types';
@@ -109,8 +109,9 @@ export const thunkUpdateToolbarNContextMenuItems =
         }
 
         if (button.contextMenu) {
-          if (button.group) {
-            const group = getGroup(contextMenuItems, seenContextMenuGroups, button.group);
+          if (button.nestedGroup) {
+            // Use nestedGroup for context menu nesting
+            const group = getGroup(contextMenuItems, seenContextMenuGroups, button.nestedGroup);
             group.fileActionIds.push(action.id);
           } else {
             contextMenuItems.push(action.id);
