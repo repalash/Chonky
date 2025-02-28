@@ -16,14 +16,41 @@ export const ContextMenuGroup: React.FC<ContextMenuGroupProps> = ({ title, child
   const [open, setOpen] = useState(false);
   const anchorRef = useRef<HTMLLIElement>(null);
   const classes = useStyles();
+  
+  // Add a delay timer ref to prevent immediate opening
+  const timerRef = useRef<number | null>(null);
 
   const handleMouseEnter = () => {
-    setOpen(true);
+    // Clear any existing timer
+    if (timerRef.current !== null) {
+      window.clearTimeout(timerRef.current);
+    }
+    
+    // Set a small delay before opening the submenu
+    timerRef.current = window.setTimeout(() => {
+      setOpen(true);
+    }, 200); // 200ms delay before opening
   };
 
   const handleMouseLeave = () => {
+    // Clear any pending open timer
+    if (timerRef.current !== null) {
+      window.clearTimeout(timerRef.current);
+      timerRef.current = null;
+    }
+    
+    // Close the submenu
     setOpen(false);
   };
+
+  // Clean up timer on unmount
+  React.useEffect(() => {
+    return () => {
+      if (timerRef.current !== null) {
+        window.clearTimeout(timerRef.current);
+      }
+    };
+  }, []);
 
   return (
     <div className={classes.groupContainer} onMouseLeave={handleMouseLeave}>
@@ -52,13 +79,19 @@ export const ContextMenuGroup: React.FC<ContextMenuGroupProps> = ({ title, child
         disableAutoFocusItem
         className={classes.submenu}
         elevation={1}
-        TransitionProps={{ timeout: 150 }}
+        TransitionProps={{ timeout: 100 }}
         slotProps={{ 
           paper: { 
             className: classes.submenuPaper,
-            elevation: 1 
+            elevation: 1,
+            style: { 
+              position: 'absolute',
+              marginLeft: '8px' // Add some spacing between parent and submenu
+            }
           }
         }}
+        style={{ pointerEvents: 'none' }} // This ensures the parent menu doesn't capture events
+        MenuListProps={{ style: { pointerEvents: 'auto' } }} // But the actual menu list should receive events
       >
         {children}
       </Menu>
@@ -97,6 +130,7 @@ const useStyles = makeGlobalChonkyStyles((theme) => ({
   },
   submenu: {
     pointerEvents: 'auto',
+    zIndex: important(1500), // Ensure it's above the parent menu
   },
   submenuPaper: {
     marginTop: '-8px',
