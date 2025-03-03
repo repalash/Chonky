@@ -13,7 +13,7 @@ import { reduxActions } from '../../redux/reducers';
 import { selectClearSelectionOnOutsideClick, selectFileActionIds, selectIsDnDDisabled } from '../../redux/selectors';
 import { ChonkyDispatch } from '../../types/redux.types';
 import { useDndContextAvailable } from '../../util/dnd-fallback';
-import { elementIsInsideButton } from '../../util/helpers';
+import { elementIsInsideButton, findElementAmongAncestors } from '../../util/helpers';
 import { makeGlobalChonkyStyles } from '../../util/styles';
 import { useContextMenuTrigger } from '../external/FileContextMenu-hooks';
 import { DnDFileListDragLayer } from '../file-list/DnDFileListDragLayer';
@@ -63,7 +63,7 @@ export const ChonkyPresentationLayer: React.FC<ChonkyPresentationLayerProps> = (
       return;
     }
 
-    const targetClassNames = ['chonky-fileThumbnail', 'gridFileEntry', 'selectionIndicator', 'chonky-file-entry'];
+    const targetClassNames = ['chonky-fileThumbnail', 'gridFileEntry', 'selectionIndicator', 'chonky-file-entry' , "chonky-"];
     const matchFn = (c: any) => {
       const regex = new RegExp(`${c}`);
       const match = e.target.className.match(regex);
@@ -76,7 +76,16 @@ export const ChonkyPresentationLayer: React.FC<ChonkyPresentationLayerProps> = (
       return;
     }
 
-    dispatch(reduxActions.clearSelection());
+    const triggerWrapper = findElementAmongAncestors(e.target, (elem)=> {
+      if (elem.className?.includes?.('fileEntryClickableWrapper') || elem.tagName === "button") {
+        return true;
+      }
+      return false;
+    });
+
+    if (!triggerWrapper) {
+      dispatch(reduxActions.clearSelection());
+    }
   };
 
   return (
