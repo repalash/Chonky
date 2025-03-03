@@ -92,6 +92,7 @@ export enum ChonkyIconName {
   excel = 'excel',
   word = 'word',
   flash = 'flash',
+  ellipsis = 'ellipsis',
 }
 
 export interface FileIconData {

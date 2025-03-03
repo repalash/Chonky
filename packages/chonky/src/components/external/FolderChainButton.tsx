@@ -19,9 +19,10 @@ export interface FolderChainButtonProps {
   first: boolean;
   current: boolean;
   item: FolderChainItem;
+  truncated?: boolean;
 }
 
-export const FolderChainButton: React.FC<FolderChainButtonProps> = React.memo(({ first, current, item }) => {
+export const FolderChainButton: React.FC<FolderChainButtonProps> = React.memo(({ first, current, item, truncated }) => {
   const { file, disabled, onClick } = item;
   const { dndIsOver, dndCanDrop, drop } = useFileDrop({
     file,
@@ -44,9 +45,13 @@ export const FolderChainButton: React.FC<FolderChainButtonProps> = React.memo(({
     [classes.baseBreadcrumb]: true,
     [classes.disabledBreadcrumb]: disabled,
     [classes.currentBreadcrumb]: current,
+    [classes.truncatedBreadcrumb]: truncated,
   });
+  
   let text = file ? file.name : 'Loading...';
-  if (text === "root") {
+  if (truncated) {
+    text = '...';
+  } else if (text === "root") {
     if (file?.view === 'trash') {
       text = "Deleted Files";
     } else if (file?.searchString) {
@@ -55,7 +60,6 @@ export const FolderChainButton: React.FC<FolderChainButtonProps> = React.memo(({
       text = "My Files";
     }
   }
-
 
   const icon = first && file?.folderChainIcon === undefined ? ChonkyIconName.folder : file?.folderChainIcon;
 
@@ -67,7 +71,7 @@ export const FolderChainButton: React.FC<FolderChainButtonProps> = React.memo(({
         </div>
       )}
       <ToolbarButton 
-        icon={icon} 
+        icon={truncated ? ChonkyIconName.ellipsis : icon} 
         className={className} 
         text={text} 
         disabled={disabled} 
@@ -98,6 +102,9 @@ const useStyles = makeLocalChonkyStyles((theme) => ({
   },
   currentBreadcrumb: {
     fontWeight: '600',
+  },
+  truncatedBreadcrumb: {
+    minWidth: '40px',
   },
   dndIndicator: {
     color: (dndState: DndEntryState) => (dndState.dndCanDrop ? theme.dnd.canDropColor : theme.dnd.cannotDropColor),
