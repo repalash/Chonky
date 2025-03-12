@@ -3,7 +3,7 @@ import React, { useContext, useMemo } from 'react';
 import { DndEntryState, FileEntryProps } from '../../types/file-list.types';
 import { useLocalizedFileEntryStrings } from '../../util/i18n';
 import { ChonkyIconContext } from '../../util/icon-helper';
-import { c, makeLocalChonkyStyles } from '../../util/styles';
+import { c, makeLocalChonkyStyles, useIsMobileBreakpoint } from '../../util/styles';
 import { TextPlaceholder } from '../external/TextPlaceholder';
 import { useDndIcon, useFileEntryHtmlProps, useFileEntryState } from './FileEntry-hooks';
 import { FileEntryName } from './FileEntryName';
@@ -40,6 +40,7 @@ export const ListEntry: React.FC<FileEntryProps> = React.memo(({ file, selected,
   const { listCols } = useContext(PropsContext);
 
   const fileModDate = typeof file?.modDate === 'string' ? format(new Date(file.modDate), 'MMM dd, yyyy HH:mm') : '-';
+  const isMobileBreakpoint = useIsMobileBreakpoint();
 
   return (
     <div className={classes.listFileEntry} {...fileEntryHtmlProps}>
@@ -64,12 +65,12 @@ export const ListEntry: React.FC<FileEntryProps> = React.memo(({ file, selected,
       <div className={classes.listFileEntryName} title={file ? file.name : undefined}>
         <FileEntryName file={file} />
       </div>
-      <div className={classes.listFileEntryProperty}>
+      {!isMobileBreakpoint && <><div className={classes.listFileEntryProperty}>
         {file ? fileModDate ?? <span>—</span> : <TextPlaceholder minLength={5} maxLength={15} />}
       </div>
       <div className={classes.listFileEntryProperty}>
         {file ? fileSizeString ?? <span>—</span> : <TextPlaceholder minLength={10} maxLength={20} />}
-      </div>
+      </div></>}
       {
         listCols?.map((entry, index) => (
           <div key={index} className={classes.listFileEntryProperty}>
@@ -77,7 +78,23 @@ export const ListEntry: React.FC<FileEntryProps> = React.memo(({ file, selected,
           </div>
         ))
       }
-      {selected && (
+      {selected && !isMobileBreakpoint && (
+        <Button 
+          className={classes.actionButton} 
+          startContent={<FileListDropdownIcon />} 
+          variant="light"
+          onClick={(e) => {
+            const rect = e.currentTarget.getBoundingClientRect();
+            const event = new MouseEvent('contextmenu', {
+              bubbles: true,
+              clientX: rect.left,
+              clientY: rect.top,
+            });
+            e.currentTarget.dispatchEvent(event);
+          }}
+        />
+      )}
+      {isMobileBreakpoint && (
         <Button 
           className={classes.actionButton} 
           startContent={<FileListDropdownIcon />} 
@@ -121,7 +138,8 @@ const useStyles = makeLocalChonkyStyles((theme) => ({
       backgroundColor: '#F6F6F6',
       borderRadius: '6px',
     },
-    zIndex: 1
+    zIndex: 1,
+    border: 1
   },
   listFileEntrySelection: {
     opacity: 0.6,

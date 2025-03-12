@@ -62,7 +62,7 @@ export const SmartFileEntry: React.FC<SmartFileEntryProps> = React.memo(({ fileI
   else EntryComponent = GridEntry;
 
   return dndDisabled ? (
-    <ClickableWrapper {...clickableWrapperProps}>
+    <ClickableWrapper {...clickableWrapperProps}> 
       {fileViewMode === FileViewMode.Grid && (
         <>
           {selected && (

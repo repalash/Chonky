@@ -40,13 +40,13 @@ export const getGridConfig = (
   viewConfig: FileViewConfigGrid,
   isMobileBreakpoint: boolean,
 ): GridConfig => {
-  const gutter = isMobileBreakpoint ? 5 : 8;
+  const gutter = isMobileBreakpoint ? 2 : 8;
   const scrollbar = isMobileDevice() ? 0 : 18;
 
   let columnCount: number;
   let columnWidth: number;
   if (isMobileBreakpoint) {
-    columnCount = 2;
+    columnCount = 3;
     columnWidth = (width - gutter - scrollbar) / columnCount;
   } else {
     columnWidth = viewConfig.entryWidth;
@@ -132,6 +132,7 @@ export const GridContainer: React.FC<FileListGridProps> = React.memo((props) => 
         paddingRight: data.columnIndex === gc.current.columnCount - 1 ? 0 : gc.current.gutter,
         paddingBottom: data.rowIndex === gc.current.rowCount - 1 ? 0 : gc.current.gutter,
         boxSizing: 'border-box',
+        height: isMobileBreakpoint ? '150px' : 'auto',
       };
 
       return (
@@ -148,7 +149,7 @@ export const GridContainer: React.FC<FileListGridProps> = React.memo((props) => 
     return (
       <VariableSizeGrid
         ref={gridRef as any}
-        className={classes.gridContainer}
+        className={isMobileBreakpoint ? "" : classes.gridContainer}
         estimatedRowHeight={gridConfig.rowHeight + gridConfig.gutter}
         rowHeight={sizers.getRowHeight}
         estimatedColumnWidth={gridConfig.columnWidth + gridConfig.gutter}

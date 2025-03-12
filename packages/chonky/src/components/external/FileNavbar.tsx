@@ -7,12 +7,13 @@
 import Box from '@mui/material/Box';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import React, { ReactElement, useMemo, useState, useEffect, useRef } from 'react';
-import { important, makeGlobalChonkyStyles } from '../../util/styles';
+import { important, makeGlobalChonkyStyles, useIsMobileBreakpoint } from '../../util/styles';
 import { useFolderChainItems } from './FileNavbar-hooks';
 import { FolderChainButton } from './FolderChainButton';
 import BreadCrumbsSeperator from '../../icons/seperator';
 import { SortDropdown } from '../ijewel/SortDropdown';
 import ViewDropdown from '../ijewel/ViewDropdown';
+import { useSlots } from '../../hooks/useSlots';
 
 export interface FileNavbarProps { }
 
@@ -21,14 +22,16 @@ export const FileNavbar: React.FC<FileNavbarProps> = React.memo(() => {
   const folderChainItems = useFolderChainItems();
   const containerRef = useRef<HTMLDivElement>(null);
   const [shouldTruncate, setShouldTruncate] = useState(false);
-  
+  const isMobileBreakpoint = useIsMobileBreakpoint();
+  const { EmptyComponent } = useSlots();
+
   useEffect(() => {
     setShouldTruncate(folderChainItems.length > 3);
   }, [folderChainItems.length]);
 
   const folderChainComponents = useMemo(() => {
     const components: ReactElement[] = [];
-    
+
     if (!shouldTruncate || folderChainItems.length <= 3) {
       for (let i = 0; i < folderChainItems.length; ++i) {
         const key = `folder-chain-${i}`;
@@ -51,7 +54,7 @@ export const FileNavbar: React.FC<FileNavbarProps> = React.memo(() => {
           item={folderChainItems[0]}
         />
       );
-      
+
       const truncatedItem = {
         file: null,
         disabled: false,
@@ -62,7 +65,7 @@ export const FileNavbar: React.FC<FileNavbarProps> = React.memo(() => {
           setTimeout(() => setShouldTruncate(folderChainItems.length > 3), 5000);
         },
       };
-      
+
       components.push(
         <FolderChainButton
           key="folder-chain-truncated"
@@ -82,20 +85,20 @@ export const FileNavbar: React.FC<FileNavbarProps> = React.memo(() => {
         />
       );
     }
-    
+
     return components;
   }, [folderChainItems, shouldTruncate]);
 
   return (
     <Box className={classes.navbarWrapper}>
       <Box className={classes.navbarContainer} ref={containerRef}>
-        <Breadcrumbs className={classes.navbarBreadcrumbs} separator={<BreadCrumbsSeperator/>}>
+        <Breadcrumbs className={classes.navbarBreadcrumbs} separator={<BreadCrumbsSeperator />}>
           {folderChainComponents}
         </Breadcrumbs>
       </Box>
       <Box className={classes.controlsContainer}>
-        <SortDropdown/>
-        <ViewDropdown/>
+        {isMobileBreakpoint ? <>{EmptyComponent && <EmptyComponent />}</> : <><SortDropdown />
+          <ViewDropdown /></>}
       </Box>
     </Box>
   );
@@ -106,7 +109,7 @@ const useStyles = makeGlobalChonkyStyles((theme) => ({
     justifyContent: 'space-between',
     display: 'flex',
     alignItems: 'center',
-    paddingTop: '5px',
+    paddingTop: '10px',
     paddingBottom: '15px',
   },
   navbarContainer: {

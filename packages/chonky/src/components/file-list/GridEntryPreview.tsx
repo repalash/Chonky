@@ -10,7 +10,7 @@ import { Nullable } from 'tsdef';
 import { DndEntryState } from '../../types/file-list.types';
 import { ChonkyIconName } from '../../types/icons.types';
 import { ChonkyIconContext } from '../../util/icon-helper';
-import { c, important, makeLocalChonkyStyles } from '../../util/styles';
+import { c, important, makeLocalChonkyStyles, useIsMobileBreakpoint } from '../../util/styles';
 import { FileThumbnail } from './FileThumbnail';
 import { GridEntryDndIndicator } from './GridEntryDndIndicator';
 import GridFolderIcon from '../../icons/gridfoldericon'
@@ -79,7 +79,7 @@ const useFolderStyles = makeLocalChonkyStyles((theme) => ({
 
 export const GridEntryPreviewFile: React.FC<FileEntryPreviewProps> = React.memo((props) => {
   const { className: externalClassName, entryState, dndState } = props;
-
+  const isMobileBreakpoint = useIsMobileBreakpoint();
   const fileClasses = useFileStyles(entryState);
   const commonClasses = useCommonEntryStyles(entryState);
   const ChonkyIcon = useContext(ChonkyIconContext);
@@ -102,10 +102,10 @@ GridEntryPreviewFile.displayName = 'GridEntryPreviewFile';
 
 const useFileStyles = makeLocalChonkyStyles((theme) => ({
   previewFile: {
-    boxShadow: () => {
-      return `inset ${theme.gridFileEntry.fileColorTint} 0 0 0 999px`;
-    },
-    backgroundColor: (state: FileEntryState) => state.color,
+    // boxShadow: () => {
+    //   return `inset ${theme.gridFileEntry.fileColorTint} 0 0 0 999px`;
+    // },
+    // backgroundColor: (state: FileEntryState) => state.color,
     borderRadius: theme.gridFileEntry.borderRadius,
     position: 'relative',
     overflow: 'hidden',

@@ -11,7 +11,7 @@ import { FixedSizeList } from 'react-window';
 import { selectFileViewConfig, selectors } from '../../redux/selectors';
 import { FileViewMode } from '../../types/file-view.types';
 import { useInstanceVariable } from '../../util/hooks-helpers';
-import { makeLocalChonkyStyles } from '../../util/styles';
+import { makeLocalChonkyStyles, useIsMobileBreakpoint } from '../../util/styles';
 import { SmartFileEntry } from './FileEntry';
 import { PropsContext } from '../PropsProvider';
 
@@ -22,6 +22,7 @@ export interface FileListListProps {
 
 export const ListContainer: React.FC<FileListListProps> = React.memo((props) => {
   const { width, height } = props;
+  const isMobileBreakpoint = useIsMobileBreakpoint();
 
   const { listCols } = useContext(PropsContext);
 
@@ -75,7 +76,7 @@ export const ListContainer: React.FC<FileListListProps> = React.memo((props) => 
     };
       return (
           <>
-              <FixedSizeList
+              {!isMobileBreakpoint && <FixedSizeList
                   ref={listRef as any}
                   itemSize={viewConfig.entryHeight}
                   height={35}
@@ -83,7 +84,7 @@ export const ListContainer: React.FC<FileListListProps> = React.memo((props) => 
                   width={width}
               >
                 {headerRenderer}
-              </FixedSizeList>
+              </FixedSizeList>}
               <FixedSizeList
                   ref={listRef as any}
                   className={classes.listContainer}
