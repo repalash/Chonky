@@ -62,7 +62,7 @@ export const ExtraActions = {
     requiresSelection: true,
     hotkeys: ['delete'],
     button: {
-      name: 'Delete files',
+      name: 'Delete',
       toolbar: true,
       contextMenu: true,
       icon: ChonkyIconName.trash,

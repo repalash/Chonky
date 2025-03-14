@@ -49,11 +49,11 @@ export const FileToolbar: React.FC<FileToolbarProps & { children?: ReactNode; }>
           <div className={classes.toolbarLeft}>
             {!hideToolbarInfo && !isMobileBreakpoint && <ToolbarInfo />}
             {children}
-            <Button className={classes.refreshButton} startContent={<RefreshIcon />} />
+            {/* <Button className={classes.refreshButton} startContent={<RefreshIcon />} /> */}
           </div>
           {hasSelection && (
             <>
-              <div className={classes.separator} />
+              {/* <div className={classes.separator} /> */}
               <div className={classes.toolbarRight}>{toolbarItemComponents}</div>
             </>
           )}
