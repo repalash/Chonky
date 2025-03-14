@@ -1,10 +1,17 @@
 import React, { useState, useRef } from 'react';
-import MenuItem from '@mui/material/MenuItem';
-import Menu from '@mui/material/Menu';
-import ListItemText from '@mui/material/ListItemText';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import {MenuItem} from '@mui/material';
+import {Menu} from '@mui/material';
+import {ListItemText} from '@mui/material';
+import {ListItemIcon} from '@mui/material';
 import { makeGlobalChonkyStyles, important } from '../../util/styles';
+
+import { SVGProps } from "react"
+const ChevronRightIcon = (props: SVGProps<SVGSVGElement>) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} {...props}>
+    <path fill="none" d="M0 0h24v24H0z" />
+    <path fill='currentColor' d="M10 6 8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+  </svg>
+)
 
 interface ContextMenuGroupProps {
   title: string;
