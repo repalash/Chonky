@@ -111,7 +111,11 @@ const useStyles = makeGlobalChonkyStyles(() => ({
     alignItems: 'center',
     width: '100%',
     height: '48px',
-    backgroundColor: '#FFFFFF'
+    backgroundColor: '#FFFFFF',
+    padding: '0 16px',
+    overflow: 'hidden',
+    //wrap
+    flexWrap: 'wrap',
   },
   toolbarTop2: {
     display: 'flex',
