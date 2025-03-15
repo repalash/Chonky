@@ -123,7 +123,8 @@ const useStyles = makeGlobalChonkyStyles(() => ({
     alignItems: 'center',
     width: '100%',
     height: '48px',
-    backgroundColor: '#FFFFFF'
+    backgroundColor: '#FFFFFF',
+    paddingLeft: '16px',
   },
   separator: {
     width: '1px',

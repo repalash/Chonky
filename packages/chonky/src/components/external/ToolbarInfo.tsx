@@ -92,11 +92,11 @@ const useStyles = makeGlobalChonkyStyles((theme) => ({
   infoText: {
     lineHeight: important(theme.toolbar.lineHeight),
     fontSize: important(theme.toolbar.fontSize),
-    marginLeft: important(12),
+    // marginLeft: important(12),
   },
   extraInfoSpan: {
     marginRight: important(8),
-    marginLeft: important(10),
+    // marginLeft: important(10),
     opacity: 0.8,
     fontWeight: 600,
     alignItems: 'center',

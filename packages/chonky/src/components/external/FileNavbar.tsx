@@ -111,6 +111,7 @@ const useStyles = makeGlobalChonkyStyles((theme) => ({
     alignItems: 'center',
     paddingTop: '10px',
     paddingBottom: '15px',
+    paddingRight: '16px',
   },
   navbarContainer: {
     display: 'flex',
