@@ -60,7 +60,7 @@ const useFolderStyles = makeLocalChonkyStyles((theme) => ({
     borderRadius: theme.gridFileEntry.borderRadius,
     position: 'relative',
     overflow: 'hidden',
-    margin: '20px 30px 20px 30px',
+    padding: '20px 28px 10px 28px',
   },
   folderContainer: {
     position: 'relative',

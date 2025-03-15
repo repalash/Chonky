@@ -22,7 +22,7 @@ export const GridEntry: React.FC<FileEntryProps> = React.memo(({ file, selected,
   return (
     <div className={entryClassName} {...fileEntryHtmlProps}>
       {isDirectory ? (
-        <GridEntryPreviewFolder className={classes.gridFileEntryPreview} entryState={entryState} dndState={dndState} />
+        <GridEntryPreviewFolder className={classes.gridFolderEntryPreview} entryState={entryState} dndState={dndState} />
       ) : (
         <GridEntryPreviewFile className={classes.gridFileEntryPreview} entryState={entryState} dndState={dndState} />
       )}
@@ -52,18 +52,26 @@ GridEntry.displayName = 'GridEntry';
 
 const useFileEntryStyles = makeLocalChonkyStyles((theme) => ({
   gridFileEntry: {
-    flexDirection: 'column',
-    display: 'flex',
-    height: '100%',
+    // flexDirection: 'column',
+    // display: 'flex',
+    // height: '100%',
+    // gap: '10px',
+  },
+  gridFolderEntryPreview: {
+    flexGrow: 1,
+    margin: "auto",
   },
   gridFileEntryPreview: {
     flexGrow: 1,
+    height: "52px",
+    width: "52px",
+    margin: "auto",
   },
   gridFileEntryNameContainer: {
     fontSize: theme.gridFileEntry.fontSize,
     wordBreak: 'break-word',
     textAlign: 'center',
-    paddingTop: 5,
+    // paddingTop: 5,
     flexDirection: 'column',
     display: 'flex',
     gap: 5,
