@@ -47,6 +47,11 @@ export enum ChonkyIconName {
   trash = 'trash',
   fallbackIcon = 'fallbackIcon',
   restore = 'restore',
+  preview = 'preview',
+  edit = 'edit',
+  update = 'update',
+  duplicate = 'duplicate',
+  clear_3d = 'clear_3d',
 
   // File modifiers
   symlink = 'symlink',

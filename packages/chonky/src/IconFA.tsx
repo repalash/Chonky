@@ -68,6 +68,11 @@ import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { ChonkyIconName, ChonkyIconProps } from './types/icons.types';
+import { faEye } from '@fortawesome/free-solid-svg-icons';
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faRefresh } from '@fortawesome/free-solid-svg-icons';
+import { faClone } from '@fortawesome/free-solid-svg-icons';
+import { faRemove } from '@fortawesome/free-solid-svg-icons';
 
 // SVG Icons
 import PdfIcon from './icons/pdf';
@@ -106,6 +111,11 @@ const IconMap: { [iconName in ChonkyIconName]: any } = {
   [ChonkyIconName.star]: faStar,
   [ChonkyIconName.selectAllFiles]: faObjectGroup,
   [ChonkyIconName.clearSelection]: faEraser,
+  [ChonkyIconName.preview]: faEye,
+  [ChonkyIconName.edit]: faEdit,
+  [ChonkyIconName.update]: faRefresh,
+  [ChonkyIconName.duplicate]: faClone,
+  [ChonkyIconName.clear_3d]: faRemove,
 
   // File Actions: Sorting & options
   [ChonkyIconName.sortAsc]: faSortAmountDownAlt,

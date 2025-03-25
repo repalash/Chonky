@@ -6,7 +6,7 @@ export default function Icon() {
         <SvgIcon sx={{ width: 'auto', height: 'auto' }}>
             <svg width="123" height="122" viewBox="0 0 123 122" fill="none" xmlns="http://www.w3.org/2000/svg"
                  >
-                <rect width="123" height="122" fill="url(#pattern0_157_4833)" fill-opacity="0.6"/>
+                <rect width="123" height="122" fill="url(#pattern0_157_4833)" fillOpacity="0.6"/>
                 <defs>
                     <pattern id="pattern0_157_4833" patternContentUnits="objectBoundingBox" width="1" height="1">
                         <use href="#image0_157_4833" transform="matrix(0.00130378 0 0 0.00131447 0 -0.00344113)"/>

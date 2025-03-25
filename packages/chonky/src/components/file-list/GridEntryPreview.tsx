@@ -124,6 +124,8 @@ const useFileStyles = makeLocalChonkyStyles((theme) => ({
     zIndex: 12,
     top: '50%',
     pointerEvents: 'none',
+    height: "52px",
+    width: "52px",
   },
   thumbnail: {
     borderRadius: theme.gridFileEntry.borderRadius,
