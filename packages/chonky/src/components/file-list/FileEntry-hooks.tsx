@@ -120,7 +120,7 @@ export const useFileNameComponent = (file: Nullable<FileData>) => {
 
 export const useThumbnailUrl = (file: Nullable<FileData>) => {
   const thumbnailGenerator = useSelector(selectThumbnailGenerator);
-  const [thumbnailUrl, setThumbnailUrl] = useState<Nullable<string>>(null);
+  const [thumbnailUrl, setThumbnailUrl] = useState<Nullable<string>>(file?.thumbnailUrl ?? null);
   const [thumbnailLoading, setThumbnailLoading] = useState<boolean>(false);
   const loadingAttempts = useRef(0);
 
