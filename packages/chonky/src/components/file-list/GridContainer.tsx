@@ -19,6 +19,7 @@ import { SmartFileEntry } from './FileEntry';
 export interface FileListGridProps {
   width: number;
   height: number;
+  scrollRef?: React.Ref<VariableSizeGrid>;
 }
 
 interface GridConfig {
@@ -72,6 +73,12 @@ export const GridContainer: React.FC<FileListGridProps> = React.memo((props) => 
   const fileCount = useMemo(() => displayFileIds.length, [displayFileIds]);
 
   const gridRef = useRef<VariableSizeGrid>();
+
+  useEffect(() => {
+    if (props.scrollRef) {
+      (props.scrollRef as any).current = gridRef.current;
+    }
+  }, [props.scrollRef, gridRef]);
   const isMobileBreakpoint = useIsMobileBreakpoint();
 
   // Whenever the grid config changes at runtime, we call a method on the

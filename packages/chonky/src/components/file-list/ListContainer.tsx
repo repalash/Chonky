@@ -4,7 +4,7 @@
  * @license MIT
  */
 
-import React, { CSSProperties, useCallback, useContext, useMemo, useRef } from 'react';
+import React, { CSSProperties, useCallback, useContext, useEffect, useMemo, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { FixedSizeList } from 'react-window';
 
@@ -18,10 +18,11 @@ import { PropsContext } from '../PropsProvider';
 export interface FileListListProps {
   width: number;
   height: number;
+  scrollRef?: React.Ref<FixedSizeList>;
 }
 
 export const ListContainer: React.FC<FileListListProps> = React.memo((props) => {
-  const { width, height } = props;
+  const { width, height, scrollRef } = props;
   const isMobileBreakpoint = useIsMobileBreakpoint();
 
   const { listCols } = useContext(PropsContext);
@@ -29,6 +30,11 @@ export const ListContainer: React.FC<FileListListProps> = React.memo((props) => 
   const viewConfig = useSelector(selectFileViewConfig);
 
   const listRef = useRef<FixedSizeList>();
+  useEffect(() => {
+    if(scrollRef){
+      (scrollRef as any).current = listRef.current;
+    }
+  }, [scrollRef, listRef]);
 
   const displayFileIds = useSelector(selectors.getDisplayFileIds);
   const displayFileIdsRef = useInstanceVariable(displayFileIds);
