@@ -48,7 +48,7 @@ export const ListContainer: React.FC<FileListListProps> = React.memo((props) => 
     // When entry size is null, we use List view
     const rowRenderer = (data: { index: number; style: CSSProperties; }) => {
       return (
-        <div style={data.style}>
+        <div style={{...data.style, borderBottom:"1px solid #E7E9E9"}}>
           <SmartFileEntry
             fileId={displayFileIds[data.index] ?? null}
             displayIndex={data.index}
@@ -84,7 +84,7 @@ export const ListContainer: React.FC<FileListListProps> = React.memo((props) => 
           <>
               {!isMobileBreakpoint && <FixedSizeList
                   ref={listRef as any}
-                  itemSize={viewConfig.entryHeight}
+                  itemSize={viewConfig.entryHeight-21}
                   height={35}
                   itemCount={1}
                   width={width}
@@ -111,6 +111,6 @@ export const ListContainer: React.FC<FileListListProps> = React.memo((props) => 
 
 const useStyles = makeLocalChonkyStyles(() => ({
   listContainer: {
-    // borderTop: `solid 1px ${theme.palette.divider}`,
+    // borderBottom: 'solid 1px #E7E9E9',
   },
 }));

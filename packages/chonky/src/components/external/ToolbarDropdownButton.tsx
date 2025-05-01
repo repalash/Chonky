@@ -45,10 +45,10 @@ export const ToolbarDropdownButton = React.forwardRef(
       <MenuItem ref={ref} className={menuItemClassName} onClick={onClick} disabled={disabled}>
         {icon && (
           <ListItemIcon className={classes.icon}>
-            <ChonkyIcon icon={icon} fixedWidth={true} />
+            <ChonkyIcon icon={icon} fixedWidth={true} className={classes.iconSVG}/>
           </ListItemIcon>
         )}
-        <ListItemText primaryTypographyProps={{ className: classes.text }}>{text}</ListItemText>
+        <ListItemText className={classes.textContainer} primaryTypographyProps={{ className: classes.text }}>{text}</ListItemText>
       </MenuItem>
     );
   },
@@ -67,6 +67,15 @@ const useStyles = makeGlobalChonkyStyles((theme) => ({
     minWidth: important('auto'),
     color: important('inherit'),
     marginRight: 8,
+    marginTop: 'auto',
+    marginBottom: 'auto'
+  },
+  iconSVG: {
+    margin: important('auto')
+  },
+  textContainer: {
+    marginTop: important('auto'),
+    marginBottom: important('auto')
   },
   text: {
     fontSize: important(theme.toolbar.fontSize),
