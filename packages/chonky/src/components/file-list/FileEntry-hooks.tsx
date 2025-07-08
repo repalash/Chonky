@@ -90,7 +90,7 @@ const _extname = (fileName: string) => {
   return '';
 };
 
-export const useFileNameComponent = (file: Nullable<FileData>) => {
+export const useFileNameComponent = (file: Nullable<FileData>, list: boolean) => {
   return useMemo(() => {
     if (!file) return <TextPlaceholder minLength={15} maxLength={20} />;
 
@@ -105,13 +105,24 @@ export const useFileNameComponent = (file: Nullable<FileData>) => {
       name = file.name.substring(0, file.name.length - extension.length);
     }
 
-    if (name.length > 16) {
-      name = name.slice(0, 16) + '..';
+    if (name.length > 13 && !list) {
+      const words = name.split(' ');
+      if (words.length >= 2) {
+      const firstWord = words[0];
+      const lastWord = words[words.length - 1];
+      name = `${firstWord}..${lastWord}`;
+      if (name.length > 14) {
+        const maxFirst = 14 - lastWord.length - 2;
+        name = `${firstWord.slice(0, maxFirst)}..${lastWord}`;
+      }
+      } else {
+      name = name.slice(0, 12) + '..';
+      }
     }
 
     return (
       <>
-        {name}
+        <span>{name}</span>
         {extension && <span className="chonky-file-entry-description-title-extension">{extension}</span>}
       </>
     );
