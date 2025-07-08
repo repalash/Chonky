@@ -29,10 +29,11 @@ export interface FileEntryPreviewProps {
   className?: string;
   entryState: FileEntryState;
   dndState: DndEntryState;
+  largeGrid: boolean;
 }
 
 export const GridEntryPreviewFolder: React.FC<FileEntryPreviewProps> = React.memo((props) => {
-  const { className: externalClassName, entryState, dndState } = props;
+  const { className: externalClassName, largeGrid = false, entryState, dndState } = props;
 
   const folderClasses = useFolderStyles(entryState);
   const fileClasses = useFileStyles(entryState);
@@ -45,10 +46,10 @@ export const GridEntryPreviewFolder: React.FC<FileEntryPreviewProps> = React.mem
     <div className={className}>
       <div className={folderClasses.folderContainer}>
         <GridFolderIcon />
-        <GridEntryDndIndicator className={fileClasses.dndIndicator} dndState={dndState} />
-        <div className={c([fileClasses.fileIcon, folderClasses.fileIcon])}>{entryState.childrenCount}</div>
-        <div className={commonClasses.selectionIndicator}></div>
-        <FileThumbnail className={fileClasses.thumbnail} thumbnailUrl={entryState.thumbnailUrl} />
+        {/* <GridEntryDndIndicator className={fileClasses.dndIndicator} dndState={dndState} /> */}
+        {/* <div className={c([fileClasses.fileIcon, folderClasses.fileIcon])}>{entryState.childrenCount}</div> */}
+        {/* <div className={commonClasses.selectionIndicator}></div> */}
+        {/* <FileThumbnail className={fileClasses.thumbnail} thumbnailUrl={entryState.thumbnailUrl} /> */}
       </div>
     </div>
   );
@@ -57,7 +58,7 @@ GridEntryPreviewFolder.displayName = 'GridEntryPreviewFolder';
 
 const useFolderStyles = makeLocalChonkyStyles((theme) => ({
   previewFile: {
-    borderRadius: theme.gridFileEntry.borderRadius,
+    borderRadius: '10px',
     position: 'relative',
     overflow: 'hidden',
     padding: '20px 28px 10px 28px',
@@ -106,7 +107,7 @@ const useFileStyles = makeLocalChonkyStyles((theme) => ({
     //   return `inset ${theme.gridFileEntry.fileColorTint} 0 0 0 999px`;
     // },
     // backgroundColor: (state: FileEntryState) => state.color,
-    borderRadius: theme.gridFileEntry.borderRadius,
+    borderRadius: '10px',
     position: 'relative',
     overflow: 'hidden',
   },

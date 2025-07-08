@@ -9,7 +9,7 @@ import { FileEntryState, GridEntryPreviewFile, GridEntryPreviewFolder } from './
 import { Button } from '@heroui/button';
 import FileListDropdownIcon from '../../icons/filelistdropdown'
 
-export const GridEntry: React.FC<FileEntryProps> = React.memo(({ file, selected, focused, dndState }) => {
+export const LargeGridEntry: React.FC<FileEntryProps> = React.memo(({ file, selected, focused, dndState }) => {
   const isDirectory = FileHelper.isDirectory(file);
   const entryState = useFileEntryState(file, selected, focused);
   const isMobileBreakpoint = useIsMobileBreakpoint();
@@ -22,9 +22,9 @@ export const GridEntry: React.FC<FileEntryProps> = React.memo(({ file, selected,
   return (
     <div className={entryClassName} {...fileEntryHtmlProps}>
       {isDirectory ? (
-        <GridEntryPreviewFolder className={classes.gridFolderEntryPreview} entryState={entryState} dndState={dndState} />
+        <GridEntryPreviewFolder className={classes.gridFolderEntryPreview} largeGrid={true} entryState={entryState} dndState={dndState} />
       ) : (
-        <GridEntryPreviewFile className={classes.gridFileEntryPreview} entryState={entryState} dndState={dndState} />
+        <GridEntryPreviewFile className={classes.gridFileEntryPreview} largeGrid={true} entryState={entryState} dndState={dndState} />
       )}
       <div className={classes.gridFileEntryNameContainer}>
         <FileEntryName className={classes.gridFileEntryName} file={file} list={false}/>
@@ -48,29 +48,33 @@ export const GridEntry: React.FC<FileEntryProps> = React.memo(({ file, selected,
     </div>
   );
 });
-GridEntry.displayName = 'GridEntry';
+LargeGridEntry.displayName = 'LargeGridEntry';
 
 const useFileEntryStyles = makeLocalChonkyStyles((theme) => ({
   gridFileEntry: {
     // flexDirection: 'column',
     // display: 'flex',
-    // height: '100%',
+    height: '100%',
     // gap: '10px',
   },
   gridFolderEntryPreview: {
+    height:"88%",
+    border:"1px solid #E8E8E8",
     flexGrow: 1,
     margin: "auto",
   },
   gridFileEntryPreview: {
     flexGrow: 1,
-    height: "52px",
-    width: "52px",
+    height: "88%",
+    border:"1px solid #E8E8E8",
+    width: "100%",
     margin: "auto",
   },
   gridFileEntryNameContainer: {
     fontSize: theme.gridFileEntry.fontSize,
     wordBreak: 'break-word',
     textAlign: 'center',
+    height: "12%",
     // paddingTop: 5,
     flexDirection: 'column',
     display: 'flex',

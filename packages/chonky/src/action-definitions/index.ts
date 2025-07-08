@@ -30,6 +30,7 @@ export const DefaultFileActions = [
   // TODO: Don't enable until compact view is fully supported
   // ChonkyActions.EnableCompactView,
   ChonkyActions.EnableGridView,
+  ChonkyActions.EnableLargeGridView,
   ChonkyActions.SortFilesByName,
   ChonkyActions.SortFilesBySize,
   ChonkyActions.SortFilesByDate,

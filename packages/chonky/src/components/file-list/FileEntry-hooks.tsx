@@ -90,7 +90,7 @@ const _extname = (fileName: string) => {
   return '';
 };
 
-export const useFileNameComponent = (file: Nullable<FileData>) => {
+export const useFileNameComponent = (file: Nullable<FileData>, list: boolean) => {
   return useMemo(() => {
     if (!file) return <TextPlaceholder minLength={15} maxLength={20} />;
 
@@ -106,12 +106,12 @@ export const useFileNameComponent = (file: Nullable<FileData>) => {
     }
 
     if (name.length > 16) {
-      name = name.slice(0, 16) + '..';
+      list ? name = name : name = name.slice(0, 16) + '..';
     }
 
     return (
       <>
-        {name}
+        <span style={{maxWidth:""}}>{name}</span>
         {extension && <span className="chonky-file-entry-description-title-extension">{extension}</span>}
       </>
     );

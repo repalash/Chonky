@@ -63,7 +63,7 @@ export const ListEntry: React.FC<FileEntryProps> = React.memo(({ file, selected,
         </div>
       </div>
       <div className={classes.listFileEntryName} title={file ? file.name : undefined}>
-        <FileEntryName file={file} />
+        <FileEntryName file={file} list={true}/>
       </div>
       {!isMobileBreakpoint && <><div className={classes.listFileEntryProperty}>
         {file ? fileModDate ?? <span>—</span> : <TextPlaceholder minLength={5} maxLength={15} />}

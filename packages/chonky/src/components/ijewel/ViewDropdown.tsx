@@ -3,6 +3,7 @@ import { Dropdown, DropdownTrigger, DropdownMenu, DropdownSection, DropdownItem 
 import { Button } from "@heroui/button";
 import ListViewIcon from '../../icons/listview';
 import LargeListViewIcon from '../../icons/largelistview';
+import LargeGridViewIcon from '../../icons/largeGridview';
 import GridViewIcon from '../../icons/gridview';
 import DropdownIcon from '../../icons/dropdown';
 import { makeGlobalChonkyStyles } from '../../util/styles';
@@ -17,8 +18,10 @@ export const ViewDropdown: React.FC<ViewDropdownProps> = React.memo(() => {
 
     const triggerListView = useFileActionTrigger(ChonkyActions.EnableListView.id)
     const triggerGridView = useFileActionTrigger(ChonkyActions.EnableGridView.id)
+    const triggerLargeGridView = useFileActionTrigger(ChonkyActions.EnableLargeGridView.id)
 
     const views = [
+        { id: 'grid', label: 'Grid', icon: LargeGridViewIcon, action: triggerLargeGridView },
         { id: 'list', label: 'List', icon: ListViewIcon, action: triggerListView },
         // { id: 'large-list', label: 'Large list', icon: LargeListViewIcon, action: triggerListView }, //#TODO: Large list implementation
         { id: 'titles', label: 'Titles', icon: GridViewIcon, action: triggerGridView },
