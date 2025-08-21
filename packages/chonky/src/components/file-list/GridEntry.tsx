@@ -28,7 +28,7 @@ export const GridEntry: React.FC<FileEntryProps> = React.memo(({ file, selected,
       )}
       <div className={classes.gridFileEntryNameContainer}>
         <FileEntryName className={classes.gridFileEntryName} file={file} list={false}/>
-        {isMobileBreakpoint && <div>
+        {isMobileBreakpoint &&
           <Button
             className={classes.actionButton}
             startContent={<FileListDropdownIcon />}
@@ -42,8 +42,7 @@ export const GridEntry: React.FC<FileEntryProps> = React.memo(({ file, selected,
               });
               e.currentTarget.dispatchEvent(event);
             }}
-          />
-        </div>}
+          />}
       </div>
     </div>
   );
@@ -54,7 +53,7 @@ const useFileEntryStyles = makeLocalChonkyStyles((theme) => ({
   gridFileEntry: {
     // flexDirection: 'column',
     // display: 'flex',
-    // height: '100%',
+    height: '100%',
     // gap: '10px',
   },
   gridFolderEntryPreview: {
@@ -63,9 +62,9 @@ const useFileEntryStyles = makeLocalChonkyStyles((theme) => ({
   },
   gridFileEntryPreview: {
     flexGrow: 1,
-    height: "52px",
-    width: "52px",
-    margin: "auto",
+    height: "75%",
+    // width: "52px",
+    // margin: "auto",
   },
   gridFileEntryNameContainer: {
     fontSize: theme.gridFileEntry.fontSize,
@@ -73,14 +72,16 @@ const useFileEntryStyles = makeLocalChonkyStyles((theme) => ({
     textAlign: 'center',
     // paddingTop: 5,
     flexDirection: 'column',
+    alignItems: 'center',
     display: 'flex',
-    gap: 5,
+    gap: 3.5,
+    height: "25%"
   },
   gridFileEntryName: {
     // backgroundColor: (state: FileEntryState) => (state.selected ? 'rgba(0,153,255, .25)' : 'transparent'),
     // textDecoration: (state: FileEntryState) => (state.focused ? 'underline' : 'none'),
     borderRadius: 3,
-    padding: [2, 4],
+    padding: [0, 4],
   },
   actionButton: {
     transform: 'translateY(-50%)',

@@ -90,12 +90,14 @@ export const GridEntryPreviewFile: React.FC<FileEntryPreviewProps> = React.memo(
   });
   return (
     <div className={className}>
-      <GridEntryDndIndicator className={fileClasses.dndIndicator} dndState={dndState} />
-      <div className={fileClasses.fileIcon}>
-        <ChonkyIcon icon={entryState.icon} spin={entryState.iconSpin} />
+      <div className={fileClasses.folderContainer}>
+        <GridEntryDndIndicator className={fileClasses.dndIndicator} dndState={dndState} />
+        {!entryState.thumbnailUrl && <div className={fileClasses.fileIcon}>
+          <ChonkyIcon icon={entryState.icon} spin={entryState.iconSpin} />
+        </div>}
+        <div className={commonClasses.selectionIndicator}></div>
+        <FileThumbnail className={fileClasses.thumbnail} thumbnailUrl={entryState.thumbnailUrl} />
       </div>
-      <div className={commonClasses.selectionIndicator}></div>
-      <FileThumbnail className={fileClasses.thumbnail} thumbnailUrl={entryState.thumbnailUrl} />
     </div>
   );
 });
@@ -110,9 +112,15 @@ const useFileStyles = makeLocalChonkyStyles((theme) => ({
     borderRadius: '10px',
     position: 'relative',
     overflow: 'hidden',
+    padding: '20px 28px 10px 28px',
   },
   dndIndicator: {
     zIndex: 14,
+  },
+  folderContainer: {
+    position: 'relative',
+    width: '100%',
+    height: '100%',
   },
   fileIcon: {
     transform: 'translateX(-50%) translateY(-50%)',
@@ -132,10 +140,10 @@ const useFileStyles = makeLocalChonkyStyles((theme) => ({
     borderRadius: theme.gridFileEntry.borderRadius,
     position: 'absolute',
     zIndex: 6,
-    bottom: 5,
+    bottom: 0,
     right: 5,
     left: 5,
-    top: 5,
+    top: 0,
   },
 }));
 

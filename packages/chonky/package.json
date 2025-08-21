@@ -1,6 +1,6 @@
 {
   "name": "chonky",
-  "version": "2.3.17",
+  "version": "2.3.18",
   "description": "A File Browser component for React",
   "license": "MIT",
   "main": "dist/index.js",

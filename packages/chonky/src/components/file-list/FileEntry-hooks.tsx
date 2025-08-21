@@ -105,13 +105,24 @@ export const useFileNameComponent = (file: Nullable<FileData>, list: boolean) =>
       name = file.name.substring(0, file.name.length - extension.length);
     }
 
-    if (name.length > 16) {
-      list ? name = name : name = name.slice(0, 16) + '..';
+    if (name.length > 13 && !list) {
+      const words = name.split(' ');
+      if (words.length >= 2) {
+      const firstWord = words[0];
+      const lastWord = words[words.length - 1];
+      name = `${firstWord}..${lastWord}`;
+      if (name.length > 14) {
+        const maxFirst = 14 - lastWord.length - 2;
+        name = `${firstWord.slice(0, maxFirst)}..${lastWord}`;
+      }
+      } else {
+      name = name.slice(0, 12) + '..';
+      }
     }
 
     return (
       <>
-        <span style={{maxWidth:""}}>{name}</span>
+        <span>{name}</span>
         {extension && <span className="chonky-file-entry-description-title-extension">{extension}</span>}
       </>
     );

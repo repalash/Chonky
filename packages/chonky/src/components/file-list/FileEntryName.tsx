@@ -23,7 +23,7 @@ export const FileEntryName: React.FC<FileEntryNameProps> = React.memo(({ file, c
 
     const classes = useStyles();
     return (
-        <span className={className} title={file ? file.name : undefined}>
+        <span className={className ?? "" + " " + (list ? classes.listViewName : "")} title={file ? file.name : undefined}>
             {modifierIconComponents.length > 0 && <span className={classes.modifierIcons}>{modifierIconComponents}</span>}
             {fileNameComponent}
         </span>
@@ -38,4 +38,12 @@ const useStyles = makeLocalChonkyStyles((theme) => ({
         fontSize: '0.775em',
         paddingRight: '5px',
     },
+    listViewName: {
+        [theme.breakpoints.down('sm')]: {
+            display: "block",
+            width: "75%",
+            overflow: "hidden",
+            minWidth: 0,
+        },
+    }
 }));
