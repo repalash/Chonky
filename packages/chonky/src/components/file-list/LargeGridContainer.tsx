@@ -165,7 +165,7 @@ export const LargeGridContainer: React.FC<FileListGridProps> = React.memo((props
         columnCount={gridConfig.columnCount}
         height={height}
         rowCount={gridConfig.rowCount}
-        width={isMobileBreakpoint ? (width + 0.6) : width}
+        width={isMobileBreakpoint ? (width + 1.5) : width}
         itemKey={getItemKey}
       >
         {cellRenderer}

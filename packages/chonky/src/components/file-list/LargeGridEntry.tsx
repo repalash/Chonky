@@ -12,25 +12,25 @@ import Share from '../../icons/share'
 import { faPencil } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { SmartToolbarDropdownButton } from '../external/ToolbarDropdownButton';
-import { SmartToolbarButton } from '../external/ToolbarButton';
-import { Edit } from '@mui/icons-material';
+import { SmartToolbarButton, ToolbarButton } from '../external/ToolbarButton';
 import { ChonkyIconName } from '../../types/icons.types';
+import { useFileActionTrigger } from '../../util/file-actions';
+import { color } from 'framer-motion';
 
 export const LargeGridEntry: React.FC<FileEntryProps> = React.memo(({ file, selected, focused, dndState }) => {
   const isDirectory = FileHelper.isDirectory(file);
   const entryState = useFileEntryState(file, selected, focused);
   const isMobileBreakpoint = useIsMobileBreakpoint();
-  const [isHovered, setIsHovered] = useState(false);
 
   const classes = useFileEntryStyles(entryState);
   const fileEntryHtmlProps = useFileEntryHtmlProps(file);
   const entryClassName = c({
     [classes.gridFileEntry]: true,
   });
+
+    const triggerAction = useFileActionTrigger('edit');
   return (
     <div className={entryClassName} {...fileEntryHtmlProps}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
     >
       <div className={classes.previewContainer}>
       {isDirectory ? (
@@ -38,20 +38,20 @@ export const LargeGridEntry: React.FC<FileEntryProps> = React.memo(({ file, sele
       ) : (
         <GridEntryPreviewFile className={classes.gridFileEntryPreview} largeGrid={true} entryState={entryState} dndState={dndState} />
       )}
-      {isHovered && !isDirectory && !isMobileBreakpoint && (
+      {selected && !isDirectory && (
           <div className={classes.hoverIcons}>
-            <Button
+            <div
               className={classes.hoverButton}
-              variant="light"
+              onClick={(e) => e.stopPropagation()}
             >
-              <span><SmartToolbarButton fileActionId='edit'/></span> 
-            </Button>
-            <Button
+              <span><ToolbarButton text="" icon={ChonkyIconName.pencil} iconOnly onClick={triggerAction} /></span> 
+            </div>
+            <div
               className={classes.hoverButton}
-              variant="light"
+              onClick={(e) => e.stopPropagation()}
             >
               <span><SmartToolbarButton fileActionId='share'/></span> 
-            </Button>
+            </div>
           </div>
         )}
       </div>
@@ -148,6 +148,9 @@ const useFileEntryStyles = makeLocalChonkyStyles((theme) => ({
     borderRadius: '50%',
     '&:hover': {
       backgroundColor: 'rgba(0, 0, 0, 0.1)',
+    },
+    '& button svg path': {
+      fill: 'black !important', 
     },
   },
   gridFileEntryNameContainer: {

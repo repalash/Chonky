@@ -13,6 +13,7 @@
 // import { faUbuntu } from '@fortawesome/free-brands-svg-icons/faUbuntu';
 // import { faWindows } from '@fortawesome/free-brands-svg-icons/faWindows';
 import { faArrowDown } from '@fortawesome/free-solid-svg-icons/faArrowDown';
+import { faPencil } from '@fortawesome/free-solid-svg-icons';
 // import { faBalanceScale } from '@fortawesome/free-solid-svg-icons/faBalanceScale';
 import { faBoxOpen } from '@fortawesome/free-solid-svg-icons/faBoxOpen';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons/faChevronDown';
@@ -96,6 +97,7 @@ const IconMap: { [iconName in ChonkyIconName]: any } = {
   // Misc
   [ChonkyIconName.loading]: faCircleNotch,
   [ChonkyIconName.placeholder]: faMinus,
+  [ChonkyIconName.pencil]: faPencil,
 
   // File Actions: Drag & drop
   [ChonkyIconName.dndDragging]: faFistRaised,
@@ -178,6 +180,8 @@ const IconMap: { [iconName in ChonkyIconName]: any } = {
   // [IconName.excel]: faFileExcel,
   // [IconName.word]: faFileWord,
   // [IconName.flash]: faRunning,
+  
+
 } as const;
 
 
