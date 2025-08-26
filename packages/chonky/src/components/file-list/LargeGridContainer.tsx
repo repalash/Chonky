@@ -41,17 +41,18 @@ export const getGridConfig = (
   viewConfig: FileViewConfigGrid,
   isMobileBreakpoint: boolean,
 ): GridConfig => {
-  const gutter = isMobileBreakpoint ? 0 : 20;
+  const gutter = isMobileBreakpoint ? 10 : 20;
   const scrollbar = isMobileDevice() ? 0 : 18;
 
   let columnCount: number;
   let columnWidth: number;
   if (isMobileBreakpoint) {
-    columnCount = 1;
+    columnCount = 2;
     columnWidth = (width - gutter - scrollbar) / columnCount;
   } else {
-    columnWidth = viewConfig.entryWidth;
-    columnCount = Math.max(1, Math.floor((width - scrollbar) / (columnWidth + gutter)));
+    columnCount = 3;
+    columnWidth = (width - (columnCount - 1) * gutter - scrollbar) / columnCount;
+    
   }
 
   const rowCount = Math.ceil(fileCount / columnCount);
@@ -164,7 +165,7 @@ export const LargeGridContainer: React.FC<FileListGridProps> = React.memo((props
         columnCount={gridConfig.columnCount}
         height={height}
         rowCount={gridConfig.rowCount}
-        width={isMobileBreakpoint ? (width + 5) : width}
+        width={isMobileBreakpoint ? (width + 0.6) : width}
         itemKey={getItemKey}
       >
         {cellRenderer}
