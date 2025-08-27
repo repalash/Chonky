@@ -15,6 +15,7 @@ import { RootState } from '../../types/redux.types';
 import { useInstanceVariable } from '../../util/hooks-helpers';
 import { makeGlobalChonkyStyles, useIsMobileBreakpoint } from '../../util/styles';
 import { SmartFileEntry } from './FileEntry';
+import { FileHelper } from '../../util/file-helper';
 
 export interface FileListGridProps {
   width: number;
@@ -51,7 +52,7 @@ export const getGridConfig = (
     columnWidth = (width - gutter - scrollbar) / columnCount;
   } else {
     columnCount = 3;
-    columnWidth = (width - (columnCount - 1) * gutter - scrollbar) / columnCount;
+    columnWidth = ((width - (columnCount - 1) * gutter - scrollbar) / columnCount);
     
   }
 
@@ -61,7 +62,7 @@ export const getGridConfig = (
     rowCount,
     columnCount,
     gutter,
-    rowHeight: viewConfig.entryHeight,
+    rowHeight: columnWidth,
     columnWidth,
   };
 };
@@ -72,6 +73,7 @@ export const LargeGridContainer: React.FC<FileListGridProps> = React.memo((props
   const viewConfig = useSelector(selectFileViewConfig) as FileViewConfigGrid;
   const displayFileIds = useSelector(selectors.getDisplayFileIds);
   const fileCount = useMemo(() => displayFileIds.length, [displayFileIds]);
+  const files = useSelector(selectors.getFileMap);
 
   const gridRef = useRef<VariableSizeGrid>();
 
@@ -108,13 +110,30 @@ export const LargeGridContainer: React.FC<FileListGridProps> = React.memo((props
     setGridConfig(newConf);
   }, [setGridConfig, gridConfigRef, isMobileBreakpoint, width, viewConfig, fileCount]);
 
+  const rowContainsDirectory = useCallback((rowIndex: number): boolean => {
+    const startIndex = rowIndex * gridConfigRef.current.columnCount;
+    const endIndex = Math.min(startIndex + gridConfigRef.current.columnCount, displayFileIds.length);
+    
+    for (let i = startIndex; i < endIndex; i++) {
+      const fileId = displayFileIds[i];
+      if (fileId && files[fileId] && FileHelper.isDirectory(files[fileId])) {
+        return true;
+      }
+    }
+    return false;
+  }, [displayFileIds, files, gridConfigRef]);
+
   const sizers = useMemo(() => {
     const gc = gridConfigRef;
     return {
       getColumnWidth: (index: number) =>
         gc.current.columnWidth! + (index === gc.current.columnCount - 1 ? 0 : gc.current.gutter),
-      getRowHeight: (index: number) =>
-        gc.current.rowHeight + (index === gc.current.rowCount - 1 ? 0 : gc.current.gutter),
+      getRowHeight: (rowIndex: number) =>
+        {
+          const hasDirectory = rowContainsDirectory(rowIndex);
+          const baseHeight = hasDirectory ? 190 : gc.current.rowHeight;
+          return baseHeight + (rowIndex === gc.current.rowCount - 1 ? 0 : gc.current.gutter);
+        },
     };
   }, [gridConfigRef]);
 
@@ -152,6 +171,20 @@ export const LargeGridContainer: React.FC<FileListGridProps> = React.memo((props
     [displayFileIds, viewConfig.mode],
   );
 
+  const estimatedRowHeight = useMemo(() => {
+    let totalHeight = 0;
+    let rowCount = 0;
+    
+    for (let rowIndex = 0; rowIndex < gridConfig.rowCount; rowIndex++) {
+      const hasDirectory = rowContainsDirectory(rowIndex);
+      totalHeight += hasDirectory ? 200 : gridConfig.rowHeight ;
+      rowCount++;
+    }
+    
+    return rowCount > 0 ? totalHeight / rowCount : gridConfig.rowHeight;
+  }, [gridConfig.rowCount, gridConfig.rowHeight, rowContainsDirectory]);
+
+
   const classes = useStyles();
   const gridComponent = useMemo(() => {
     return (
@@ -184,6 +217,8 @@ export const LargeGridContainer: React.FC<FileListGridProps> = React.memo((props
     width,
     getItemKey,
     cellRenderer,
+    estimatedRowHeight,
+    isMobileBreakpoint,
   ]);
 
   return gridComponent;

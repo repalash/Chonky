@@ -9,7 +9,6 @@ import { FileEntryState, GridEntryPreviewFile, GridEntryPreviewFolder } from './
 import { Button } from '@heroui/button';
 import FileListDropdownIcon from '../../icons/filelistdropdown'
 import Share from '../../icons/share'
-import { faPencil } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { SmartToolbarDropdownButton } from '../external/ToolbarDropdownButton';
 import { SmartToolbarButton, ToolbarButton } from '../external/ToolbarButton';
@@ -32,7 +31,9 @@ export const LargeGridEntry: React.FC<FileEntryProps> = React.memo(({ file, sele
   return (
     <div className={entryClassName} {...fileEntryHtmlProps}
     >
-      <div className={classes.previewContainer}>
+      <div className={classes.previewContainer}
+      
+      >
       {isDirectory ? (
         <GridEntryPreviewFolder className={classes.gridFolderEntryPreview} largeGrid={true} entryState={entryState} dndState={dndState} />
       ) : (
@@ -92,12 +93,12 @@ const useFileEntryStyles = makeLocalChonkyStyles((theme) => ({
     position: 'relative',
     height: '88%',
     width: '100%',
+    marginBottom: -25
   },
   gridFolderEntryPreview: {
     height:"100%",
     width:"100%",
-    flexGrow: 1,
-    margin: "auto",
+    margin: 0,
     '& svg': {
       width: '120px !important',
       height: '120px !important',
@@ -125,17 +126,23 @@ const useFileEntryStyles = makeLocalChonkyStyles((theme) => ({
   },
   gridFileEntryPreview: {
     flexGrow: 1,
-    height: "88%",
+    height: "80%",
     border:"1px solid #E8E8E8",
     width: "100%",
-    margin: "auto",
+    margin: 0,
+    padding: 0,
+   "& .chonky-fileThumbnail": {
+  inset: "0 !important",
+  padding: 0,
+}
+
   },
   hoverIcons: {
     position: 'absolute',
-    bottom: '28px', 
-    right: '8px', 
+    bottom: '24%', 
+    right: '4px', 
     display: 'flex',
-    gap: '8px',
+    gap: '6px',
     borderRadius: '8px',
     padding: '4px',
     zIndex: 10,
@@ -144,11 +151,8 @@ const useFileEntryStyles = makeLocalChonkyStyles((theme) => ({
     minWidth: '32px',
     height: '32px',
     padding: '0',
-    backgroundColor: 'rgba(255, 255, 255, 0.3)',
+    backgroundColor: 'rgba(240, 241, 255)',
     borderRadius: '50%',
-    '&:hover': {
-      backgroundColor: 'rgba(0, 0, 0, 0.1)',
-    },
     '& button svg path': {
       fill: 'black !important', 
     },
@@ -161,7 +165,6 @@ const useFileEntryStyles = makeLocalChonkyStyles((theme) => ({
     // paddingTop: 5,
     flexDirection: 'column',
     display: 'flex',
-    gap: 5,
   },
   nameAndActionsContainer: {
     display: 'flex',
@@ -174,7 +177,6 @@ const useFileEntryStyles = makeLocalChonkyStyles((theme) => ({
     // backgroundColor: (state: FileEntryState) => (state.selected ? 'rgba(0,153,255, .25)' : 'transparent'),
     // textDecoration: (state: FileEntryState) => (state.focused ? 'underline' : 'none'),
     borderRadius: 3,
-    padding: [2, 4],
     flex: 1,
   },
   actionButton: {
