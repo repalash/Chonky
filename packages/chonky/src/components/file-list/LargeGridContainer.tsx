@@ -69,7 +69,6 @@ export const getGridConfig = (
 
 export const LargeGridContainer: React.FC<FileListGridProps> = React.memo((props) => {
   const { width, height } = props;
-
   const viewConfig = useSelector(selectFileViewConfig) as FileViewConfigGrid;
   const displayFileIds = useSelector(selectors.getDisplayFileIds);
   const fileCount = useMemo(() => displayFileIds.length, [displayFileIds]);
@@ -198,7 +197,7 @@ export const LargeGridContainer: React.FC<FileListGridProps> = React.memo((props
         columnCount={gridConfig.columnCount}
         height={height}
         rowCount={gridConfig.rowCount}
-        width={isMobileBreakpoint ? (width + 1.5) : width}
+        width={isMobileBreakpoint ? (width + 1) : width}
         itemKey={getItemKey}
       >
         {cellRenderer}

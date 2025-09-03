@@ -83,6 +83,11 @@ export const LargeGridEntry: React.FC<FileEntryProps> = React.memo(({ file, sele
 LargeGridEntry.displayName = 'LargeGridEntry';
 
 const useFileEntryStyles = makeLocalChonkyStyles((theme) => ({
+  "@global": {
+    ".chonky-fileEntryClickableWrapper.chonky-selected": {
+      borderRadius: "12px !important",
+  },
+},
   gridFileEntry: {
     // flexDirection: 'column',
     // display: 'flex',
@@ -91,12 +96,12 @@ const useFileEntryStyles = makeLocalChonkyStyles((theme) => ({
   },
   previewContainer: {
     position: 'relative',
-    height: '88%',
+    height: '100%',
     width: '100%',
-    marginBottom: -25
+    marginBottom: -23
   },
   gridFolderEntryPreview: {
-    height:"100%",
+    height:"70%",
     width:"100%",
     margin: 0,
     '& svg': {
@@ -125,8 +130,7 @@ const useFileEntryStyles = makeLocalChonkyStyles((theme) => ({
     },
   },
   gridFileEntryPreview: {
-    flexGrow: 1,
-    height: "80%",
+    height: "88%",
     border:"1px solid #E8E8E8",
     width: "100%",
     margin: 0,
@@ -134,12 +138,13 @@ const useFileEntryStyles = makeLocalChonkyStyles((theme) => ({
    "& .chonky-fileThumbnail": {
   inset: "0 !important",
   padding: 0,
+  backgroundSize: 'cover !important',
 }
 
   },
   hoverIcons: {
     position: 'absolute',
-    bottom: '24%', 
+    bottom: '14%', 
     right: '4px', 
     display: 'flex',
     gap: '6px',
@@ -150,6 +155,9 @@ const useFileEntryStyles = makeLocalChonkyStyles((theme) => ({
   hoverButton: {
     minWidth: '32px',
     height: '32px',
+    display:'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
     padding: '0',
     backgroundColor: 'rgba(240, 241, 255)',
     borderRadius: '50%',
