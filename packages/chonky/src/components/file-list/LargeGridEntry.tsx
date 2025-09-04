@@ -167,7 +167,7 @@ const useFileEntryStyles = makeLocalChonkyStyles((theme) => ({
   },
   gridFileEntryNameContainer: {
     fontSize: theme.gridFileEntry.fontSize,
-    wordBreak: 'break-word',
+    wordBreak: 'normal',
     textAlign: 'center',
     height: "12%",
     // paddingTop: 5,
@@ -182,10 +182,12 @@ const useFileEntryStyles = makeLocalChonkyStyles((theme) => ({
     gap: 5,
   },
   gridFileEntryName: {
-    // backgroundColor: (state: FileEntryState) => (state.selected ? 'rgba(0,153,255, .25)' : 'transparent'),
-    // textDecoration: (state: FileEntryState) => (state.focused ? 'underline' : 'none'),
     borderRadius: 3,
     flex: 1,
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    padding: '2px 4px',
   },
   actionButton: {
     zIndex: 21,
