@@ -158,7 +158,6 @@ export const LargeGridContainer: React.FC<FileListGridProps> = React.memo((props
         paddingRight: data.columnIndex === gc.current.columnCount - 1 ? 0 : gc.current.gutter,
         paddingBottom: data.rowIndex === gc.current.rowCount - 1 ? 0 : gc.current.gutter,
         boxSizing: 'border-box',
-        // height: isMobileBreakpoint ? '147px' : 'auto',
       };
 
       return (

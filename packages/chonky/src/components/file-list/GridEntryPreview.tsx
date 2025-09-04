@@ -46,10 +46,6 @@ export const GridEntryPreviewFolder: React.FC<FileEntryPreviewProps> = React.mem
     <div className={className}>
       <div className={folderClasses.folderContainer}>
         <GridFolderIcon />
-        {/* <GridEntryDndIndicator className={fileClasses.dndIndicator} dndState={dndState} /> */}
-        {/* <div className={c([fileClasses.fileIcon, folderClasses.fileIcon])}>{entryState.childrenCount}</div> */}
-        {/* <div className={commonClasses.selectionIndicator}></div> */}
-        {/* <FileThumbnail className={fileClasses.thumbnail} thumbnailUrl={entryState.thumbnailUrl} /> */}
       </div>
     </div>
   );
@@ -105,10 +101,6 @@ GridEntryPreviewFile.displayName = 'GridEntryPreviewFile';
 
 const useFileStyles = makeLocalChonkyStyles((theme) => ({
   previewFile: {
-    // boxShadow: () => {
-    //   return `inset ${theme.gridFileEntry.fileColorTint} 0 0 0 999px`;
-    // },
-    // backgroundColor: (state: FileEntryState) => state.color,
     borderRadius: '10px',
     position: 'relative',
     overflow: 'hidden',
@@ -148,28 +140,4 @@ const useFileStyles = makeLocalChonkyStyles((theme) => ({
 }));
 
 export const useCommonEntryStyles = makeLocalChonkyStyles(() => ({
-  // selectionIndicator: {
-  //   display: (state: FileEntryState) => (state.selected ? 'block' : 'none'),
-  //   background:
-  //     'repeating-linear-gradient(' +
-  //     '45deg,' +
-  //     'rgba(0,153,255,.14),' +
-  //     'rgba(0,153,255,.14) 10px,' +
-  //     'rgba(0,153,255,.25) 0,' +
-  //     'rgba(0,153,255,.25) 20px' +
-  //     ')',
-  //   backgroundColor: 'rgba(0, 153, 255, .14)',
-  //   position: 'absolute',
-  //   height: '100%',
-  //   width: '100%',
-  //   zIndex: 10,
-  // },
-  // focusIndicator: {
-  //   display: (state: FileEntryState) => (state.focused ? 'block' : 'none'),
-  //   boxShadow: 'rgba(0, 0, 0, 1) 0 0 0 2px',
-  //   position: 'absolute',
-  //   height: '100%',
-  //   width: '100%',
-  //   zIndex: 11,
-  // },
 }));
