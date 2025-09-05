@@ -54,7 +54,7 @@ GridEntryPreviewFolder.displayName = 'GridEntryPreviewFolder';
 
 const useFolderStyles = makeLocalChonkyStyles((theme) => ({
   previewFile: {
-    borderRadius: '10px',
+    borderRadius: theme.gridFileEntry.borderRadius,
     position: 'relative',
     overflow: 'hidden',
     padding: '20px 28px 10px 28px',
@@ -101,7 +101,7 @@ GridEntryPreviewFile.displayName = 'GridEntryPreviewFile';
 
 const useFileStyles = makeLocalChonkyStyles((theme) => ({
   previewFile: {
-    borderRadius: '10px',
+    borderRadius: theme.gridFileEntry.borderRadius,
     position: 'relative',
     overflow: 'hidden',
     padding: '20px 28px 10px 28px',

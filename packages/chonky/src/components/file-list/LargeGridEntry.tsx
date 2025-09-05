@@ -89,10 +89,7 @@ const useFileEntryStyles = makeLocalChonkyStyles((theme) => ({
   },
 },
   gridFileEntry: {
-    // flexDirection: 'column',
-    // display: 'flex',
     height: '100%',
-    // gap: '10px',
   },
   previewContainer: {
     position: 'relative',
@@ -170,7 +167,6 @@ const useFileEntryStyles = makeLocalChonkyStyles((theme) => ({
     wordBreak: 'normal',
     textAlign: 'center',
     height: "12%",
-    // paddingTop: 5,
     flexDirection: 'column',
     display: 'flex',
   },
