@@ -38,6 +38,7 @@ export const isMobileDevice = () => {
 
 export const getGridConfig = (
   width: number,
+  folderCount: number,
   fileCount: number,
   viewConfig: FileViewConfigGrid,
   isMobileBreakpoint: boolean,
@@ -55,8 +56,9 @@ export const getGridConfig = (
     columnWidth = ((width - (columnCount - 1) * gutter - scrollbar) / columnCount);
     
   }
-
-  const rowCount = Math.ceil(fileCount / columnCount);
+  const folderRowCount = Math.ceil(folderCount / columnCount);
+  const fileRowCount = Math.ceil(fileCount / columnCount);
+  const rowCount = folderRowCount + fileRowCount;
 
   return {
     rowCount,
@@ -71,8 +73,24 @@ export const LargeGridContainer: React.FC<FileListGridProps> = React.memo((props
   const { width, height } = props;
   const viewConfig = useSelector(selectFileViewConfig) as FileViewConfigGrid;
   const displayFileIds = useSelector(selectors.getDisplayFileIds);
-  const fileCount = useMemo(() => displayFileIds.length, [displayFileIds]);
   const files = useSelector(selectors.getFileMap);
+
+
+  const { folders, nonFolders } = useMemo(() => {
+    const folders: string[] = [];
+    const nonFolders: string[] = [];
+    displayFileIds.forEach(fileId => {
+      if (fileId && files[fileId] && FileHelper.isDirectory(files[fileId])) {
+        folders.push(fileId);
+      } else if (fileId) {
+        nonFolders.push(fileId);
+      }
+    });
+    return { folders, nonFolders };
+  }, [displayFileIds, files]);
+
+  const folderCount = folders.length;
+  const fileCount = nonFolders.length;
 
   const gridRef = useRef<VariableSizeGrid>();
 
@@ -87,11 +105,11 @@ export const LargeGridContainer: React.FC<FileListGridProps> = React.memo((props
   // `VariableSizeGrid` handle to reset column width/row height cache.
   // !!! Note that we deliberately update the `gridRef` firsts and update the React
   //     state AFTER that. This is needed to avoid file entries jumping up/down.
-  const [gridConfig, setGridConfig] = useState(getGridConfig(width, fileCount, viewConfig, isMobileBreakpoint));
+  const [gridConfig, setGridConfig] = useState(getGridConfig(width, folderCount, fileCount, viewConfig, isMobileBreakpoint));
   const gridConfigRef = useRef(gridConfig);
   useEffect(() => {
     const oldConf = gridConfigRef.current;
-    const newConf = getGridConfig(width, fileCount, viewConfig, isMobileBreakpoint);
+    const newConf = getGridConfig(width, folderCount, fileCount, viewConfig, isMobileBreakpoint);
 
     gridConfigRef.current = newConf;
     if (gridRef.current) {
@@ -110,17 +128,9 @@ export const LargeGridContainer: React.FC<FileListGridProps> = React.memo((props
   }, [setGridConfig, gridConfigRef, isMobileBreakpoint, width, viewConfig, fileCount]);
 
   const rowContainsDirectory = useCallback((rowIndex: number): boolean => {
-    const startIndex = rowIndex * gridConfigRef.current.columnCount;
-    const endIndex = Math.min(startIndex + gridConfigRef.current.columnCount, displayFileIds.length);
-    
-    for (let i = startIndex; i < endIndex; i++) {
-      const fileId = displayFileIds[i];
-      if (fileId && files[fileId] && FileHelper.isDirectory(files[fileId])) {
-        return true;
-      }
-    }
-    return false;
-  }, [displayFileIds, files, gridConfigRef]);
+    const folderRowCount = Math.ceil(folders.length / gridConfigRef.current.columnCount);
+  return rowIndex < folderRowCount;
+}, [folders, gridConfigRef]);
 
   const sizers = useMemo(() => {
     const gc = gridConfigRef;
@@ -136,22 +146,36 @@ export const LargeGridContainer: React.FC<FileListGridProps> = React.memo((props
     };
   }, [gridConfigRef]);
 
-  const displayFileIdsRef = useInstanceVariable(useSelector(selectors.getDisplayFileIds));
+  const foldersRef = useInstanceVariable(folders);
+  const nonFoldersRef = useInstanceVariable(nonFolders);
   const getItemKey = useCallback(
     (data: { columnIndex: number; rowIndex: number; data: any }) => {
+      const folderRowCount = Math.ceil(foldersRef.current.length / gridConfigRef.current.columnCount);
       const index = data.rowIndex * gridConfigRef.current.columnCount + data.columnIndex;
-
-      return displayFileIdsRef.current[index] ?? `loading-file-${index}`;
+      if (data.rowIndex < folderRowCount) {
+      return foldersRef.current[index] ?? `loading-file-${index}`;
+      }
+      else{
+      const fileIndex = index - (folderRowCount * gridConfigRef.current.columnCount);
+      return nonFoldersRef.current[fileIndex] ?? `loading-file-${fileIndex}`;
+      }
     },
-    [gridConfigRef, displayFileIdsRef],
+    [gridConfigRef, foldersRef, nonFoldersRef],
   );
 
   const cellRenderer = useCallback(
     (data: { rowIndex: number; columnIndex: number; style: CSSProperties }) => {
       const gc = gridConfigRef;
+      const folderRowCount = Math.ceil(folders.length / gc.current.columnCount);
       const index = data.rowIndex * gc.current.columnCount + data.columnIndex;
-      const fileId = displayFileIds[index];
-      if (displayFileIds[index] === undefined) return null;
+      let fileId: string | undefined;
+      if (data.rowIndex < folderRowCount) {
+        fileId = folders[index];
+      } else {
+        const fileIndex = index - (folderRowCount * gc.current.columnCount);
+        fileId = nonFolders[fileIndex];
+      }
+      if (fileId === undefined) return null;
 
       const styleWithGutter: CSSProperties = {
         ...data.style,
@@ -166,21 +190,26 @@ export const LargeGridContainer: React.FC<FileListGridProps> = React.memo((props
         </div>
       );
     },
-    [displayFileIds, viewConfig.mode],
+    [folders, nonFolders, viewConfig.mode],
   );
 
   const estimatedRowHeight = useMemo(() => {
+    const folderRowCount = Math.ceil(folders.length / gridConfig.columnCount);
+    const fileRowCount = Math.ceil(nonFolders.length / gridConfig.columnCount);
     let totalHeight = 0;
     let rowCount = 0;
     
-    for (let rowIndex = 0; rowIndex < gridConfig.rowCount; rowIndex++) {
-      const hasDirectory = rowContainsDirectory(rowIndex);
-      totalHeight += hasDirectory ? 200 : gridConfig.rowHeight ;
+    for (let rowIndex = 0; rowIndex < folderRowCount; rowIndex++) {
+      totalHeight += 200; 
+      rowCount++;
+    }
+    for (let rowIndex = 0; rowIndex < fileRowCount; rowIndex++) {
+      totalHeight += gridConfig.rowHeight;
       rowCount++;
     }
     
     return rowCount > 0 ? totalHeight / rowCount : gridConfig.rowHeight;
-  }, [gridConfig.rowCount, gridConfig.rowHeight, rowContainsDirectory]);
+  }, [gridConfig.rowCount, gridConfig.rowHeight, folders, nonFolders, rowContainsDirectory]);
 
 
   const classes = useStyles();
@@ -217,6 +246,8 @@ export const LargeGridContainer: React.FC<FileListGridProps> = React.memo((props
     cellRenderer,
     estimatedRowHeight,
     isMobileBreakpoint,
+    folders,
+    nonFolders
   ]);
 
   return gridComponent;
