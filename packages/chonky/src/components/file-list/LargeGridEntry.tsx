@@ -1,20 +1,15 @@
-import React, { useState } from 'react';
-
+import React from 'react';
 import { FileEntryProps } from '../../types/file-list.types';
 import { FileHelper } from '../../util/file-helper';
 import { c, makeLocalChonkyStyles, useIsMobileBreakpoint } from '../../util/styles';
 import { useFileEntryHtmlProps, useFileEntryState } from './FileEntry-hooks';
 import { FileEntryName } from './FileEntryName';
-import { FileEntryState, GridEntryPreviewFile, GridEntryPreviewFolder } from './GridEntryPreview';
+import { GridEntryPreviewFile, GridEntryPreviewFolder } from './GridEntryPreview';
 import { Button } from '@heroui/button';
 import FileListDropdownIcon from '../../icons/filelistdropdown'
-import Share from '../../icons/share'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { SmartToolbarDropdownButton } from '../external/ToolbarDropdownButton';
 import { SmartToolbarButton, ToolbarButton } from '../external/ToolbarButton';
 import { ChonkyIconName } from '../../types/icons.types';
 import { useFileActionTrigger } from '../../util/file-actions';
-import { color } from 'framer-motion';
 
 export const LargeGridEntry: React.FC<FileEntryProps> = React.memo(({ file, selected, focused, dndState }) => {
   const isDirectory = FileHelper.isDirectory(file);
@@ -27,7 +22,7 @@ export const LargeGridEntry: React.FC<FileEntryProps> = React.memo(({ file, sele
     [classes.gridFileEntry]: true,
   });
 
-    const triggerAction = useFileActionTrigger('edit');
+  const triggerAction = useFileActionTrigger('edit');
   return (
     <div className={entryClassName} {...fileEntryHtmlProps}
     >
@@ -98,18 +93,46 @@ const useFileEntryStyles = makeLocalChonkyStyles((theme) => ({
     marginBottom: -23
   },
   gridFolderEntryPreview: {
-    height:"70%",
-    width:"100%",
+    height: "88%",
+    width: "100%",
     margin: 0,
     '& svg': {
-      width: '120px !important',
-      height: '120px !important',
+      [theme.breakpoints.down('sm')]: {
+        width: '140px !important',
+        height: '140px !important',
+      },
+      [theme.breakpoints.between('sm', 'md')]: {
+        width: '150px !important',
+        height: '150px !important',
+      },
+      [theme.breakpoints.between('md','lg')]: {
+        width: '180px !important',
+        height: '180px !important',
+      },
+      [theme.breakpoints.up('lg')]: {
+        width: '210px !important',
+        height: '210px !important',
+      },
       maxWidth: 'none !important',
       maxHeight: 'none !important',
     },
     '& img': {
-      width: '120px !important',
-      height: '120px !important',
+      [theme.breakpoints.down('sm')]: {
+        width: '140px !important',
+        height: '140px !important',
+      },
+      [theme.breakpoints.between('sm', 'md')]: {
+        width: '150px !important',
+        height: '150px !important',
+      },
+      [theme.breakpoints.between('md','lg')]: {
+        width: '180px !important',
+        height: '180px !important',
+      },
+      [theme.breakpoints.up('lg')]: {
+        width: '210px !important',
+        height: '210px !important',
+      },
       maxWidth: 'none !important',
       maxHeight: 'none !important',
       objectFit: 'contain !important',
@@ -122,8 +145,22 @@ const useFileEntryStyles = makeLocalChonkyStyles((theme) => ({
       justifyContent: 'center !important',
     },
     '& > div > *': {
-      width: '120px !important',
-      height: '120px !important',
+      [theme.breakpoints.down('sm')]: {
+        width: '140px !important',
+        height: '140px !important',
+      },
+      [theme.breakpoints.between('sm', 'md')]: {
+        width: '150px !important',
+        height: '150px !important',
+      },
+      [theme.breakpoints.between('md','lg')]: {
+        width: '180px !important',
+        height: '180px !important',
+      },
+      [theme.breakpoints.up('lg')]: {
+        width: '210px !important',
+        height: '210px !important',
+      },
     },
   },
   gridFileEntryPreview: {
@@ -183,7 +220,10 @@ const useFileEntryStyles = makeLocalChonkyStyles((theme) => ({
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-    padding: '2px 4px',
+    padding: '2px 0px 2px 6px',
+    [theme.breakpoints.down('sm')]: {
+      textAlign: 'left',
+    },
   },
   actionButton: {
     zIndex: 21,

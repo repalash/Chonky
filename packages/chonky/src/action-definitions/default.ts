@@ -126,7 +126,7 @@ export const DefaultActions = {
    */
   EnableLargeGridView: defineFileAction({
     id: 'enable_large_grid_view',
-    fileViewConfig: { mode: FileViewMode.LargeGrid, entryWidth: 350, entryHeight: 250 },
+    fileViewConfig: { mode: FileViewMode.LargeGrid, entryWidth: 232, entryHeight: 232 },
     button: {
       name: 'Switch to Large Grid view',
       icon: ChonkyIconName.largeThumbnail,
