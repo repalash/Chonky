@@ -9,6 +9,8 @@ import { SortOrder } from '../../types/sort.types';
 import { sanitizeInputArray } from '../files-transforms';
 import { reduxActions } from '../reducers';
 import { selectCleanFileIds, selectFileMap, selectHiddenFileIdMap, selectSelectionMap } from '../selectors';
+import { DefaultActions } from '../../action-definitions/default';
+import { FileViewMode } from '../../types/file-view.types';
 
 /**
  * Merges multiple file action arrays into one while removing duplicates
@@ -174,3 +176,12 @@ export const thunkApplySelectionTransform =
         dispatch(reduxActions.selectFiles({ fileIds: Array.from(newSelection), reset: true }));
       }
     };
+
+export const getActionIdByViewMode = (viewMode: FileViewMode): string | null => {
+  for (const [actionName, action] of Object.entries(DefaultActions)) {
+    if ('fileViewConfig' in action && action.fileViewConfig?.mode === viewMode) {
+      return action.id;
+    }
+  }
+  return null;
+};

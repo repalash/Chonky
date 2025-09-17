@@ -12,6 +12,7 @@ import { c, getStripeGradient, makeGlobalChonkyStyles, makeLocalChonkyStyles } f
 import { FileListEmpty } from './FileListEmpty';
 import { GridContainer } from './GridContainer';
 import { ListContainer } from './ListContainer';
+import { LargeGridContainer } from './LargeGridContainer';
 
 function throttle<F extends (...args: any[]) => void>(fn: F, wait = 150): F {
   let last = 0;
@@ -164,6 +165,8 @@ export const FileList: React.FC<FileListProps> = React.memo((props: FileListProp
         return <FileListEmpty width={width} height={height} />;
       } else if (viewConfig.mode === FileViewMode.List) {
         return <ListContainer scrollRef={scrollContainerRef as any} width={width} height={height} />;
+      } else if(viewConfig.mode === FileViewMode.LargeGrid){
+        return <LargeGridContainer scrollRef={scrollContainerRef as any} width={width} height={height}/>
       } else {
         return <GridContainer scrollRef={scrollContainerRef as any} width={width} height={height} />;
       }

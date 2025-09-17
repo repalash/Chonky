@@ -121,6 +121,18 @@ export const DefaultActions = {
       iconOnly: true,
     },
   } as const),
+   /**
+   * Action that enables Large Grid view.
+   */
+  EnableLargeGridView: defineFileAction({
+    id: 'enable_large_grid_view',
+    fileViewConfig: { mode: FileViewMode.LargeGrid, entryWidth: 232, entryHeight: 232 },
+    button: {
+      name: 'Switch to Large Grid view',
+      icon: ChonkyIconName.largeThumbnail,
+      iconOnly: true,
+    },
+  } as const),
   /**
    * Action that sorts files by `file.name`.
    */

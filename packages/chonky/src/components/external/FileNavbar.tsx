@@ -101,8 +101,8 @@ export const FileNavbar: React.FC<FileNavbarProps> = React.memo(() => {
           <ViewDropdown /></>}
       </Box>
     </Box>
-  );
-});
+  )
+})
 
 const useStyles = makeGlobalChonkyStyles((theme) => ({
   navbarWrapper: {

@@ -16,6 +16,7 @@ import { GridEntry } from './GridEntry';
 import { ListEntry } from './ListEntry';
 import SelectedIndicator from '../../icons/fileselectedindicator'
 import FocusIndicator from '../../icons/focus'
+import { LargeGridEntry } from './LargeGridEntry';
 
 export interface SmartFileEntryProps {
   fileId: Nullable<string>;
@@ -59,6 +60,7 @@ export const SmartFileEntry: React.FC<SmartFileEntryProps> = React.memo(({ fileI
   let EntryComponent: React.FC<FileEntryProps>;
   if (fileViewMode === FileViewMode.List) EntryComponent = ListEntry;
   else if (fileViewMode === FileViewMode.Compact) EntryComponent = CompactEntry;
+  else if (fileViewMode === FileViewMode.LargeGrid) EntryComponent = LargeGridEntry;
   else EntryComponent = GridEntry;
 
   return dndDisabled ? (

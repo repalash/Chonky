@@ -15,6 +15,7 @@ import { ThumbnailGenerator } from '../types/thumbnails.types';
 import { FileHelper } from '../util/file-helper';
 import { sanitizeInputArray } from './files-transforms';
 import { initialRootState } from './state';
+import { getActionIdByViewMode } from './thunks/file-actions.thunks';
 
 const reducers = {
   setExternalFileActionHandler(state: RootState, action: PayloadAction<Nilable<GenericFileActionHandler<FileAction>>>) {
@@ -117,6 +118,9 @@ const reducers = {
     if (Object.keys(state.selectionMap).length !== 0) state.selectionMap = {};
   },
   setFileViewConfig(state: RootState, action: PayloadAction<FileViewConfig>) {
+    if(getActionIdByViewMode(action.payload.mode)){
+      localStorage.setItem("default_chonky_view", getActionIdByViewMode(action.payload.mode) ?? "");
+    }
     state.fileViewConfig = action.payload;
   },
   setSort(state: RootState, action: PayloadAction<{ actionId: string; order: SortOrder }>) {
