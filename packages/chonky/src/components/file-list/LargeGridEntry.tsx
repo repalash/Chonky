@@ -98,40 +98,40 @@ const useFileEntryStyles = makeLocalChonkyStyles((theme) => ({
     margin: 0,
     '& svg': {
       [theme.breakpoints.down('sm')]: {
-        width: '140px !important',
-        height: '140px !important',
+        width: '170px !important',
+        height: '170px !important',
       },
       [theme.breakpoints.between('sm', 'md')]: {
-        width: '150px !important',
-        height: '150px !important',
+        width: '200px !important',
+        height: '200px !important',
       },
       [theme.breakpoints.between('md','lg')]: {
-        width: '180px !important',
-        height: '180px !important',
+        width: '220px !important',
+        height: '220px !important',
       },
       [theme.breakpoints.up('lg')]: {
-        width: '210px !important',
-        height: '210px !important',
+        width: '240px !important',
+        height: '240px !important',
       },
       maxWidth: 'none !important',
       maxHeight: 'none !important',
     },
     '& img': {
       [theme.breakpoints.down('sm')]: {
-        width: '140px !important',
-        height: '140px !important',
+        width: '170px !important',
+        height: '170px !important',
       },
       [theme.breakpoints.between('sm', 'md')]: {
-        width: '150px !important',
-        height: '150px !important',
+        width: '200px !important',
+        height: '200px !important',
       },
       [theme.breakpoints.between('md','lg')]: {
-        width: '180px !important',
-        height: '180px !important',
+        width: '220px !important',
+        height: '220px !important',
       },
       [theme.breakpoints.up('lg')]: {
-        width: '210px !important',
-        height: '210px !important',
+        width: '240px !important',
+        height: '240px !important',
       },
       maxWidth: 'none !important',
       maxHeight: 'none !important',
@@ -146,20 +146,20 @@ const useFileEntryStyles = makeLocalChonkyStyles((theme) => ({
     },
     '& > div > *': {
       [theme.breakpoints.down('sm')]: {
-        width: '140px !important',
-        height: '140px !important',
+        width: '170px !important',
+        height: '170px !important',
       },
       [theme.breakpoints.between('sm', 'md')]: {
-        width: '150px !important',
-        height: '150px !important',
+        width: '200px !important',
+        height: '200px !important',
       },
       [theme.breakpoints.between('md','lg')]: {
-        width: '180px !important',
-        height: '180px !important',
+        width: '220px !important',
+        height: '220px !important',
       },
       [theme.breakpoints.up('lg')]: {
-        width: '210px !important',
-        height: '210px !important',
+        width: '240px !important',
+        height: '240px !important',
       },
     },
   },

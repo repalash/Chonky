@@ -14,6 +14,7 @@ import { c, important, makeLocalChonkyStyles, useIsMobileBreakpoint } from '../.
 import { FileThumbnail } from './FileThumbnail';
 import { GridEntryDndIndicator } from './GridEntryDndIndicator';
 import GridFolderIcon from '../../icons/gridfoldericon'
+import LargeGridFolderIcon from '../../icons/largegridfoldericon'
 
 export type FileEntryState = {
   childrenCount: Nullable<number>;
@@ -45,7 +46,7 @@ export const GridEntryPreviewFolder: React.FC<FileEntryPreviewProps> = React.mem
   return (
     <div className={className}>
       <div className={folderClasses.folderContainer}>
-        <GridFolderIcon />
+        {props.largeGrid ? <LargeGridFolderIcon /> : <GridFolderIcon/>}
       </div>
     </div>
   );

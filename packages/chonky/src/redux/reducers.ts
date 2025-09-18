@@ -119,7 +119,7 @@ const reducers = {
   },
   setFileViewConfig(state: RootState, action: PayloadAction<FileViewConfig>) {
     if(getActionIdByViewMode(action.payload.mode)){
-      localStorage.setItem("default_chonky_view", getActionIdByViewMode(action.payload.mode) ?? "");
+      localStorage.setItem(`${state.instanceId}_default_chonky_view`, getActionIdByViewMode(action.payload.mode) ?? "");
     }
     state.fileViewConfig = action.payload;
   },
