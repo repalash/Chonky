@@ -63,14 +63,10 @@ const useFileEntryStyles = makeLocalChonkyStyles((theme) => ({
   gridFileEntryPreview: {
     flexGrow: 1,
     height: "75%",
-    // width: "52px",
-    // margin: "auto",
   },
   gridFileEntryNameContainer: {
     fontSize: theme.gridFileEntry.fontSize,
-    wordBreak: 'break-word',
     textAlign: 'center',
-    // paddingTop: 5,
     flexDirection: 'column',
     alignItems: 'center',
     display: 'flex',

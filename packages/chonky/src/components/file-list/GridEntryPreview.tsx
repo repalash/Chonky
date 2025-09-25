@@ -43,10 +43,14 @@ export const GridEntryPreviewFolder: React.FC<FileEntryPreviewProps> = React.mem
     [folderClasses.previewFile]: true,
     [externalClassName || '']: !!externalClassName,
   });
+  const className2 = c({
+    [folderClasses.previewFile2]: true,
+    [externalClassName || '']: !!externalClassName,
+  });
   return (
-    <div className={className}>
+    <div className={props.largeGrid ? className : className2}>
       <div className={folderClasses.folderContainer}>
-        {props.largeGrid ? <LargeGridFolderIcon /> : <GridFolderIcon/>}
+        {props.largeGrid ? <LargeGridFolderIcon /> : <GridFolderIcon style={{height:"100%", width:"100%"}}/>}
       </div>
     </div>
   );
@@ -59,6 +63,12 @@ const useFolderStyles = makeLocalChonkyStyles((theme) => ({
     position: 'relative',
     overflow: 'hidden',
     padding: '20px 28px 10px 28px',
+  },
+  previewFile2: {
+    borderRadius: theme.gridFileEntry.borderRadius,
+    position: 'relative',
+    overflow: 'hidden',
+    padding: '10px 24px 0px 24px',
   },
   folderContainer: {
     position: 'relative',
