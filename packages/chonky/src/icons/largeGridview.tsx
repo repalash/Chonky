@@ -2,8 +2,12 @@ import React from "react"
 import { SVGProps } from "react"
 const SvgComponent = (props: SVGProps<SVGSVGElement>) => (
     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
-        <path d="M0.5 7.16667V0.5H7.16667V7.16667H0.5ZM0.5 15.5V8.83333H7.16667V15.5H0.5ZM8.83333 7.16667V0.5H15.5V7.16667H8.83333ZM8.83333 15.5V8.83333H15.5V15.5H8.83333ZM2.16667 5.5H5.5V2.16667H2.16667V5.5ZM10.5 5.5H13.8333V2.16667H10.5V5.5ZM10.5 13.8333H13.8333V10.5H10.5V13.8333ZM2.16667 13.8333H5.5V10.5H2.16667V13.8333Z" fill="#373737" />
+        <mask id="mask0_3609_4553" style={{ "maskType": "alpha" }} maskUnits="userSpaceOnUse" x="0" y="0" width="20" height="20">
+            <rect width="20" height="20" fill="#D9D9D9" />
+        </mask>
+        <g mask="url(#mask0_3609_4553)">
+            <path d="M2.5 9.16667V2.5H9.16667V9.16667H2.5ZM2.5 17.5V10.8333H9.16667V17.5H2.5ZM10.8333 9.16667V2.5H17.5V9.16667H10.8333ZM10.8333 17.5V10.8333H17.5V17.5H10.8333ZM4.16667 7.5H7.5V4.16667H4.16667V7.5ZM12.5 7.5H15.8333V4.16667H12.5V7.5ZM12.5 15.8333H15.8333V12.5H12.5V15.8333ZM4.16667 15.8333H7.5V12.5H4.16667V15.8333Z" fill="#373737" />
+        </g>
     </svg>
-
 )
 export default SvgComponent

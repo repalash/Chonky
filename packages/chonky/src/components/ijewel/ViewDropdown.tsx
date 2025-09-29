@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Dropdown, DropdownTrigger, DropdownMenu, DropdownSection, DropdownItem } from "@heroui/dropdown";
 import { Button } from "@heroui/button";
 import ListViewIcon from '../../icons/listview';
@@ -9,12 +9,35 @@ import DropdownIcon from '../../icons/dropdown';
 import { makeGlobalChonkyStyles } from '../../util/styles';
 import { ChonkyActions } from '../../action-definitions';
 import { useFileActionTrigger } from '../../util/file-actions';
+import { FileViewMode } from '../../types/file-view.types';
+import { useSelector } from 'react-redux';
+import { selectFileViewConfig } from '../../redux/selectors';
 
 export interface ViewDropdownProps { }
 
 export const ViewDropdown: React.FC<ViewDropdownProps> = React.memo(() => {
+    const mapViewModeToId = (mode: FileViewMode | null): string => {
+        switch (mode) {
+            case 'large_grid':
+                return 'grid';
+            case 'grid':
+                return 'titles';
+            case 'list':
+            default:
+                return 'list';
+        }
+    };
+
+    const viewConfig = useSelector(selectFileViewConfig);
+    const activeViewMode = (viewConfig?.mode ?? null) as FileViewMode | null;
+    const initialView = mapViewModeToId(activeViewMode);
+    const [selectedView, setSelectedView] = useState(initialView);
+
+    useEffect(() => {
+        setSelectedView(mapViewModeToId(activeViewMode));
+    }, [activeViewMode]);
+
     const classes = useStyles();
-    const [selectedView, setSelectedView] = useState('list');
 
     const triggerListView = useFileActionTrigger(ChonkyActions.EnableListView.id)
     const triggerGridView = useFileActionTrigger(ChonkyActions.EnableGridView.id)
@@ -33,7 +56,7 @@ export const ViewDropdown: React.FC<ViewDropdownProps> = React.memo(() => {
         return <Icon className={classes.icon} />;
     };
 
-    const handleViewClick = (view: { id: string; label: string; icon: any; action: () => void}) => {
+    const handleViewClick = (view: { id: string; label: string; icon: any; action: () => void }) => {
         setSelectedView(view.id);
         view.action();
     };
@@ -42,14 +65,14 @@ export const ViewDropdown: React.FC<ViewDropdownProps> = React.memo(() => {
         <div className={classes.dropdownWrapper}>
             <Dropdown>
                 <DropdownTrigger>
-                    <Button 
+                    <Button
                         variant="light"
                         className={classes.dropdownButton}
                         size="sm"
                     >
                         <div className={classes.buttonContent}>
                             {getCurrentIcon()}
-                            <DropdownIcon/>
+                            <DropdownIcon />
                         </div>
                     </Button>
                 </DropdownTrigger>
