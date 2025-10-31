@@ -53,7 +53,7 @@ export const LargeGridEntry: React.FC<FileEntryProps> = React.memo(({ file, sele
       </div>
       <div className={classes.gridFileEntryNameContainer}>
         <div className={classes.nameAndActionsContainer}>
-        <FileEntryName className={classes.gridFileEntryName} file={file} list={false}/>
+        <FileEntryName className={classes.gridFileEntryName} file={file} list={false} largeGrid={true}/>
         {isMobileBreakpoint && <div>
           <Button
             className={classes.actionButton}

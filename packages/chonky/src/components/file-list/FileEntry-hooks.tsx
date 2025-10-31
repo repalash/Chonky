@@ -90,7 +90,7 @@ const _extname = (fileName: string) => {
   return '';
 };
 
-export const useFileNameComponent = (file: Nullable<FileData>, list: boolean) => {
+export const useFileNameComponent = (file: Nullable<FileData>, list: boolean, largeGrid?: boolean) => {
   return useMemo(() => {
     if (!file) return <TextPlaceholder minLength={15} maxLength={20} />;
 
@@ -105,18 +105,28 @@ export const useFileNameComponent = (file: Nullable<FileData>, list: boolean) =>
       name = file.name.substring(0, file.name.length - extension.length);
     }
 
-    if (name.length > 13 && !list) {
+    const maxLength = largeGrid ? 33 : 13;
+    const maxLengthWithEllipsis = largeGrid ? 34 : 14;
+    const truncateLength = largeGrid ? 32 : 12;
+
+    if (name.length > maxLength && !list) {
       const words = name.split(' ');
       if (words.length >= 2) {
       const firstWord = words[0];
-      const lastWord = words[words.length - 1];
+      let lastWord = words[words.length - 1];
+      
+      const maxLastWordLength = maxLengthWithEllipsis - 4;
+      if (lastWord.length > maxLastWordLength) {
+        lastWord = lastWord.slice(0, maxLastWordLength - 2) + '..';
+      }
+      
       name = `${firstWord}..${lastWord}`;
-      if (name.length > 14) {
-        const maxFirst = 14 - lastWord.length - 2;
-        name = `${firstWord.slice(0, maxFirst)}..${lastWord}`;
+      if (name.length > maxLengthWithEllipsis) {
+        const maxFirst = maxLengthWithEllipsis - lastWord.length - 2;
+        name = `${firstWord.slice(0, Math.max(1, maxFirst))}..${lastWord}`;
       }
       } else {
-      name = name.slice(0, 12) + '..';
+      name = name.slice(0, truncateLength) + '..';
       }
     }
 
