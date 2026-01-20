@@ -11,11 +11,13 @@ import { FileEntryState, useCommonEntryStyles } from './GridEntryPreview';
 import SelectedIndicator from '../../icons/fileselectedindicator'
 import FocusIndicator from '../../icons/focus';
 import ListFolderIcon from '../../icons/listfoldericon'
+import ConfiguratorFoldericon from '../../icons/configuratorFoldericon'
 import FileListDropdownIcon from '../../icons/filelistdropdown'
 import { Button } from '@heroui/button';
 
 import { format } from 'date-fns';
 import { PropsContext } from '../PropsProvider';
+import { FileHelper } from '../../util/file-helper';
 
 interface StyleState {
   entryState: FileEntryState;
@@ -23,6 +25,8 @@ interface StyleState {
 }
 
 export const ListEntry: React.FC<FileEntryProps> = React.memo(({ file, selected, focused, dndState }) => {
+  const isConfigurator = FileHelper.isConfigurator(file);
+  const isDirectory = FileHelper.isDirectory(file);
   const entryState: FileEntryState = useFileEntryState(file, selected, focused);
   const dndIconName = useDndIcon(dndState);
   const { fileModDateString, fileSizeString } = useLocalizedFileEntryStrings(file);
@@ -50,7 +54,9 @@ export const ListEntry: React.FC<FileEntryProps> = React.memo(({ file, selected,
       </div>
       <div className={classes.listFileEntryIcon}>
         <div className={classes.iconWrapper}>
-          {file?.isDir ? (
+          {isConfigurator ? (
+            <ConfiguratorFoldericon style={{height:30, width: 30}}/>
+          ) : isDirectory ? (
             <ListFolderIcon />
           ) : (
             <ChonkyIcon 

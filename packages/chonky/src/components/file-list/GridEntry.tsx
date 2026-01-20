@@ -11,6 +11,7 @@ import FileListDropdownIcon from '../../icons/filelistdropdown'
 
 export const GridEntry: React.FC<FileEntryProps> = React.memo(({ file, selected, focused, dndState }) => {
   const isDirectory = FileHelper.isDirectory(file);
+  const isConfigurator = FileHelper.isConfigurator(file);
   const entryState = useFileEntryState(file, selected, focused);
   const isMobileBreakpoint = useIsMobileBreakpoint();
 
@@ -21,8 +22,8 @@ export const GridEntry: React.FC<FileEntryProps> = React.memo(({ file, selected,
   });
   return (
     <div className={entryClassName} {...fileEntryHtmlProps}>
-      {isDirectory ? (
-        <GridEntryPreviewFolder largeGrid={false} className={classes.gridFolderEntryPreview} entryState={entryState} dndState={dndState} />
+      {(isDirectory || isConfigurator) ? (
+        <GridEntryPreviewFolder isConfigurator={isConfigurator} largeGrid={false} className={classes.gridFolderEntryPreview} entryState={entryState} dndState={dndState} />
       ) : (
         <GridEntryPreviewFile  largeGrid={false} className={classes.gridFileEntryPreview} entryState={entryState} dndState={dndState} />
       )}

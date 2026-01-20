@@ -146,6 +146,10 @@ const getSortedFileIds = createSelector(
       sortFunctions.push({
         desc: prepareSortKeySelector(FileHelper.isDirectory),
       });
+      // Sort configurator items after folders but before files
+      sortFunctions.push({
+        desc: prepareSortKeySelector(FileHelper.isConfigurator),
+      });
     }
     if (sortAction.sortKeySelector) {
       const configKeyName = sortOrder === SortOrder.ASC ? 'asc' : 'desc';

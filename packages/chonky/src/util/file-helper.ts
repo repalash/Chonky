@@ -9,6 +9,11 @@ export class FileHelper {
     return !!file && file.isDir === true;
   }
 
+  public static isConfigurator(file: Nullable<FileData>): file is FileData {
+    // Not a directory by default
+    return !!file && file["isConfigurator"] === true;
+  }
+
   public static isHidden(file: Nullable<FileData>): file is FileData {
     // Not hidden by default
     return !!file && file.isHidden === true;

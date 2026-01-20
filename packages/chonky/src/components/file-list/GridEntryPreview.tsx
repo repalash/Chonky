@@ -15,6 +15,7 @@ import { FileThumbnail } from './FileThumbnail';
 import { GridEntryDndIndicator } from './GridEntryDndIndicator';
 import GridFolderIcon from '../../icons/gridfoldericon'
 import LargeGridFolderIcon from '../../icons/largegridfoldericon'
+import ConfiguratorFoldericon from '../../icons/configuratorFoldericon'
 
 export type FileEntryState = {
   childrenCount: Nullable<number>;
@@ -31,10 +32,11 @@ export interface FileEntryPreviewProps {
   entryState: FileEntryState;
   dndState: DndEntryState;
   largeGrid: boolean;
+  isConfigurator?: boolean
 }
 
 export const GridEntryPreviewFolder: React.FC<FileEntryPreviewProps> = React.memo((props) => {
-  const { className: externalClassName, largeGrid = false, entryState, dndState } = props;
+  const { className: externalClassName, largeGrid = false, entryState, dndState, isConfigurator } = props;
 
   const folderClasses = useFolderStyles(entryState);
   const fileClasses = useFileStyles(entryState);
@@ -50,7 +52,11 @@ export const GridEntryPreviewFolder: React.FC<FileEntryPreviewProps> = React.mem
   return (
     <div className={props.largeGrid ? className : className2}>
       <div className={folderClasses.folderContainer}>
-        {props.largeGrid ? <LargeGridFolderIcon /> : <GridFolderIcon style={{height:"100%", width:"100%"}}/>}
+        {isConfigurator ? (
+          <ConfiguratorFoldericon style={!props.largeGrid ? {height:"100%", width:"100%"} : {}}/>
+        ) : (
+          props.largeGrid ? <LargeGridFolderIcon /> : <GridFolderIcon style={{height:"100%", width:"100%"}}/>
+        )}
       </div>
     </div>
   );

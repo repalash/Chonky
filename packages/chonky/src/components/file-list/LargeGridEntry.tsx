@@ -13,6 +13,7 @@ import { useFileActionTrigger } from '../../util/file-actions';
 
 export const LargeGridEntry: React.FC<FileEntryProps> = React.memo(({ file, selected, focused, dndState }) => {
   const isDirectory = FileHelper.isDirectory(file);
+  const isConfigurator = FileHelper.isConfigurator(file);
   const entryState = useFileEntryState(file, selected, focused);
   const isMobileBreakpoint = useIsMobileBreakpoint();
 
@@ -29,8 +30,8 @@ export const LargeGridEntry: React.FC<FileEntryProps> = React.memo(({ file, sele
       <div className={classes.previewContainer}
       
       >
-      {isDirectory ? (
-        <GridEntryPreviewFolder className={classes.gridFolderEntryPreview} largeGrid={true} entryState={entryState} dndState={dndState} />
+      {(isDirectory || isConfigurator) ? (
+        <GridEntryPreviewFolder isConfigurator={isConfigurator} className={classes.gridFolderEntryPreview} largeGrid={true} entryState={entryState} dndState={dndState} />
       ) : (
         <GridEntryPreviewFile className={classes.gridFileEntryPreview} largeGrid={true} entryState={entryState} dndState={dndState} />
       )}
