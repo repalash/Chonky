@@ -35,7 +35,7 @@ export const LargeGridEntry: React.FC<FileEntryProps> = React.memo(({ file, sele
       ) : (
         <GridEntryPreviewFile className={classes.gridFileEntryPreview} largeGrid={true} entryState={entryState} dndState={dndState} />
       )}
-      {selected && (!isDirectory || !isConfigurator) && (
+      {selected && (!isDirectory && !isConfigurator) && (
           <div className={classes.hoverIcons}>
             <div
               className={classes.hoverButton}
